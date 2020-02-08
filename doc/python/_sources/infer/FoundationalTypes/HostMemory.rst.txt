@@ -1,0 +1,6 @@
+===========
+IHostMemory
+===========
+.. autoclass:: tensorrt.IHostMemory
+    :members:
+    :special-members:

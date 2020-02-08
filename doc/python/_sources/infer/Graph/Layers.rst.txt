@@ -1,0 +1,188 @@
+======
+Layers
+======
+
+PaddingMode
+~~~~~~~~~~~
+.. autodata:: tensorrt.PaddingMode
+    :annotation:
+
+IConvolutionLayer
+~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IConvolutionLayer
+    :members:
+
+IFullyConnectedLayer
+~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IFullyConnectedLayer
+    :members:
+
+IActivationLayer
+~~~~~~~~~~~~~~~~
+.. autodata:: tensorrt.ActivationType
+    :annotation:
+
+.. autoclass:: tensorrt.IActivationLayer
+    :members:
+
+IPoolingLayer
+~~~~~~~~~~~~~~~~
+.. autodata:: tensorrt.PoolingType
+    :annotation:
+
+.. autoclass:: tensorrt.IPoolingLayer
+    :members:
+
+ILRNLayer
+~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.ILRNLayer
+    :members:
+
+IScaleLayer
+~~~~~~~~~~~~~~~~
+.. autodata:: tensorrt.ScaleMode
+    :annotation:
+
+.. autoclass:: tensorrt.IScaleLayer
+    :members:
+
+ISoftMaxLayer
+~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.ISoftMaxLayer
+    :members:
+
+IConcatenationLayer
+~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IConcatenationLayer
+    :members:
+
+IDeconvolutionLayer
+~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IDeconvolutionLayer
+    :members:
+
+IElementWiseLayer
+~~~~~~~~~~~~~~~~~~~
+.. autodata:: tensorrt.ElementWiseOperation
+    :annotation:
+
+.. autoclass:: tensorrt.IElementWiseLayer
+    :members:
+
+IGatherLayer
+~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IGatherLayer
+    :members:
+
+RNN Layers
+~~~~~~~~~~
+.. autodata:: tensorrt.RNNOperation
+    :annotation:
+
+.. autodata:: tensorrt.RNNDirection
+    :annotation:
+
+.. autodata:: tensorrt.RNNInputMode
+    :annotation:
+
+IRNNLayer
++++++++++
+.. deprecated:: 4.0
+.. autoclass:: tensorrt.IRNNLayer
+    :members:
+
+IRNNv2Layer
++++++++++++
+.. autodata:: tensorrt.RNNGateType
+    :annotation:
+
+.. autoclass:: tensorrt.IRNNv2Layer
+    :members:
+
+IPluginLayer
+~~~~~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IPluginLayer
+    :members:
+
+IPluginV2Layer
+~~~~~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IPluginV2Layer
+    :members:
+
+IUnaryLayer
+~~~~~~~~~~~
+.. autodata:: tensorrt.UnaryOperation
+    :annotation:
+
+.. autoclass:: tensorrt.IUnaryLayer
+    :members:
+
+IReduceLayer
+~~~~~~~~~~~~
+.. autodata:: tensorrt.ReduceOperation
+    :annotation:
+
+.. autoclass:: tensorrt.IReduceLayer
+    :members:
+
+IPaddingLayer
+~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IPaddingLayer
+    :members:
+
+IShuffleLayer
+~~~~~~~~~~~~~
+.. autoclass:: tensorrt.Permutation
+    :members:
+
+.. autoclass:: tensorrt.IShuffleLayer
+    :members:
+
+ISliceLayer
+~~~~~~~~~~~~~
+.. autoclass:: tensorrt.ISliceLayer
+    :members:
+
+IShapeLayer
+~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IShapeLayer
+    :members:
+
+ITopKLayer
+~~~~~~~~~~~~~
+.. autodata:: tensorrt.TopKOperation
+    :annotation:
+
+.. autoclass:: tensorrt.ITopKLayer
+    :members:
+
+IMatrixMultiplyLayer
+~~~~~~~~~~~~~~~~~~~~
+.. autodata:: tensorrt.MatrixOperation
+    :annotation:
+
+.. autoclass:: tensorrt.IMatrixMultiplyLayer
+    :members:
+
+IRaggedSoftMaxLayer
+~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IRaggedSoftMaxLayer
+    :members:
+
+IIdentityLayer
+~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IIdentityLayer
+    :members:
+
+IConstantLayer
+~~~~~~~~~~~~~~~~~~~~
+.. autoclass:: tensorrt.IConstantLayer
+    :members:
+
+IResizeLayer
+~~~~~~~~~~~~~
+.. autodata:: tensorrt.ResizeMode
+    :annotation:
+
+.. autoclass:: tensorrt.IResizeLayer
+    :members:

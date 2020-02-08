@@ -1,0 +1,6 @@
+==============
+IPluginFactory
+==============
+
+.. autoclass:: tensorrt.IPluginFactory
+    :members:

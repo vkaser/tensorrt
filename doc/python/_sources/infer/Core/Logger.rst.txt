@@ -1,0 +1,13 @@
+======
+Logger
+======
+.. autoclass:: tensorrt.Logger
+    :members:
+
+It is also possible to access the ``Severity`` Enum values directly in the ``Logger`` scope.
+
+- ``tensorrt.Logger.VERBOSE`` corresponds to ``tensorrt.Logger.Severity.VERBOSE``
+- ``tensorrt.Logger.INFO`` corresponds to ``tensorrt.Logger.Severity.INFO``
+- ``tensorrt.Logger.WARNING`` corresponds to ``tensorrt.Logger.Severity.WARNING``
+- ``tensorrt.Logger.ERROR`` corresponds to ``tensorrt.Logger.Severity.ERROR``
+- ``tensorrt.Logger.INTERNAL_ERROR`` corresponds to ``tensorrt.Logger.Severity.INTERNAL_ERROR``

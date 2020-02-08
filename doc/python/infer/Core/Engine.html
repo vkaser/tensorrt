@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ICudaEngine &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IExecutionContext" href="ExecutionContext.html" />
+    <link rel="prev" title="Builder" href="Builder.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyCore.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Logger.html">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiler.html">Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OptimizationProfile.html">IOptimizationProfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkConfig.html">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builder.html">Builder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ICudaEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionContext.html">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyCore.html">Core</a> &raquo;</li>
+        
+      <li>ICudaEngine</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="icudaengine">
+<h1>ICudaEngine<a class="headerlink" href="#icudaengine" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.ICudaEngine">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ICudaEngine</code><a class="headerlink" href="#tensorrt.ICudaEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>An <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> for executing inference on a built network.</p>
+<p>The engine can be indexed with <code class="docutils literal notranslate"><span class="pre">[]</span></code> . When indexed in this way with an integer, it will return the corresponding binding name. When indexed with a string, it will return the corresponding binding index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_bindings</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of binding indices.</li>
+<li><strong>max_batch_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The maximum batch size which can be used for inference.</li>
+<li><strong>num_layers</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of layers in the network. The number of layers in the network is not necessarily the number in the original <a class="reference internal" href="../Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a>, as layers may be combined or eliminated as the <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> is optimized. This value can be useful when building per-layer tables, such as when aggregating profiling data over a number of executions.</li>
+<li><strong>max_workspace_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The amount of workspace the <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> uses. The workspace size will be no greater than the value provided to the <a class="reference internal" href="Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> when the <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> was built, and will typically be smaller. Workspace will be allocated for each <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</li>
+<li><strong>device_memory_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The amount of device memory required by an <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</li>
+<li><strong>refittable</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether the engine can be refit.</li>
+<li><strong>name</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> The name of the network associated with the engine. The name is set during network creation and is retrieved after building or deserialization.</li>
+<li><strong>num_optimization_profiles</strong> – The number of optimization profiles defined for this engine. This is always at least 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.__del__">
+<code class="descname">__del__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ICudaEngine.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc_type</em>, <em>exc_value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy this object, freeing all memory associated with it. This should be called to ensure that the object is cleaned up properly.
+Equivalent to invoking <a class="reference internal" href="#tensorrt.ICudaEngine.__del__" title="tensorrt.ICudaEngine.__del__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__del__()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__getitem__(self: tensorrt.tensorrt.ICudaEngine, arg0: str) -&gt; int</li>
+<li>__getitem__(self: tensorrt.tensorrt.ICudaEngine, arg0: int) -&gt; str</li>
+</ol>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tensorrt.ICudaEngine.__init__">
+<code class="descname">__init__</code><a class="headerlink" href="#tensorrt.ICudaEngine.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.ICudaEngine.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.binding_is_input">
+<code class="descname">binding_is_input</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.binding_is_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">binding_is_input(self: tensorrt.tensorrt.ICudaEngine, index: int) -&gt; bool</p>
+<blockquote>
+<div><p>Determine whether a binding is an input binding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">index:</th><td class="field-body">The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">True if the index corresponds to an input binding and the index is in range.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">binding_is_input(self: tensorrt.tensorrt.ICudaEngine, name: str) -&gt; bool</p>
+<blockquote>
+<div><p>Determine whether a binding is an input binding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">The name of the tensor corresponding to an engine binding.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">True if the index corresponds to an input binding and the index is in range.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.create_execution_context">
+<code class="descname">create_execution_context</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IExecutionContext<a class="headerlink" href="#tensorrt.ICudaEngine.create_execution_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The newly created <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.create_execution_context_without_device_memory">
+<code class="descname">create_execution_context_without_device_memory</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IExecutionContext<a class="headerlink" href="#tensorrt.ICudaEngine.create_execution_context_without_device_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> without any device memory allocated
+The memory for execution of this device context must be supplied by the application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> without device memory allocated.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_bytes_per_component">
+<code class="descname">get_binding_bytes_per_component</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_bytes_per_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of bytes per component of an element.
+The vector component size is returned if <a class="reference internal" href="#tensorrt.ICudaEngine.get_binding_vectorized_dim" title="tensorrt.ICudaEngine.get_binding_vectorized_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_binding_vectorized_dim()</span></code></a> != -1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_components_per_element">
+<code class="descname">get_binding_components_per_element</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_components_per_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of components included in one element.</p>
+<p>The number of elements in the vectors is returned if <a class="reference internal" href="#tensorrt.ICudaEngine.get_binding_vectorized_dim" title="tensorrt.ICudaEngine.get_binding_vectorized_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_binding_vectorized_dim()</span></code></a> != -1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_dtype">
+<code class="descname">get_binding_dtype</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">get_binding_dtype(self: tensorrt.tensorrt.ICudaEngine, index: int) -&gt; tensorrt.tensorrt.DataType</p>
+<blockquote>
+<div><p>Determine the required data type for a buffer from its binding index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">index:</th><td class="field-body">The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The type of data in the buffer.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">get_binding_dtype(self: tensorrt.tensorrt.ICudaEngine, name: str) -&gt; tensorrt.tensorrt.DataType</p>
+<blockquote>
+<div><p>Determine the required data type for a buffer from its binding index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">The name of the tensor corresponding to an engine binding.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The type of data in the buffer.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_format">
+<code class="descname">get_binding_format</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.TensorFormat<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the binding format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_format_desc">
+<code class="descname">get_binding_format_desc</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_format_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the human readable description of the tensor format.</p>
+<p>The description includes the order, vectorization, data type, strides, etc. For example:</p>
+<div class="line-block">
+<div class="line">Example 1: kCHW + FP32</div>
+<div class="line-block">
+<div class="line">“Row major linear FP32 format”</div>
+</div>
+<div class="line">Example 2: kCHW2 + FP16</div>
+<div class="line-block">
+<div class="line">“Two wide channel vectorized row major FP16 format”</div>
+</div>
+<div class="line">Example 3: kHWC8 + FP16 + Line Stride = 32</div>
+<div class="line-block">
+<div class="line">“Channel major FP16 format where C % 8 == 0 and H Stride % 32 == 0”</div>
+</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_index">
+<code class="descname">get_binding_index</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>name: str</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the binding index for a named tensor.</p>
+<p>You can also use engine’s <a class="reference internal" href="#tensorrt.ICudaEngine.__getitem__" title="tensorrt.ICudaEngine.__getitem__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">engine[name]</span></code>. When invoked with a <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> , this will return the corresponding binding index.</p>
+<p><a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">IExecutionContext.execute_async()</span></code></a> and <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">IExecutionContext.execute()</span></code></a> require an array of buffers.
+Engine bindings map from tensor names to indices in this array.
+Binding indices are assigned at <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> build time, and take values in the range [0 … n-1] where n is the total number of inputs and outputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – The tensor name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The binding index for the named tensor, or -1 if the name is not found.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_name">
+<code class="descname">get_binding_name</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the name corresponding to a binding index.</p>
+<p>You can also use engine’s <a class="reference internal" href="#tensorrt.ICudaEngine.__getitem__" title="tensorrt.ICudaEngine.__getitem__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__getitem__()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">engine[index]</span></code>. When invoked with an <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> , this will return the corresponding binding name.</p>
+<p>This is the reverse mapping to that provided by <a class="reference internal" href="#tensorrt.ICudaEngine.get_binding_index" title="tensorrt.ICudaEngine.get_binding_index"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_binding_index()</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The name corresponding to the binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_shape">
+<code class="descname">get_binding_shape</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">get_binding_shape(self: tensorrt.tensorrt.ICudaEngine, index: int) -&gt; tensorrt.tensorrt.Dims</p>
+<blockquote>
+<div><p>Get the shape of a binding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">index:</th><td class="field-body">The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The shape of the binding if the index is in range, otherwise Dims()</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">get_binding_shape(self: tensorrt.tensorrt.ICudaEngine, name: str) -&gt; tensorrt.tensorrt.Dims</p>
+<blockquote>
+<div><p>Get the shape of a binding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">The name of the tensor corresponding to an engine binding.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The shape of the binding if the tensor is present, otherwise Dims()</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_binding_vectorized_dim">
+<code class="descname">get_binding_vectorized_dim</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.ICudaEngine.get_binding_vectorized_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dimension index that the buffer is vectorized.</p>
+<p>Specifically -1 is returned if scalars per vector is 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_location">
+<code class="descname">get_location</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.get_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">get_location(self: tensorrt.tensorrt.ICudaEngine, index: int) -&gt; tensorrt.tensorrt.TensorLocation</p>
+<blockquote>
+<div><p>Get location of binding.
+This lets you know whether the binding should be a pointer to device or host memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">index:</th><td class="field-body">The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">The location of the bound tensor with given index.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">get_location(self: tensorrt.tensorrt.ICudaEngine, name: str) -&gt; tensorrt.tensorrt.TensorLocation</p>
+<blockquote>
+<div><p>Get location of binding.
+This lets you know whether the binding should be a pointer to device or host memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">The name of the tensor corresponding to an engine binding.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">The location of the bound tensor with given index.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_profile_shape">
+<code class="descname">get_profile_shape</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.get_profile_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">get_profile_shape(self: tensorrt.tensorrt.ICudaEngine, profile_index: int, binding: int) -&gt; List[tensorrt.tensorrt.Dims]</p>
+<blockquote>
+<div><p>Get the minimum/optimum/maximum dimensions for a particular binding under an optimization profile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">arg profile_index:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The index of the profile.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg binding:</th><td class="field-body">The binding index or name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[Dims]</span></code> of length 3, containing the minimum, optimum, and maximum shapes, in that order.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">get_profile_shape(self: tensorrt.tensorrt.ICudaEngine, profile_index: int, binding: str) -&gt; List[tensorrt.tensorrt.Dims]</p>
+<blockquote>
+<div><p>Get the minimum/optimum/maximum dimensions for a particular binding under an optimization profile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">arg profile_index:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The index of the profile.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg binding:</th><td class="field-body">The binding index or name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[Dims]</span></code> of length 3, containing the minimum, optimum, and maximum shapes, in that order.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.get_profile_shape_input">
+<code class="descname">get_profile_shape_input</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.ICudaEngine.get_profile_shape_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">get_profile_shape_input(self: tensorrt.tensorrt.ICudaEngine, profile_index: int, binding: int) -&gt; List[List[int]]</p>
+<blockquote>
+<div><p>Get minimum/optimum/maximum values for an input shape binding under an optimization profile. If the specified binding is not an input shape binding, an exception is raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">arg profile_index:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The index of the profile.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg binding:</th><td class="field-body">The binding index or name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[List[int]]</span></code> of length 3, containing the minimum, optimum, and maximum values, in that order. If the values have not been set yet, an empty list is returned.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">get_profile_shape_input(self: tensorrt.tensorrt.ICudaEngine, profile_index: int, binding: str) -&gt; List[List[int]]</p>
+<blockquote>
+<div><p>Get minimum/optimum/maximum values for an input shape binding under an optimization profile. If the specified binding is not an input shape binding, an exception is raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">arg profile_index:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The index of the profile.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg binding:</th><td class="field-body">The binding index or name.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[List[int]]</span></code> of length 3, containing the minimum, optimum, and maximum values, in that order. If the values have not been set yet, an empty list is returned.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.is_execution_binding">
+<code class="descname">is_execution_binding</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>binding: int</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.ICudaEngine.is_execution_binding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> if tensor is required for execution phase, false otherwise.</p>
+<p>For example, if a network uses an input tensor with binding i ONLY as the reshape dimensions for an <a class="reference internal" href="../Graph/Layers.html#tensorrt.IShuffleLayer" title="tensorrt.IShuffleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShuffleLayer</span></code></a> , then <code class="docutils literal notranslate"><span class="pre">is_execution_binding(i)</span> <span class="pre">==</span> <span class="pre">False</span></code>, and a binding of <cite>0</cite> can be supplied for it when calling <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">IExecutionContext.execute()</span></code></a> or <a class="reference internal" href="ExecutionContext.html#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">IExecutionContext.execute_async()</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.is_shape_binding">
+<code class="descname">is_shape_binding</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em>, <em>binding: int</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.ICudaEngine.is_shape_binding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> if tensor is required as input for shape calculations or output from them.</p>
+<p>TensorRT evaluates a network in two phases:</p>
+<ol class="arabic simple">
+<li>Compute shape information required to determine memory allocation requirements and validate that runtime sizes make sense.</li>
+<li>Process tensors on the device.</li>
+</ol>
+<p>Some tensors are required in phase 1. These tensors are called “shape tensors”, and always
+have type <code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.int32</span></code> and no more than one dimension. These tensors are not always shapes
+themselves, but might be used to calculate tensor shapes for phase 2.</p>
+<p><a class="reference internal" href="#tensorrt.ICudaEngine.is_shape_binding" title="tensorrt.ICudaEngine.is_shape_binding"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_shape_binding()</span></code></a> returns true if the tensor is a required input or an output computed in phase 1.
+<a class="reference internal" href="#tensorrt.ICudaEngine.is_execution_binding" title="tensorrt.ICudaEngine.is_execution_binding"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_execution_binding()</span></code></a> returns true if the tensor is a required input or an output computed in phase 2.</p>
+<p>For example, if a network uses an input tensor with binding <code class="docutils literal notranslate"><span class="pre">i</span></code> as an input to an IElementWiseLayer that computes the reshape dimensions for an <a class="reference internal" href="../Graph/Layers.html#tensorrt.IShuffleLayer" title="tensorrt.IShuffleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShuffleLayer</span></code></a> , <code class="docutils literal notranslate"><span class="pre">is_shape_binding(i)</span> <span class="pre">==</span> <span class="pre">True</span></code></p>
+<p>It’s possible to have a tensor be required by both phases. For instance, a tensor can be used as a shape in an <a class="reference internal" href="../Graph/Layers.html#tensorrt.IShuffleLayer" title="tensorrt.IShuffleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShuffleLayer</span></code></a> and as the indices for an <a class="reference internal" href="../Graph/Layers.html#tensorrt.IGatherLayer" title="tensorrt.IGatherLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IGatherLayer</span></code></a> collecting floating-point data.</p>
+<p>It’s also possible to have a tensor required by neither phase that shows up in the engine’s inputs. For example, if an input tensor is used only as an input to an <a class="reference internal" href="../Graph/Layers.html#tensorrt.IShapeLayer" title="tensorrt.IShapeLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShapeLayer</span></code></a> , only its shape matters and its values are irrelevant.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ICudaEngine.serialize">
+<code class="descname">serialize</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ICudaEngine</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IHostMemory<a class="headerlink" href="#tensorrt.ICudaEngine.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize the network to a stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An <a class="reference internal" href="../FoundationalTypes/HostMemory.html#tensorrt.IHostMemory" title="tensorrt.IHostMemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHostMemory</span></code></a> object containing the serialized <a class="reference internal" href="#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> .</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ExecutionContext.html" class="btn btn-neutral float-right" title="IExecutionContext" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Builder.html" class="btn btn-neutral float-left" title="Builder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

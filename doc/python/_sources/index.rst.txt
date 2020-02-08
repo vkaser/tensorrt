@@ -1,0 +1,37 @@
+========
+TensorRT
+========
+
+.. toctree::
+    :maxdepth: 7
+    :caption: User Guide
+
+    gettingStarted
+    coreConcepts
+    migrationGuide
+
+.. toctree::
+    :maxdepth: 7
+    :caption: TensorRT API Reference
+
+    infer/FoundationalTypes/pyFoundationalTypes
+    infer/Core/pyCore
+    infer/Graph/pyGraph
+    infer/Plugin/pyPlugin
+    infer/Int8/pyInt8
+    parsers/Uff/pyUff
+    parsers/Caffe/pyCaffe
+    parsers/Onnx/pyOnnx
+
+.. toctree::
+    :maxdepth: 7
+    :caption: UFF Converter API Reference
+
+    uff/uff
+    uff/Operators
+
+.. toctree::
+    :maxdepth: 7
+    :caption: GraphSurgeon API Reference
+
+    graphsurgeon/graphsurgeon

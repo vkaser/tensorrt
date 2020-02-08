@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IBuilderConfig &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Builder" href="Builder.html" />
+    <link rel="prev" title="IOptimizationProfile" href="OptimizationProfile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyCore.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Logger.html">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiler.html">Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OptimizationProfile.html">IOptimizationProfile</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builder.html">Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Engine.html">ICudaEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionContext.html">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyCore.html">Core</a> &raquo;</li>
+        
+      <li>IBuilderConfig</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ibuilderconfig">
+<h1>IBuilderConfig<a class="headerlink" href="#ibuilderconfig" title="Permalink to this headline">¶</a></h1>
+<dl class="data">
+<dt id="tensorrt.BuilderFlag">
+<code class="descclassname">tensorrt.</code><code class="descname">BuilderFlag</code><a class="headerlink" href="#tensorrt.BuilderFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable FP16 layer selection</p>
+<p>INT8 : Enable Int8 layer selection</p>
+<p>DEBUG : Enable debugging of layers via synchronizing after every layer</p>
+<p>GPU_FALLBACK : Enable layers marked to execute on GPU if layer cannot execute on DLA</p>
+<p>STRICT_TYPES : Enables strict type constraints</p>
+<p>REFIT : Enable building a refittable engine</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Members</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">FP16</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IBuilderConfig">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IBuilderConfig</code><a class="headerlink" href="#tensorrt.IBuilderConfig" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>min_timing_iterations</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of minimization iterations used when timing layers. When timing layers, the builder minimizes over a set of average times for layer execution. This parameter controls the number of iterations used in minimization.</li>
+<li><strong>avg_timing_iterations</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of averaging iterations used when timing layers. When timing layers, the builder minimizes over a set of average times for layer execution. This parameter controls the number of iterations used in averaging.</li>
+<li><strong>int8_calibrator</strong> – <a class="reference internal" href="../Int8/Calibrator.html#tensorrt.IInt8Calibrator" title="tensorrt.IInt8Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">IInt8Calibrator</span></code></a> Int8 Calibration interface. The calibrator is to minimize the information loss during the INT8 quantization process.</li>
+<li><strong>max_workspace_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The maximum workspace size. The maximum GPU temporary memory which the engine can use at execution time.</li>
+<li><strong>flags</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The build mode flags to turn on builder options for this network. The flags are listed in the BuilderFlags enum. The flags set configuration options to build the network. This should be in integer consisting of one or more <a class="reference internal" href="#tensorrt.BuilderFlag" title="tensorrt.BuilderFlag"><code class="xref py py-class docutils literal notranslate"><span class="pre">BuilderFlag</span></code></a> s, combined via binary OR. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">BuilderFlag.FP16</span> <span class="pre">|</span> <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">BuilderFlag.DEBUG</span></code>.</li>
+<li><strong>profile_stream</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The handle for the CUDA stream that is used to profile this network.</li>
+<li><strong>num_optimization_profiles</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of optimization profiles.</li>
+<li><strong>default_device_type</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.DeviceType</span></code> The default DeviceType to be used by the Builder.</li>
+<li><strong>DLA_core</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The DLA core that the engine executes on. Must be between 0 and N-1 where N is the number of available DLA cores.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.__del__">
+<code class="descname">__del__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc_type</em>, <em>exc_value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.IBuilderConfig.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy this object, freeing all memory associated with it. This should be called to ensure that the object is cleaned up properly.
+Equivalent to invoking <a class="reference internal" href="#tensorrt.IBuilderConfig.__del__" title="tensorrt.IBuilderConfig.__del__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__del__()</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tensorrt.IBuilderConfig.__init__">
+<code class="descname">__init__</code><a class="headerlink" href="#tensorrt.IBuilderConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.add_optimization_profile">
+<code class="descname">add_optimization_profile</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>profile: tensorrt.tensorrt.IOptimizationProfile</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.IBuilderConfig.add_optimization_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an optimization profile.</p>
+<p>This function must be called at least once if the network has dynamic or shape input tensors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>profile</strong> – The new optimization profile, which must satisfy <code class="docutils literal notranslate"><span class="pre">bool(profile)</span> <span class="pre">==</span> <span class="pre">True</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The index of the optimization profile (starting from 0) if the input is valid, or -1 if the input is
+not valid.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.can_run_on_DLA">
+<code class="descname">can_run_on_DLA</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>layer: tensorrt.tensorrt.ILayer</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IBuilderConfig.can_run_on_DLA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the layer can run on DLA.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer</strong> – The layer to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <cite>bool</cite> indicating whether the layer can run on DLA</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.clear_flag">
+<code class="descname">clear_flag</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>flag: tensorrt.tensorrt.BuilderFlag</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.clear_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear a single build mode flag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> – The flag to clear.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.get_device_type">
+<code class="descname">get_device_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>layer: tensorrt.tensorrt.ILayer</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.DeviceType<a class="headerlink" href="#tensorrt.IBuilderConfig.get_device_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the device that the layer executes on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer</strong> – The layer to get the DeviceType for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The DeviceType of the layer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.get_flag">
+<code class="descname">get_flag</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>flag: tensorrt.tensorrt.BuilderFlag</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IBuilderConfig.get_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a build mode flag is set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> – The flag to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <cite>bool</cite> indicating whether the flag is set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.is_device_type_set">
+<code class="descname">is_device_type_set</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>layer: tensorrt.tensorrt.ILayer</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IBuilderConfig.is_device_type_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the DeviceType for a layer is explicitly set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer</strong> – The layer to check for DeviceType</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if DeviceType is not default, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the builder configuration to defaults. When initializing a builder config object, we can call this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.reset_device_type">
+<code class="descname">reset_device_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>layer: tensorrt.tensorrt.ILayer</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.reset_device_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the DeviceType for the given layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer</strong> – The layer to reset the DeviceType for</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.set_device_type">
+<code class="descname">set_device_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>layer: tensorrt.tensorrt.ILayer</em>, <em>device_type: tensorrt.tensorrt.DeviceType</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.set_device_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the device that this layer must execute on. If DeviceType is not set or is reset, TensorRT will use the
+default DeviceType set in the builder.</p>
+<p>The DeviceType for a layer must be compatible with the safety flow (if specified). For example a layer
+cannot be marked for DLA execution while the builder is configured for kSAFE_GPU.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>layer</strong> – The layer to set the DeviceType of</li>
+<li><strong>device_type</strong> – The DeviceType the layer must execute on</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IBuilderConfig.set_flag">
+<code class="descname">set_flag</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IBuilderConfig</em>, <em>flag: tensorrt.tensorrt.BuilderFlag</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IBuilderConfig.set_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a single build mode flag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> – The flag to set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Builder.html" class="btn btn-neutral float-right" title="Builder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="OptimizationProfile.html" class="btn btn-neutral float-left" title="IOptimizationProfile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

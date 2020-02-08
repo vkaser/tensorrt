@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Plugins &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Caffe Parser" href="../Caffe/pyCaffe.html" />
+    <link rel="prev" title="Fields" href="Fields.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyUff.html">UFF Parser</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Fields.html">Fields</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyUff.html">UFF Parser</a> &raquo;</li>
+        
+      <li>Plugins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.IUffPluginFactory">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IUffPluginFactory</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IUffPluginFactory</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IUffPluginFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin factory used to configure plugins.</p>
+<dl class="method">
+<dt id="tensorrt.IUffPluginFactory.create_plugin">
+<code class="descname">create_plugin</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IUffPluginFactory</em>, <em>layer_name: str</em>, <em>weights: std::vector&lt;nvinfer1::Weights</em>, <em>std::allocator&lt;nvinfer1::Weights&gt; &gt;</em>, <em>field_collection: tensorrt.tensorrt.FieldCollection</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPlugin<a class="headerlink" href="#tensorrt.IUffPluginFactory.create_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a plugin.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">arg layer_name:</th><td class="field-body">Name of layer associated with the plugin.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">arg weights:</th><td class="field-body">Weights used for the layer.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">arg field_collection:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">A collection of FieldMaps used as layer parameters for different plugin layers.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The newly created <a class="reference internal" href="../../infer/Plugin/IPlugin.html#tensorrt.IPlugin" title="tensorrt.IPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPlugin</span></code></a> .</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IUffPluginFactory.is_plugin">
+<code class="descname">is_plugin</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IUffPluginFactory</em>, <em>layer_name: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IUffPluginFactory.is_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A user implemented function that determines if a layer configuration is provided by an <a class="reference internal" href="../../infer/Plugin/IPlugin.html#tensorrt.IPlugin" title="tensorrt.IPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPlugin</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer_name</strong> – Name of the layer which the user wishes to validate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the the layer configuration is provided by an <a class="reference internal" href="../../infer/Plugin/IPlugin.html#tensorrt.IPlugin" title="tensorrt.IPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPlugin</span></code></a> .</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IUffPluginFactoryExt">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IUffPluginFactoryExt</code><a class="headerlink" href="#tensorrt.IUffPluginFactoryExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin factory used to configure plugins with added support for TRT versioning.</p>
+<dl class="method">
+<dt id="tensorrt.IUffPluginFactoryExt.get_version">
+<code class="descname">get_version</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IUffPluginFactoryExt</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.IUffPluginFactoryExt.get_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Tensorrt Version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IUffPluginFactoryExt.is_plugin_ext">
+<code class="descname">is_plugin_ext</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IUffPluginFactoryExt</em>, <em>layer_name: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IUffPluginFactoryExt.is_plugin_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>A user implemented function that determines if a layer configuration is provided by an <a class="reference internal" href="../../infer/Plugin/IPluginExt.html#tensorrt.IPluginExt" title="tensorrt.IPluginExt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginExt</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer_name</strong> – Name of the layer which the user wishes to validate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the the layer configuration is provided by an <a class="reference internal" href="../../infer/Plugin/IPluginExt.html#tensorrt.IPluginExt" title="tensorrt.IPluginExt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginExt</span></code></a> .</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Caffe/pyCaffe.html" class="btn btn-neutral float-right" title="Caffe Parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Fields.html" class="btn btn-neutral float-left" title="Fields" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

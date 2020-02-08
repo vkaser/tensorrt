@@ -1,0 +1,15 @@
+==============
+IPluginCreator
+==============
+
+.. autodata:: tensorrt.PluginFieldType
+    :annotation:
+
+.. autoclass:: tensorrt.PluginField
+    :members:
+
+.. autoclass:: tensorrt.PluginFieldCollection
+    :members:
+
+.. autoclass:: tensorrt.IPluginCreator
+    :members:

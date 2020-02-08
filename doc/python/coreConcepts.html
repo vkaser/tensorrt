@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Core Concepts &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Migrating from TensorRT 4 to 5" href="migrationGuide.html" />
+    <link rel="prev" title="Getting Started with TensorRT" href="gettingStarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tensorrt-workflow">TensorRT Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes-overview">Classes Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logger">Logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#engine-and-context">Engine and Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#builder">Builder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network">Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parsers">Parsers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Core Concepts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="core-concepts">
+<h1>Core Concepts<a class="headerlink" href="#core-concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tensorrt-workflow">
+<h2>TensorRT Workflow<a class="headerlink" href="#tensorrt-workflow" title="Permalink to this headline">¶</a></h2>
+<p>The general TensorRT workflow consists of 3 steps:</p>
+<ol class="arabic simple">
+<li>Populate a <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> either with a parser or by using the TensorRT Network API (see <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> for more details). The <a class="reference internal" href="infer/Core/Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Builder</span></code></a> can be used to generate an empty <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> .</li>
+<li>Use the <a class="reference internal" href="infer/Core/Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Builder</span></code></a> to build a <a class="reference internal" href="infer/Core/Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.ICudaEngine</span></code></a> using the populated <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> .</li>
+<li>Create a <a class="reference internal" href="infer/Core/ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.IExecutionContext</span></code></a> from the <a class="reference internal" href="infer/Core/Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.ICudaEngine</span></code></a> and use it to perform optimized inference.</li>
+</ol>
+</div>
+<div class="section" id="classes-overview">
+<h2>Classes Overview<a class="headerlink" href="#classes-overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logger">
+<h3>Logger<a class="headerlink" href="#logger" title="Permalink to this headline">¶</a></h3>
+<p>Most other TensorRT classes use a logger to report errors, warnings and informative messages. TensorRT provides a basic <a class="reference internal" href="infer/Core/Logger.html#tensorrt.Logger" title="tensorrt.Logger"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Logger</span></code></a> implementation, but it can be extended for more advanced functionality.</p>
+</div>
+<div class="section" id="engine-and-context">
+<h3>Engine and Context<a class="headerlink" href="#engine-and-context" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="infer/Core/Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.ICudaEngine</span></code></a> is the primary element of TensorRT. It is used to generate a <a class="reference internal" href="infer/Core/ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.IExecutionContext</span></code></a> that can perform inference.</p>
+</div>
+<div class="section" id="builder">
+<h3>Builder<a class="headerlink" href="#builder" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="infer/Core/Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Builder</span></code></a> is used to build a <a class="reference internal" href="infer/Core/Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.ICudaEngine</span></code></a> . In order to do so, it must be provided a populated <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> .</p>
+</div>
+<div class="section" id="network">
+<h3>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> represents a computational graph. In order to populate the network, TensorRT provides a suite of parsers for a variety of Deep Learning frameworks. It is also possible to populate the network manually using the Network API.</p>
+</div>
+<div class="section" id="parsers">
+<h3>Parsers<a class="headerlink" href="#parsers" title="Permalink to this headline">¶</a></h3>
+<p>Parsers are used to populate a <a class="reference internal" href="infer/Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.INetworkDefinition</span></code></a> from a model trained in a Deep Learning framework.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="migrationGuide.html" class="btn btn-neutral float-right" title="Migrating from TensorRT 4 to 5" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gettingStarted.html" class="btn btn-neutral float-left" title="Getting Started with TensorRT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

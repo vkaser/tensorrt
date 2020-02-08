@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IInt8LegacyCalibrator &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IInt8EntropyCalibrator" href="EntropyCalibrator.html" />
+    <link rel="prev" title="IInt8Calibrator" href="Calibrator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyInt8.html">Int8</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Calibrator.html">IInt8Calibrator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IInt8LegacyCalibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EntropyCalibrator.html">IInt8EntropyCalibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EntropyCalibrator2.html">IInt8EntropyCalibrator2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MinMaxCalibrator.html">IInt8MinMaxCalibrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyInt8.html">Int8</a> &raquo;</li>
+        
+      <li>IInt8LegacyCalibrator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="iint8legacycalibrator">
+<h1>IInt8LegacyCalibrator<a class="headerlink" href="#iint8legacycalibrator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.IInt8LegacyCalibrator">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IInt8LegacyCalibrator</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends the <a class="reference internal" href="Calibrator.html#tensorrt.IInt8Calibrator" title="tensorrt.IInt8Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">IInt8Calibrator</span></code></a> class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>quantile</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The quantile (between 0 and 1) that will be used to select the region maximum when the quantile method is in use. See the user guide for more details on how the quantile is used.</li>
+<li><strong>regression_cutoff</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The fraction (between 0 and 1) of the maximum used to define the regression cutoff when using regression to determine the region maximum. See the user guide for more details on how the regression cutoff is used</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.get_algorithm">
+<code class="descname">get_algorithm</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.CalibrationAlgoType<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.get_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signals that this is the legacy calibrator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibrationAlgoType.LEGACY_CALIBRATION</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.get_batch">
+<code class="descname">get_batch</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator, names: List[str]</em><span class="sig-paren">)</span> &#x2192; object<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.get_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a batch of input for calibration. The batch size of the input must match the batch size returned by <a class="reference internal" href="#tensorrt.IInt8LegacyCalibrator.get_batch_size" title="tensorrt.IInt8LegacyCalibrator.get_batch_size"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_batch_size()</span></code></a> .</p>
+<p>A possible implementation may look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Assume self.batches is a generator that provides batch data.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batches</span><span class="p">)</span>
+        <span class="c1"># Assume that self.device_input is a device buffer allocated by the constructor.</span>
+        <span class="n">cuda</span><span class="o">.</span><span class="n">memcpy_htod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_input</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_input</span><span class="p">)]</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="c1"># When we&#39;re out of batches, we return either [] or None.</span>
+        <span class="c1"># This signals to TensorRT that there is no calibration data remaining.</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>names</strong> – The names of the network inputs for each object in the bindings array.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> of device memory pointers set to the memory containing each network input data, or an empty <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> if there are no more batches for calibration. You can allocate these device buffers with pycuda, for example, and then cast them to <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> to retrieve the pointer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.get_batch_size">
+<code class="descname">get_batch_size</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.get_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the batch size used for calibration batches.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The batch size.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.get_quantile">
+<code class="descname">get_quantile</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.get_quantile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.get_regression_cutoff">
+<code class="descname">get_regression_cutoff</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.get_regression_cutoff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.read_calibration_cache">
+<code class="descname">read_calibration_cache</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em><span class="sig-paren">)</span> &#x2192; buffer<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.read_calibration_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a calibration cache.</p>
+<p>Calibration is potentially expensive, so it can be useful to generate the calibration data once, then use it on subsequent builds
+of the network. The cache includes the regression cutoff and quantile values used to generate it, and will not be used if
+these do not match the settings of the current calibrator. However, the network should also be recalibrated if its structure
+changes, or the input data set changes, and it is the responsibility of the application to ensure this.</p>
+<p>Reading a cache is just like reading any other file in Python. For example, one possible implementation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_calibration_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># If there is a cache, use it instead of calibrating again. Otherwise, implicitly return None.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A cache object or None if there is no data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.read_histogram_cache">
+<code class="descname">read_histogram_cache</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; capsule<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.read_histogram_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a histogram.
+Histogram generation is potentially expensive, so it can be useful to generate the histograms once, then use them when exploring
+the space of calibrations. The histograms should be regenerated if the network structure
+changes, or the input data set changes, and it is the responsibility of the application to ensure this.
+See the user guide for more details on how the regression cutoff is used</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length</strong> – The length of the cached data, that should be set by the called function. If there is no data, this should be zero.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cache or None if there is no cache.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.write_calibration_cache">
+<code class="descname">write_calibration_cache</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em>, <em>cache: object</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.write_calibration_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a calibration cache.</p>
+<p>Writing a cache is just like writing any other buffer in Python. For example, one possible implementation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_calibration_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cache</strong> – The calibration cache to write.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IInt8LegacyCalibrator.write_histogram_cache">
+<code class="descname">write_histogram_cache</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IInt8LegacyCalibrator</em>, <em>arg0: capsule</em>, <em>arg1: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IInt8LegacyCalibrator.write_histogram_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a histogram cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – The data to cache.</li>
+<li><strong>length</strong> – The length in bytes of the data to cache.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="EntropyCalibrator.html" class="btn btn-neutral float-right" title="IInt8EntropyCalibrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Calibrator.html" class="btn btn-neutral float-left" title="IInt8Calibrator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

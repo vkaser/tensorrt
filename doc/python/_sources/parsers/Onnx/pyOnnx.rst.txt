@@ -1,0 +1,16 @@
+===========
+Onnx Parser
+===========
+
+.. autoclass:: tensorrt.OnnxParser
+    :members:
+    :special-members:
+
+.. autodata:: tensorrt.ErrorCode
+   :annotation:
+
+.. autoclass:: tensorrt.ParserError
+    :members:
+
+.. autoclass:: tensorrt.OnnxPluginFactory
+    :members:

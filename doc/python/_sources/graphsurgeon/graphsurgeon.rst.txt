@@ -1,0 +1,24 @@
+Graph Surgeon
+=============
+
+:mod:`graphsurgeon` allows you to transform TensorFlow graphs. Its capabilities are broadly divided into two categories: search and manipulation. Search functions allow you to find nodes in a TensorFlow graph. Manipulation functions allow you to modify, add, or remove nodes.
+
+.. currentmodule:: graphsurgeon
+
+Node Creation
+-------------
+
+Allow you to create free standing TensorFlow nodes, which can be used as stand-ins for plugins.
+
+.. autofunction:: create_node
+.. autofunction:: create_plugin_node
+
+Static Graph
+------------
+.. autoclass:: StaticGraph
+    :members:
+
+Dynamic Graph (Inherits from StaticGraph)
+-----------------------------------------
+.. autoclass:: DynamicGraph
+    :members: append, collapse_namespaces, extend, forward_inputs, remove

@@ -1,0 +1,530 @@
+=============
+UFF Operators
+=============
+
+All shapes include batch dimension, unless otherwise specified.
+
+Input
+-------------------
+An input to the network. Expects a CHW shape.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Identity
+-------------------
+Identity layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    Input0 to the identity. Must be float32.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32
+
+Const
+-------------------
+A constant in the network. Should not include batch dimension.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Conv
+-------------------
+A convolution operation.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the convolution. Must be 4 dimensional. Automatically transposed to NCHW.
+:Kernel [Constant]:
+    The kernel weights for the convolution. Must be 4 dimensional. Automatically transposed to NCHW.
+
+Attributes
+~~~~~~~~~~
+:dilation [List[int]]:
+    The HW dilations.
+:strides [List[int]]:
+    The HW strides.
+:padding [List[int]]:
+    The HW padding. Asymmetric padding is unsupported.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+ConvTranspose
+-------------------
+A transposed convolution, also known as deconvolution.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the transposed convolution. Must be 4 dimensional. Automatically transposed to NCHW.
+:Kernel [Constant]:
+    The kernel weights for the transposed convolution. Must be 4 dimensional. Automatically transposed to NCHW.
+:Shape [Constant]:
+    The HW dimensions of the output.
+
+Attributes
+~~~~~~~~~~
+:strides [List[int]]:
+    The HW strides.
+:padding [List[int]]:
+    The HW padding. Asymmetric padding is unsupported.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Pool
+-------------------
+A pooling layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the pooling layer. Must be 4 dimensional.
+
+Attributes
+~~~~~~~~~~
+:func [Enum[max, avg]]:
+    The type of pooling to apply.
+:kernel [List[int]]:
+    The HW shape of the kernel.
+:strides [List[int]]:
+    The HW strides.
+:padding [List[int]]:
+    The HW padding.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+FullyConnected
+-------------------
+A fully connected layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the fully connected layer. Must be at least 4 dimensional. Automatically transposed to -NC-.
+:Weights [Constant]:
+    The weights for the fully connected layer. Must be 3 dimensional. Automatically transposed to CHW, where C is the number of output channels.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+LRN
+-------------------
+An LRN layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the LRN. Must be at least 4 dimensional.
+
+Attributes
+~~~~~~~~~~
+:window_size [int]:
+    The window size.
+:alpha [double]:
+    The LRN alpha value.
+:beta [double]:
+    The LRN beta value.
+:k [double]:
+    The LRN k value.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Binary
+-------------------
+A binary layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The first input to the binary layer.
+:Input1 [Tensor or Constant]:
+    The second input to the binary layer.
+
+If either input is a constant, then at least one of the inputs must be 4 dimensional.
+
+Attributes
+~~~~~~~~~~
+:func [Enum[min, max, mul, sub, div, add, pow]]:
+    The type of operation to perform.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Unary
+-------------------
+A unary layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the unary layer.
+
+The output of a unary layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Attributes
+~~~~~~~~~~
+:func [Enum[neg, exp, log, abs, sqrt, rsqrt, square, sin, cos, tan, sinh, cosh, asin, acos, atan, asinh, acosh, atanh, ceil, floor]]:
+    The type of operation to perform.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Reshape
+-------------------
+A reshape layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the reshape layer.
+:Shape [Constant]:
+    The desired shape. If the shape has fewer than 3 non-batch dimensions, 1s are inserted in the least significant dimensions. For example, if the shape specified is [1, 300, 5], it will be treated as [1, 300, 5, 1] instead.
+    - -1 specifies that the dimension should be automatically deduced - this can only be used at most once in any given shape.
+    - 0 specifies that the dimension should be copied from the input.
+
+The output of a reshape layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+ExpandDims
+-------------------
+An unsqueeze layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to unsqueeze.
+
+If the resulting output has fewer than 3 non-batch dimensions, it is unsqueezed further with additional 1s inserted in the least significant dimensions.
+For example, with an input of shape [1, 300], and axis of 1, the shape of the output will be [1, 300, 1, 1] rather than [1, 300, 1].
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to unsqueeze, excluding batch dimension. For example, unsqueezing an NCHW tensor with an axis of 0 will result in a N1CHW tensor.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+ArgMax
+-------------------
+An argmax layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the argmax layer.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to perform the argmax, with 0 corresponding to the batch dimension. The specified dimension is removed.
+    For example, performing argmax on an input of shape [1, 300, 150], with an axis of 1 would result in an output of shape [1, 150].
+    NOTE: argmax on the batch dimension is not supported.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+ArgMin
+-------------------
+An argmin layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the argmin layer.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to perform the argmin, with 0 corresponding to the batch dimension. The specified dimension is removed.
+    For example, performing argmin on an input of shape [1, 300, 150], with an axis of 1 would result in an output of shape [1, 150].
+    NOTE: argmin on the batch dimension is not supported.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Transpose
+-------------------
+A transpose layer. A no-op in the network, this layer only modifies the UFF parser's internal order information. Therefore, when followed by any layer that destroys order information, the transpose will not be performed.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the transpose layer.
+
+Attributes
+~~~~~~~~~~
+:permutation [int]:
+    The permutation to perform. Must be 4 dimensional.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Reduce
+-------------------
+A reduce layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the reduce layer.
+
+The output of a reduce layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Attributes
+~~~~~~~~~~
+:func [Enum[sum, prod, max, min, mean]]:
+    The reduction operation to perform.
+:axes [List[int]]:
+    The axes on which to reduce, with 0 corresponding to the batch dimension. Reduction on the batch dimension is unsupported.
+:keepdims [bool]:
+    Whether to keep the dimensions which were reduced. NOTE: The UFF parser ignored this value, and always keeps dimensions.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Concat
+-------------------
+A concatenation layer.
+
+Inputs
+~~~~~~
+:Inputs (variadic) [List[Tensor]]:
+    The tensors to concatenate. All inputs are transposed to the same format as the first input. Inputs must be at least 4 dimensional.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to perform the concatenation, with 0 corresponding to the batch dimension. Concatenating on the batch dimension is unsupported.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+MarkOutput
+-------------------
+The output of the network.
+
+Inputs
+~~~~~~
+:Inputs (variadic) [List[Tensor]]:
+    The inputs to this layer. Automatically transposed to the same order as the outputs of the original TensorFlow network.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Activation
+-------------------
+An activation layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the activation.
+
+Attributes
+~~~~~~~~~~
+:func [Enum[relu, relu6, sigmoid, tanh, elu, selu, softsign, softplus]]:
+    The operation to perform.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Softmax
+-------------------
+A softmax layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the softmax.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to perform the reduction. NOTE: This value is ignored by the UFF parser.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+BatchNorm
+-------------------
+A batchnorm layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the batchnorm. Must be 4 dimensional.
+:Gamma [Constant]:
+    The gamma values.
+:Beta [Constant]:
+    The beta values.
+:Mean [Constant]:
+    The mean values.
+:Variance [Constant]:
+    The variance values.
+
+Attributes
+~~~~~~~~~~
+:epsilon [double]:
+    The epsilon value.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Shape
+-------------------
+A shape layer. Returns the shape of its input. NOTE: the output of this layer is a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The input to the shape layer.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+StridedSlice
+-------------------
+A strided slice layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the strided slice.
+:Begin [Constant]:
+    The indices at which to begin slicing.
+:End [Constant]:
+    The indices at which to end slicing.
+:Strides [Constant]:
+    Strides to use when slicing.
+
+Attributes
+~~~~~~~~~~
+:begin_mask [int]:
+    See TensorFlow stridedSlice documentation.
+:end_mask [int]:
+    See TensorFlow stridedSlice documentation.
+:shrink_axis_mask [int]:
+    See TensorFlow stridedSlice documentation. This value is ignored unless the input is a constant.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Stack
+-------------------
+A stack layer. NOTE: the output of this layer is a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Inputs
+~~~~~~
+:Inputs (variadic) [List[Constant]]:
+    The inputs to the stack layer.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis on which to stack. NOTE: this value is ignored by the UFF parser.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Squeeze
+-------------------
+Not implemented
+
+Flatten
+-------------------
+A flatten layer. A no-op in the UFF parser.
+
+Inputs
+~~~~~~
+:Input0 [Tensor]:
+    The tensor to flatten.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Pad
+-------------------
+A padding layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to pad. The input is automatically transposed if padding is applied to non-HW dimensions.
+:Padding [Constant]:
+    The padding to apply. Padding is supported on 2 dimensions at most.
+
+The output of a padding layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+Gather
+-------------------
+A gather layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the gather layer. If the input is constant, it is assumed to be of shape NC11.
+:Indices [Tensor or Constant]:
+    The indices to gather along. These are assumed to be on the first non-batch dimension.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8
+
+GatherV2
+-------------------
+A gatherV2 layer.
+
+Inputs
+~~~~~~
+:Input0 [Tensor or Constant]:
+    The input to the gather layer. If the input is constant, it is assumed to be of shape NC11.
+:Indices [Tensor or Constant]:
+    The indices to gather along.
+
+Attributes
+~~~~~~~~~~
+:axis [int]:
+    The axis along which to gather, excluding batch dimension.
+
+Supported Datatypes
+~~~~~~~~~~~~~~~~~~~
+float32, float16, int32, int8

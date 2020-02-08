@@ -1,0 +1,42 @@
+====
+Dims
+====
+
+Volume
+------
+.. autofunction:: tensorrt.volume
+
+Dims
+-----
+.. autoclass:: tensorrt.Dims
+    :members:
+
+Dims2
+-----
+.. autoclass:: tensorrt.Dims2
+    :members:
+
+DimsHW
+------
+.. autoclass:: tensorrt.DimsHW
+    :members:
+
+Dims3
+-----
+.. autoclass:: tensorrt.Dims3
+    :members:
+
+DimsCHW
+-------
+.. autoclass:: tensorrt.DimsCHW
+    :members:
+
+Dims4
+-----
+.. autoclass:: tensorrt.Dims4
+    :members:
+
+DimsNCHW
+--------
+.. autoclass:: tensorrt.DimsNCHW
+    :members:

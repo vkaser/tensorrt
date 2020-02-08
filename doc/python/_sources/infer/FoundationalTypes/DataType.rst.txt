@@ -1,0 +1,22 @@
+========
+DataType
+========
+
+.. autodata:: tensorrt.DataType
+    :annotation:
+
+TensorRT also exposes some short-hand, NumPy-style :class:`DataType` aliases that can be used across the library:
+
++--------------------------------+---------------------+
+| Type                           | Alias               |
++--------------------------------+---------------------+
+| ``tensorrt.DataType.FLOAT``    | ``tensorrt.float32``|
++--------------------------------+---------------------+
+| ``tensorrt.DataType.HALF``     | ``tensorrt.float16``|
++--------------------------------+---------------------+
+| ``tensorrt.DataType.INT32``    | ``tensorrt.int32``  |
++--------------------------------+---------------------+
+| ``tensorrt.DataType.INT8``     | ``tensorrt.int8``   |
++--------------------------------+---------------------+
+
+.. autofunction:: tensorrt.nptype

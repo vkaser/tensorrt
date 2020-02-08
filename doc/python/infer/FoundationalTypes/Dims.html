@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dims &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IHostMemory" href="HostMemory.html" />
+    <link rel="prev" title="DimensionType" href="DimensionType.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyFoundationalTypes.html">Foundational Types</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DataType.html">DataType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Weights.html">Weights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DimensionType.html">DimensionType</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dims</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#volume">Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dims2">Dims2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dimshw">DimsHW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dims3">Dims3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dimschw">DimsCHW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dims4">Dims4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dimsnchw">DimsNCHW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HostMemory.html">IHostMemory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyFoundationalTypes.html">Foundational Types</a> &raquo;</li>
+        
+      <li>Dims</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dims">
+<h1>Dims<a class="headerlink" href="#dims" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="volume">
+<h2>Volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tensorrt.volume">
+<code class="descclassname">tensorrt.</code><code class="descname">volume</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the volume of an iterable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>iterable</strong> – Any python iterable, including a <a class="reference internal" href="#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The volume of the iterable (0 for empty iterables).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="id1">
+<h2>Dims<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.Dims">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Dims</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.Dims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define the dimensions of a tensor. <a class="reference internal" href="#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> and all derived classes behave like Python <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> s. Furthermore, the TensorRT API can implicitly convert Python iterables to <a class="reference internal" href="#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> objects, so <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> can be used in place of this class.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.Dims) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims, shape: List[int]) -&gt; None</li>
+</ol>
+<dl class="attribute">
+<dt id="tensorrt.Dims.MAX_DIMS">
+<code class="descname">MAX_DIMS</code><a class="headerlink" href="#tensorrt.Dims.MAX_DIMS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum number of dimensions supported by <a class="reference internal" href="#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.Dims.get_type">
+<code class="descname">get_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.Dims</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.DimensionType<a class="headerlink" href="#tensorrt.Dims.get_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the type of a dimension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The type of the specified dimension.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dims2">
+<h2>Dims2<a class="headerlink" href="#dims2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.Dims2">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Dims2</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.Dims2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 2D shape.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.Dims2) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims2, dim0: int, dim1: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims2, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="dimshw">
+<h2>DimsHW<a class="headerlink" href="#dimshw" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.DimsHW">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">DimsHW</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.DimsHW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 2D shape with height and width.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The first dimension (height).</li>
+<li><strong>w</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The second dimension (width).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.DimsHW) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsHW, h: int, w: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsHW, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="dims3">
+<h2>Dims3<a class="headerlink" href="#dims3" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.Dims3">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Dims3</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.Dims3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 3D shape.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.Dims3) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims3, dim0: int, dim1: int, dim2: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims3, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="dimschw">
+<h2>DimsCHW<a class="headerlink" href="#dimschw" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.DimsCHW">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">DimsCHW</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.DimsCHW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 3D tensor with a channel dimension, height, and width.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>c</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The first dimension (channel).</li>
+<li><strong>h</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The second dimension (height).</li>
+<li><strong>w</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The third dimension (width).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.DimsCHW) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsCHW, c: int, h: int, w: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsCHW, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="dims4">
+<h2>Dims4<a class="headerlink" href="#dims4" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.Dims4">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Dims4</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.Dims4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 4D tensor.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.Dims4) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims4, dim0: int, dim1: int, dim2: int, dim3: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Dims4, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="dimsnchw">
+<h2>DimsNCHW<a class="headerlink" href="#dimsnchw" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.DimsNCHW">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">DimsNCHW</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.DimsNCHW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure to define 4D tensor with a batch dimension, a channel dimension, height and width.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The first dimension (batch).</li>
+<li><strong>c</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The second dimension (channel).</li>
+<li><strong>h</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The third dimension (height).</li>
+<li><strong>w</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The fourth dimension (width).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.DimsNCHW) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsNCHW, n: int, c: int, h: int, w: int) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.DimsNCHW, shape: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="HostMemory.html" class="btn btn-neutral float-right" title="IHostMemory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="DimensionType.html" class="btn btn-neutral float-left" title="DimensionType" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

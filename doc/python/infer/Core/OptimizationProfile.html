@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IOptimizationProfile &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IBuilderConfig" href="NetworkConfig.html" />
+    <link rel="prev" title="Profiler" href="Profiler.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyCore.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Logger.html">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiler.html">Profiler</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IOptimizationProfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkConfig.html">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builder.html">Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Engine.html">ICudaEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionContext.html">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyCore.html">Core</a> &raquo;</li>
+        
+      <li>IOptimizationProfile</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ioptimizationprofile">
+<h1>IOptimizationProfile<a class="headerlink" href="#ioptimizationprofile" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.IOptimizationProfile">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IOptimizationProfile</code><a class="headerlink" href="#tensorrt.IOptimizationProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimization profile for dynamic input dimensions and shape tensors.</p>
+<p>When building an <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> from an <a class="reference internal" href="../Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> that has dynamically resizable inputs (at least
+one input tensor has one or more of its dimensions specified as -1) or shape input tensors, users need to specify
+at least one optimization profile. Optimization profiles are numbered 0, 1, …</p>
+<p>The first optimization profile that has been defined (with index 0) will be used by the <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> whenever no
+optimization profile has been selected explicitly. If none of the inputs are dynamic, the default optimization
+profile will be generated automatically unless it is explicitly provided by the user (this is possible but not
+required in this case). If more than a single optimization profile is defined, users may set a target how
+much additional weight space should be maximally allocated to each additional profile (as a fraction of the
+maximum, unconstrained memory).</p>
+<p>Users set optimum input tensor dimensions, as well as minimum and maximum input tensor dimensions. The builder
+selects the kernels that result in the lowest runtime for the optimum input tensor dimensions, and are valid for
+all input tensor sizes in the valid range between minimum and maximum dimensions. A runtime error will be raised
+if the input tensor dimensions fall outside the valid range for this profile. Likewise, users provide minimum,
+optimum, and maximum values for all shape tensor input values.</p>
+<p><a class="reference internal" href="#tensorrt.IOptimizationProfile" title="tensorrt.IOptimizationProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOptimizationProfile</span></code></a> implements <code class="xref py py-func docutils literal notranslate"><span class="pre">__nonzero__()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">__bool__()</span></code> such that evaluating a profile as a <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">profile:</span></code>) will check whether the optimization profile can be passed to an IBuilderConfig object. This will perform partial validation, by e.g. checking that the maximum dimensions are at least as large as the optimum dimensions, and that the optimum dimensions are always as least as large as the minimum dimensions. Some validation steps require knowledge of the network definition and are deferred to engine build time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>extra_memory_target</strong> – Additional memory that the builder should aim to maximally allocate for this profile, as a fraction of the memory it would use if the user did not impose any constraints on memory. This unconstrained case is the default; it corresponds to <code class="docutils literal notranslate"><span class="pre">extra_memory_target</span></code> == 1.0. If <code class="docutils literal notranslate"><span class="pre">extra_memory_target</span></code> == 0.0, the builder aims to create the new optimization profile without allocating any additional weight memory. Valid inputs lie between 0.0 and 1.0. This parameter is only a hint, and TensorRT does not guarantee that the <code class="docutils literal notranslate"><span class="pre">extra_memory_target</span></code> will be reached. This parameter is ignored for the first (default) optimization profile that is defined.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IOptimizationProfile.get_shape">
+<code class="descname">get_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IOptimizationProfile</em>, <em>input: str</em><span class="sig-paren">)</span> &#x2192; List[tensorrt.tensorrt.Dims]<a class="headerlink" href="#tensorrt.IOptimizationProfile.get_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the minimum/optimum/maximum dimensions for a dynamic input tensor.
+If the dimensions have not been previously set via <a class="reference internal" href="#tensorrt.IOptimizationProfile.set_shape" title="tensorrt.IOptimizationProfile.set_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_shape()</span></code></a>, return an invalid <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> with a length of -1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[Dims]</span></code> of length 3, containing the minimum, optimum, and maximum shapes, in that order. If the shapes have not been set yet, an empty list is returned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IOptimizationProfile.get_shape_input">
+<code class="descname">get_shape_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IOptimizationProfile</em>, <em>input: str</em><span class="sig-paren">)</span> &#x2192; List[List[int]]<a class="headerlink" href="#tensorrt.IOptimizationProfile.get_shape_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the minimum/optimum/maximum values for a shape input tensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">List[List[int]]</span></code> of length 3, containing the minimum, optimum, and maximum values, in that order. If the values have not been set yet, an empty list is returned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IOptimizationProfile.set_shape">
+<code class="descname">set_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IOptimizationProfile</em>, <em>input: str</em>, <em>min: tensorrt.tensorrt.Dims</em>, <em>opt: tensorrt.tensorrt.Dims</em>, <em>max: tensorrt.tensorrt.Dims</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IOptimizationProfile.set_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the minimum/optimum/maximum dimensions for a dynamic input tensor.</p>
+<p>This function must be called for any network input tensor that has dynamic dimensions. If <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">opt</span></code>, and <code class="docutils literal notranslate"><span class="pre">max</span></code> are the minimum, optimum, and maximum dimensions, and <code class="docutils literal notranslate"><span class="pre">real_shape</span></code> is the shape for this input tensor provided to the <a class="reference internal" href="../Graph/Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> ,then the following conditions must hold:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">len(min)</span></code> == <code class="docutils literal notranslate"><span class="pre">len(opt)</span></code> == <code class="docutils literal notranslate"><span class="pre">len(max)</span></code> == <code class="docutils literal notranslate"><span class="pre">len(real_shape)</span></code></li>
+<li>1 &lt;= <code class="docutils literal notranslate"><span class="pre">min[i]</span></code> &lt;= <code class="docutils literal notranslate"><span class="pre">opt[i]</span></code> &lt;= <code class="docutils literal notranslate"><span class="pre">max[i]</span></code> for all <code class="docutils literal notranslate"><span class="pre">i</span></code></li>
+<li>if <code class="docutils literal notranslate"><span class="pre">real_shape[i]</span></code> != -1, then <code class="docutils literal notranslate"><span class="pre">min[i]</span></code> == <code class="docutils literal notranslate"><span class="pre">opt[i]</span></code> == <code class="docutils literal notranslate"><span class="pre">max[i]</span></code> == <code class="docutils literal notranslate"><span class="pre">real_shape[i]</span></code></li>
+</ol>
+<p>This function may (but need not be) called for an input tensor that does not have dynamic dimensions. In this
+case, all shapes must equal <code class="docutils literal notranslate"><span class="pre">real_shape</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The name of the input tensor.</li>
+<li><strong>min</strong> – The minimum dimensions for this input tensor.</li>
+<li><strong>opt</strong> – The optimum dimensions for this input tensor.</li>
+<li><strong>max</strong> – The maximum dimensions for this input tensor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code> if an inconsistency was detected. Note that inputs can be validated only partially; a full validation is performed at engine build time.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IOptimizationProfile.set_shape_input">
+<code class="descname">set_shape_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IOptimizationProfile, input: str, min: List[int], opt: List[int], max: List[int]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IOptimizationProfile.set_shape_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the minimum/optimum/maximum values for a shape input tensor.</p>
+<p>This function must be called for every input tensor <code class="docutils literal notranslate"><span class="pre">t</span></code> that is a shape tensor (<code class="docutils literal notranslate"><span class="pre">t.is_shape</span></code> == <code class="docutils literal notranslate"><span class="pre">True</span></code>).
+This implies that the datatype of <code class="docutils literal notranslate"><span class="pre">t</span></code> is <code class="docutils literal notranslate"><span class="pre">int32</span></code>, the rank is either 0 or 1, and the dimensions of <code class="docutils literal notranslate"><span class="pre">t</span></code>
+are fixed at network definition time. This function must NOT be called for any input tensor that is not a
+shape tensor.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">opt</span></code>, and <code class="docutils literal notranslate"><span class="pre">max</span></code> are the minimum, optimum, and maximum values, it must be true that <code class="docutils literal notranslate"><span class="pre">min[i]</span></code> &lt;= <code class="docutils literal notranslate"><span class="pre">opt[i]</span></code> &lt;= <code class="docutils literal notranslate"><span class="pre">max[i]</span></code> for
+all <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The name of the input tensor.</li>
+<li><strong>min</strong> – The minimum values for this shape tensor.</li>
+<li><strong>opt</strong> – The optimum values for this shape tensor.</li>
+<li><strong>max</strong> – The maximum values for this shape tensor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code> if an inconsistency was detected. Note that inputs can be validated only partially; a full validation is performed at engine build time.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="NetworkConfig.html" class="btn btn-neutral float-right" title="IBuilderConfig" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Profiler.html" class="btn btn-neutral float-left" title="Profiler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+==================
+INetworkDefinition
+==================
+
+.. autoclass:: tensorrt.INetworkDefinition
+    :members:
+    :special-members:

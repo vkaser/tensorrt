@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IExecutionContext &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Runtime" href="Runtime.html" />
+    <link rel="prev" title="ICudaEngine" href="Engine.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyCore.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Logger.html">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiler.html">Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OptimizationProfile.html">IOptimizationProfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkConfig.html">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builder.html">Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Engine.html">ICudaEngine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyCore.html">Core</a> &raquo;</li>
+        
+      <li>IExecutionContext</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="iexecutioncontext">
+<h1>IExecutionContext<a class="headerlink" href="#iexecutioncontext" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.IExecutionContext">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IExecutionContext</code><a class="headerlink" href="#tensorrt.IExecutionContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context for executing inference using an <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> .
+Multiple <a class="reference internal" href="#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> s may exist for one <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> instance, allowing the same
+<a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> to be used for the execution of multiple batches simultaneously.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>debug_sync</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> The debug sync flag. If this flag is set to true, the <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> will log the successful execution for each kernel during execute(). It has no effect when using execute_async().</li>
+<li><strong>profiler</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">IProfiler</span></code> The profiler in use by this <a class="reference internal" href="#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</li>
+<li><strong>engine</strong> – <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> The associated <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> .</li>
+<li><strong>name</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> The name of the <a class="reference internal" href="#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExecutionContext</span></code></a> .</li>
+<li><strong>device_memory</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">capsule</span></code> The device memory for use by this execution context. The memory must be aligned on a 256-byte boundary, and its size must be at least <code class="xref py py-attr docutils literal notranslate"><span class="pre">engine.device_memory_size</span></code>. If using <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> to run the network, The memory is in use from the invocation of <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> until network execution is complete. If using <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a>, it is in use until <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> returns. Releasing or otherwise using the memory for other purposes during this time will result in undefined behavior.</li>
+<li><strong>active_optimization_profile</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The active optimization profile for the context. The selected profile will be used in subsequent calls to <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> or <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> . Profile 0 is selected by default. Changing this value will invalidate all dynamic bindings for the current execution context, so that they have to be set again using <a class="reference internal" href="#tensorrt.IExecutionContext.set_binding_shape" title="tensorrt.IExecutionContext.set_binding_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_binding_shape()</span></code></a> before calling either <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> or <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> .</li>
+<li><strong>all_binding_shapes_specified</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether all dynamic dimensions of input tensors have been specified by calling <a class="reference internal" href="#tensorrt.IExecutionContext.set_binding_shape" title="tensorrt.IExecutionContext.set_binding_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_binding_shape()</span></code></a> . Trivially true if network has no dynamically shaped input tensors.</li>
+<li><strong>all_shape_inputs_specified</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether values for all input shape tensors have been specified by calling <a class="reference internal" href="#tensorrt.IExecutionContext.set_shape_input" title="tensorrt.IExecutionContext.set_shape_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_shape_input()</span></code></a> . Trivially true if network has no input shape bindings.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.__del__">
+<code class="descname">__del__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IExecutionContext.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc_type</em>, <em>exc_value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.IExecutionContext.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy this object, freeing all memory associated with it. This should be called to ensure that the object is cleaned up properly.
+Equivalent to invoking <a class="reference internal" href="#tensorrt.IExecutionContext.__del__" title="tensorrt.IExecutionContext.__del__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__del__()</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tensorrt.IExecutionContext.__init__">
+<code class="descname">__init__</code><a class="headerlink" href="#tensorrt.IExecutionContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext, batch_size: int = 1, bindings: List[int]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronously execute inference on a batch.
+This method requires a array of input and output buffers. The mapping from tensor names to indices can be queried using <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine.get_binding_index" title="tensorrt.ICudaEngine.get_binding_index"><code class="xref py py-func docutils literal notranslate"><span class="pre">ICudaEngine.get_binding_index()</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>batch_size</strong> – The batch size. This is at most the value supplied when the <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> was built.</li>
+<li><strong>bindings</strong> – A list of integers representing input and output buffer addresses for the network.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if execution succeeded.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.execute_async">
+<code class="descname">execute_async</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext, batch_size: int = 1, bindings: List[int], stream_handle: int, input_consumed: capsule = None</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.execute_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously execute inference on a batch.
+This method requires a array of input and output buffers. The mapping from tensor names to indices can be queried using <code class="xref py py-func docutils literal notranslate"><span class="pre">ICudaEngine::get_binding_index()</span></code> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>batch_size</strong> – The batch size. This is at most the value supplied when the <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> was built.</li>
+<li><strong>bindings</strong> – A list of integers representing input and output buffer addresses for the network.</li>
+<li><strong>stream_handle</strong> – A handle for a CUDA stream on which the inference kernels will be executed.</li>
+<li><strong>input_consumed</strong> – An optional event which will be signaled when the input buffers can be refilled with new data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the kernels were executed successfully.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.execute_async_v2">
+<code class="descname">execute_async_v2</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext, bindings: List[int], stream_handle: int, input_consumed: capsule = None</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.execute_async_v2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously execute inference on a batch.
+This method requires a array of input and output buffers. The mapping from tensor names to indices can be queried using <code class="xref py py-func docutils literal notranslate"><span class="pre">ICudaEngine::get_binding_index()</span></code> .
+This method only works for execution contexts built from networks with no implicit batch dimension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bindings</strong> – A list of integers representing input and output buffer addresses for the network.</li>
+<li><strong>stream_handle</strong> – A handle for a CUDA stream on which the inference kernels will be executed.</li>
+<li><strong>input_consumed</strong> – An optional event which will be signaled when the input buffers can be refilled with new data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the kernels were executed successfully.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.execute_v2">
+<code class="descname">execute_v2</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext, bindings: List[int]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.execute_v2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronously execute inference on a batch.
+This method requires a array of input and output buffers. The mapping from tensor names to indices can be queried using <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine.get_binding_index" title="tensorrt.ICudaEngine.get_binding_index"><code class="xref py py-func docutils literal notranslate"><span class="pre">ICudaEngine.get_binding_index()</span></code></a> .
+This method only works for execution contexts built from networks with no implicit batch dimension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bindings</strong> – A list of integers representing input and output buffer addresses for the network.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if execution succeeded.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.get_binding_shape">
+<code class="descname">get_binding_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext</em>, <em>binding: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.Dims<a class="headerlink" href="#tensorrt.IExecutionContext.get_binding_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dynamic shape of a binding.</p>
+<p>If <a class="reference internal" href="#tensorrt.IExecutionContext.set_binding_shape" title="tensorrt.IExecutionContext.set_binding_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_binding_shape()</span></code></a> has been called on this binding (or if there are no
+dynamic dimensions), all dimensions will be positive. Otherwise, it is necessary to
+call <a class="reference internal" href="#tensorrt.IExecutionContext.set_binding_shape" title="tensorrt.IExecutionContext.set_binding_shape"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_binding_shape()</span></code></a> before <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> or <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> may be called.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">binding</span></code> is out of range, an invalid Dims with nbDims == -1 is returned.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">ICudaEngine.binding_is_input(binding)</span></code> is <code class="xref py py-class docutils literal notranslate"><span class="pre">False</span></code> , then both
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">all_binding_shapes_specified</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">all_shape_inputs_specified</span></code> must be <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code>
+before calling this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> – The binding index.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> object representing the currently selected shape.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.get_shape">
+<code class="descname">get_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext</em>, <em>binding: int</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="headerlink" href="#tensorrt.IExecutionContext.get_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get values of an input shape tensor required for shape calculations or an output tensor produced by shape calculations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> – The binding index of an input tensor for which <code class="docutils literal notranslate"><span class="pre">ICudaEngine.is_shape_binding(binding)</span></code> is true.</td>
+</tr>
+</tbody>
+</table>
+<p>If <code class="docutils literal notranslate"><span class="pre">ICudaEngine.binding_is_input(binding)</span> <span class="pre">==</span> <span class="pre">False</span></code>, then both
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">all_binding_shapes_specified</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">all_shape_inputs_specified</span></code> must be <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code>
+before calling this method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An iterable containing the values of the shape tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.get_strides">
+<code class="descname">get_strides</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext</em>, <em>binding: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.Dims<a class="headerlink" href="#tensorrt.IExecutionContext.get_strides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the strides of the buffer for the given binding.</p>
+<p>Note that strides can be different for different execution contexts with dynamic shapes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> – The binding index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.set_binding_shape">
+<code class="descname">set_binding_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext</em>, <em>binding: int</em>, <em>shape: tensorrt.tensorrt.Dims</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.set_binding_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the dynamic shape of a binding.</p>
+<p>Requires the engine to be built without an implicit batch dimension.
+The binding must be an input tensor, and all dimensions must be compatible with
+the network definition (i.e. only the wildcard dimension -1 can be replaced with a
+new dimension &gt; 0). Furthermore, the dimensions must be in the valid range for the
+currently selected optimization profile.</p>
+<p>For all dynamic non-output bindings (which have at least one wildcard dimension of -1),
+this method needs to be called after setting <code class="xref py py-attr docutils literal notranslate"><span class="pre">active_optimization_profile</span></code> before
+either <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> or <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> may be called. When all input shapes have been
+specified, <code class="xref py py-attr docutils literal notranslate"><span class="pre">all_binding_shapes_specified</span></code> is set to <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binding</strong> – The binding index.</li>
+<li><strong>shape</strong> – The shape to set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">False</span></code> if an error occurs (e.g. index out of range), else <code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> .</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IExecutionContext.set_shape_input">
+<code class="descname">set_shape_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IExecutionContext, binding: int, shape: List[int]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.IExecutionContext.set_shape_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set values of an input shape tensor required by shape calculations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>binding</strong> – The binding index of an input tensor for which <code class="docutils literal notranslate"><span class="pre">ICudaEngine.is_shape_binding(binding)</span></code> and <code class="docutils literal notranslate"><span class="pre">ICudaEngine.binding_is_input(binding)</span></code> are both true.</li>
+<li><strong>shape</strong> – An iterable containing the values of the input shape tensor. The number of values should be the product of the dimensions returned by <code class="docutils literal notranslate"><span class="pre">get_binding_shape(binding)</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <code class="docutils literal notranslate"><span class="pre">ICudaEngine.is_shape_binding(binding)</span></code> and <code class="docutils literal notranslate"><span class="pre">ICudaEngine.binding_is_input(binding)</span></code> are both true, this method must be called before <a class="reference internal" href="#tensorrt.IExecutionContext.execute_async" title="tensorrt.IExecutionContext.execute_async"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute_async()</span></code></a> or <a class="reference internal" href="#tensorrt.IExecutionContext.execute" title="tensorrt.IExecutionContext.execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">execute()</span></code></a> may be called. Additionally, this method must not be called if either <code class="docutils literal notranslate"><span class="pre">ICudaEngine.is_shape_binding(binding)</span></code> or <code class="docutils literal notranslate"><span class="pre">ICudaEngine.binding_is_input(binding)</span></code> are false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> if the values were set successfully.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Runtime.html" class="btn btn-neutral float-right" title="Runtime" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Engine.html" class="btn btn-neutral float-left" title="ICudaEngine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

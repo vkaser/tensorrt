@@ -1,0 +1,16 @@
+==========
+UFF Parser
+==========
+
+.. autodata:: tensorrt.UffInputOrder
+    :annotation:
+
+.. autoclass:: tensorrt.UffParser
+    :members:
+    :special-members:
+
+.. toctree::
+    :hidden:
+
+    Fields
+    Plugins
