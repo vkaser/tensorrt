@@ -1,0 +1,10 @@
+==================
+Foundational Types
+==================
+
+.. toctree::
+    DataType
+    Weights
+    DimensionType
+    Dims
+    HostMemory

@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TensorRT &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started with TensorRT" href="gettingStarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>TensorRT</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tensorrt">
+<h1>TensorRT<a class="headerlink" href="#tensorrt" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started with TensorRT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#samples">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#installing-pycuda">Installing PyCUDA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coreConcepts.html">Core Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coreConcepts.html#tensorrt-workflow">TensorRT Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coreConcepts.html#classes-overview">Classes Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="coreConcepts.html#logger">Logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="coreConcepts.html#engine-and-context">Engine and Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="coreConcepts.html#builder">Builder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="coreConcepts.html#network">Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="coreConcepts.html#parsers">Parsers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="migrationGuide.html">Migrating from TensorRT 4 to 5</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#legacy-compatibility">Legacy Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#create-and-destroy-functions">Create and Destroy Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#data-types">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#getters-and-setters">Getters and Setters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#tensorrt-dims-tensorrt-permutation-behave-like-iterables"><code class="docutils literal notranslate"><span class="pre">tensorrt.Dims</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorrt.Permutation</span></code> Behave Like Iterables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#lightweight-tensorrt-weights">Lightweight <code class="docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#tensorrt-weights-behave-like-numpy-arrays"><code class="docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code> Behave like NumPy Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#tensorrt-caffeparser-returns-numpy-arrays"><code class="docutils literal notranslate"><span class="pre">tensorrt.CaffeParser</span></code> Returns NumPy Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#enqueue-is-now-execute-async"><code class="docutils literal notranslate"><span class="pre">enqueue</span></code> Is Now <code class="docutils literal notranslate"><span class="pre">execute_async</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#keyword-arguments-and-default-parameters">Keyword Arguments and Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#serializing-and-deserializing-engines">Serializing and Deserializing Engines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="migrationGuide.html#serializing-an-engine">Serializing An Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="migrationGuide.html#deserializing-an-engine">Deserializing An Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="migrationGuide.html#migrating-plugins">Migrating Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="migrationGuide.html#using-pybind11">Using Pybind11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="migrationGuide.html#using-the-plugin-registry">Using the Plugin Registry</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer/FoundationalTypes/DataType.html">DataType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/FoundationalTypes/Weights.html">Weights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/FoundationalTypes/DimensionType.html">DimensionType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/FoundationalTypes/Dims.html">Dims</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#volume">Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#id1">Dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dims2">Dims2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dimshw">DimsHW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dims3">Dims3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dimschw">DimsCHW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dims4">Dims4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/FoundationalTypes/Dims.html#dimsnchw">DimsNCHW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="infer/FoundationalTypes/HostMemory.html">IHostMemory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Core/pyCore.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Logger.html">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Profiler.html">Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/OptimizationProfile.html">IOptimizationProfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/NetworkConfig.html">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Builder.html">Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Engine.html">ICudaEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/ExecutionContext.html">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Core/Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Graph/pyGraph.html">Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer/Graph/Network.html">INetworkDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Graph/LayerBase.html">Layer Base Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/LayerBase.html#itensor">ITensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/LayerBase.html#ilayer">ILayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/LayerBase.html#ioutputdimensionsformula">IOutputDimensionsFormula</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Graph/Layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#paddingmode">PaddingMode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iconvolutionlayer">IConvolutionLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ifullyconnectedlayer">IFullyConnectedLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iactivationlayer">IActivationLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ipoolinglayer">IPoolingLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ilrnlayer">ILRNLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iscalelayer">IScaleLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#isoftmaxlayer">ISoftMaxLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iconcatenationlayer">IConcatenationLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ideconvolutionlayer">IDeconvolutionLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ielementwiselayer">IElementWiseLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#igatherlayer">IGatherLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#rnn-layers">RNN Layers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="infer/Graph/Layers.html#irnnlayer">IRNNLayer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infer/Graph/Layers.html#irnnv2layer">IRNNv2Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ipluginlayer">IPluginLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ipluginv2layer">IPluginV2Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iunarylayer">IUnaryLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ireducelayer">IReduceLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ipaddinglayer">IPaddingLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ishufflelayer">IShuffleLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#islicelayer">ISliceLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#ishapelayer">IShapeLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#itopklayer">ITopKLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#imatrixmultiplylayer">IMatrixMultiplyLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iraggedsoftmaxlayer">IRaggedSoftMaxLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iidentitylayer">IIdentityLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iconstantlayer">IConstantLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infer/Graph/Layers.html#iresizelayer">IResizeLayer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Plugin/pyPlugin.html">Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPlugin.html">IPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginExt.html">IPluginExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginV2.html">IPluginV2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginV2Ext.html">IPluginV2Ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginCreator.html">IPluginCreator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginRegistry.html">IPluginRegistry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Plugin/IPluginFactory.html">IPluginFactory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Int8/pyInt8.html">Int8</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer/Int8/Calibrator.html">IInt8Calibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Int8/LegacyCalibrator.html">IInt8LegacyCalibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Int8/EntropyCalibrator.html">IInt8EntropyCalibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Int8/EntropyCalibrator2.html">IInt8EntropyCalibrator2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer/Int8/MinMaxCalibrator.html">IInt8MinMaxCalibrator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uff/uff.html">UFF Converter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uff/uff.html#conversion-tools">Conversion Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/uff.html#tensorflow-modelstream-to-uff">Tensorflow Modelstream to UFF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/uff.html#tensorflow-frozen-protobuf-model-to-uff">Tensorflow Frozen Protobuf Model to UFF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uff/Operators.html">UFF Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#input">Input</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#supported-datatypes">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#identity">Identity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id1">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#const">Const</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id2">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#conv">Conv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id3">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id4">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#convtranspose">ConvTranspose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id5">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id6">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id7">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#pool">Pool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id8">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id9">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id10">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#fullyconnected">FullyConnected</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id11">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id12">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#lrn">LRN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id13">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id14">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id15">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#binary">Binary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id16">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id17">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id18">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#unary">Unary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id19">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id20">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id21">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#reshape">Reshape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id22">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id23">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#expanddims">ExpandDims</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id24">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id25">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id26">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#argmax">ArgMax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id27">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id28">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id29">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#argmin">ArgMin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id30">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id31">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id32">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#transpose">Transpose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id33">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id34">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id35">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#reduce">Reduce</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id36">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id37">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id38">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#concat">Concat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id39">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id40">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id41">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#markoutput">MarkOutput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id42">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id43">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#activation">Activation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id44">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id45">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id46">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#softmax">Softmax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id47">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id48">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id49">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#batchnorm">BatchNorm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id50">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id51">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id52">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#shape">Shape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id53">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id54">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#stridedslice">StridedSlice</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id55">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id56">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id57">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#stack">Stack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id58">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id59">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id60">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#squeeze">Squeeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#flatten">Flatten</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id61">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id62">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#pad">Pad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id63">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id64">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#gather">Gather</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id65">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id66">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uff/Operators.html#gatherv2">GatherV2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id67">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id68">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uff/Operators.html#id69">Supported Datatypes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graphsurgeon/graphsurgeon.html">Graph Surgeon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="graphsurgeon/graphsurgeon.html#node-creation">Node Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphsurgeon/graphsurgeon.html#static-graph">Static Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphsurgeon/graphsurgeon.html#dynamic-graph-inherits-from-staticgraph">Dynamic Graph (Inherits from StaticGraph)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gettingStarted.html" class="btn btn-neutral float-right" title="Getting Started with TensorRT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

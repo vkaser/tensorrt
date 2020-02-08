@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Migrating from TensorRT 4 to 5 &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Foundational Types" href="infer/FoundationalTypes/pyFoundationalTypes.html" />
+    <link rel="prev" title="Core Concepts" href="coreConcepts.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migrating from TensorRT 4 to 5</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#legacy-compatibility">Legacy Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-and-destroy-functions">Create and Destroy Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-types">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getters-and-setters">Getters and Setters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tensorrt-dims-tensorrt-permutation-behave-like-iterables"><code class="docutils literal notranslate"><span class="pre">tensorrt.Dims</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorrt.Permutation</span></code> Behave Like Iterables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lightweight-tensorrt-weights">Lightweight <code class="docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tensorrt-weights-behave-like-numpy-arrays"><code class="docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code> Behave like NumPy Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tensorrt-caffeparser-returns-numpy-arrays"><code class="docutils literal notranslate"><span class="pre">tensorrt.CaffeParser</span></code> Returns NumPy Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enqueue-is-now-execute-async"><code class="docutils literal notranslate"><span class="pre">enqueue</span></code> Is Now <code class="docutils literal notranslate"><span class="pre">execute_async</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#keyword-arguments-and-default-parameters">Keyword Arguments and Default Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serializing-and-deserializing-engines">Serializing and Deserializing Engines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serializing-an-engine">Serializing An Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deserializing-an-engine">Deserializing An Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-plugins">Migrating Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-pybind11">Using Pybind11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-plugin-registry">Using the Plugin Registry</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Migrating from TensorRT 4 to 5</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="migrating-from-tensorrt-4-to-5">
+<h1>Migrating from TensorRT 4 to 5<a class="headerlink" href="#migrating-from-tensorrt-4-to-5" title="Permalink to this headline">¶</a></h1>
+<p>TensorRT 5.0 includes an all new Python API. The python bindings have been entirely rewritten,
+and significant changes and improvements were made. This page highlights some of these changes and outlines
+the steps you can take to migrate your existing Python code to TensorRT 5.</p>
+<div class="section" id="legacy-compatibility">
+<h2>Legacy Compatibility<a class="headerlink" href="#legacy-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to continue using the legacy API by importing the TensorRT legacy package.
+Simply replace <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tensorrt</span> <span class="pre">as</span> <span class="pre">trt</span></code> (for example) with <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tensorrt.legacy</span> <span class="pre">as</span> <span class="pre">trt</span></code> in your scripts.
+Eventually, legacy support will be dropped, so it is still advisable to migrate to the new API.</p>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<p>The new API removes the <code class="docutils literal notranslate"><span class="pre">infer</span></code>, <code class="docutils literal notranslate"><span class="pre">parsers</span></code>, <code class="docutils literal notranslate"><span class="pre">utils</span></code>, and <code class="docutils literal notranslate"><span class="pre">lite</span></code> submodules. Instead, all functionality is now included in the top-level <code class="docutils literal notranslate"><span class="pre">tensorrt</span></code> module.</p>
+</div>
+<div class="section" id="create-and-destroy-functions">
+<h2>Create and Destroy Functions<a class="headerlink" href="#create-and-destroy-functions" title="Permalink to this headline">¶</a></h2>
+<p>The new API no longer includes create and destroy functions. Constructors are used for object creation and
+destruction is instead handling by scoping (that is, when an object goes out of scope,
+the garbage collecter can free it). It is also possible to destroy objects manually with
+<code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">trt_object</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">del</span></code> only decrements the reference count of the object
+- it is still up to the garbage collecter to free it. If you really want to free memory immediately, you can instead
+invoke the object’s <code class="docutils literal notranslate"><span class="pre">__del__</span></code> function.</p>
+<p>The above changes apply to the following classes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Legacy API</td>
+<td>New API</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">G_LOGGER</span> <span class="pre">=</span> <span class="pre">trt.infer.ConsoleLogger(trt.infer.LogSeverity.WARNING)</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">TRT_LOGGER</span> <span class="pre">=</span> <span class="pre">trt.Logger(trt.Logger.WARNING)</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">builder</span> <span class="pre">=</span> <span class="pre">trt.infer.create_infer_builder(logger)</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">builder</span> <span class="pre">=</span> <span class="pre">trt.Builder(logger)</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">runtime</span> <span class="pre">=</span> <span class="pre">trt.infer.create_infer_runtime(logger)</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">runtime</span> <span class="pre">=</span> <span class="pre">trt.Runtime(logger)</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">parser</span> <span class="pre">=</span> <span class="pre">trt.parsers.caffeparser.create_caffe_parser()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">parser</span> <span class="pre">=</span> <span class="pre">trt.CaffeParser()</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">parser</span> <span class="pre">=</span> <span class="pre">trt.parsers.uffparser.create_uff_parser()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">parser</span> <span class="pre">=</span> <span class="pre">trt.UffParser()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">parser.destroy()</span></code> # Or any other TensorRT object</td>
+<td><code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">parser</span></code> # with … as … clauses strongly preferred (see below)</td>
+</tr>
+</tbody>
+</table>
+<p>It is generally advisable to scope objects using <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">...</span> <span class="pre">as</span> <span class="pre">...</span></code> clauses.
+TensorRT classes implement <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> in such a way that
+instances are destroyed immediately. Therefore, unlike the <code class="docutils literal notranslate"><span class="pre">del</span></code> operator,
+<code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">...</span> <span class="pre">as</span> <span class="pre">...</span></code> clauses free memory immediately when a TensorRT object goes out of scope.</p>
+<p>For example, building an engine from an ONNX file using <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">...</span> <span class="pre">as</span> <span class="pre">...</span></code> might look something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorrt</span> <span class="k">as</span> <span class="nn">trt</span>
+
+<span class="n">TRT_LOGGER</span> <span class="o">=</span> <span class="n">trt</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">trt</span><span class="o">.</span><span class="n">Logger</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+<span class="n">ONNX_MODEL</span> <span class="o">=</span> <span class="s2">&quot;mnist.onnx&quot;</span>
+
+<span class="k">def</span> <span class="nf">build_engine</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">trt</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span><span class="n">TRT_LOGGER</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">create_network</span><span class="p">()</span> <span class="k">as</span> <span class="n">network</span><span class="p">,</span> <span class="n">trt</span><span class="o">.</span><span class="n">OnnxParser</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">TRT_LOGGER</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
+        <span class="c1"># Configure the builder here.</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">max_workspace_size</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">30</span>
+        <span class="c1"># Parse the model to create a network.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ONNX_MODEL</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="c1"># Build and return the engine. Note that the builder, network and parser are destroyed when this function returns.</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build_cuda_engine</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<p>Data types have been given short-hand aliases to better align with naming conventions established by Python libraries such as NumPy.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Legacy API</td>
+<td>New API</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">trt.infer.DataType.FLOAT</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">trt.float32</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">trt.infer.DataType.HALF</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">trt.float16</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">trt.infer.DataType.INT32</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">trt.int32</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">trt.infer.DataType.INT8</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">trt.int8</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="getters-and-setters">
+<h2>Getters and Setters<a class="headerlink" href="#getters-and-setters" title="Permalink to this headline">¶</a></h2>
+<p>Where possible, the new API exposes attributes rather than getters and setters.
+Importantly, getters that take an argument, and setters that either take multiple arguments or
+have a return value have been preserved, as these do not correspond directly to a single object attribute.</p>
+<p>In general, attribute and function names align with NumPy naming conventions.
+That is, <code class="docutils literal notranslate"><span class="pre">shape</span></code> is used in place of <code class="docutils literal notranslate"><span class="pre">get_dimensions</span></code>, <code class="docutils literal notranslate"><span class="pre">dtype</span></code> instead of <code class="docutils literal notranslate"><span class="pre">get_type</span></code>,
+<code class="docutils literal notranslate"><span class="pre">nbytes</span></code> instead of <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">num</span></code> instead of <code class="docutils literal notranslate"><span class="pre">nb</span></code> and so on.</p>
+<p>In most cases, it is enough to simply drop the <code class="docutils literal notranslate"><span class="pre">get_</span></code> or <code class="docutils literal notranslate"><span class="pre">set_</span></code> prefix:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Legacy API</td>
+<td>New API</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">builder.set_fp16_mode(True)</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">builder.fp16_mode</span> <span class="pre">=</span> <span class="pre">True</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">int8_mode</span> <span class="pre">=</span> <span class="pre">builder.get_int8_mode()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">int8_mode</span> <span class="pre">=</span> <span class="pre">builder.int8_mode</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">builder.set_max_workspace_size(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">20)</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">builder.max_workspace_size</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">20</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>In other cases, you can apply the aforementioned rules:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Legacy API</td>
+<td>New API</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">num_inputs</span> <span class="pre">=</span> <span class="pre">network.get_nb_inputs()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">num_inputs</span> <span class="pre">=</span> <span class="pre">network.num_inputs</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">input_shape</span> <span class="pre">=</span> <span class="pre">network.get_input(0).get_dimensions()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">input_shape</span> <span class="pre">=</span> <span class="pre">network.get_input(0).shape</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">input_type</span> <span class="pre">=</span> <span class="pre">network.get_input(0).get_type()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">input_type</span> <span class="pre">=</span> <span class="pre">network.get_input(0).dtype</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tensorrt-dims-tensorrt-permutation-behave-like-iterables">
+<h2><a class="reference internal" href="infer/FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Dims</span></code></a>, <a class="reference internal" href="infer/Graph/Layers.html#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Permutation</span></code></a> Behave Like Iterables<a class="headerlink" href="#tensorrt-dims-tensorrt-permutation-behave-like-iterables" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="infer/FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Dims</span></code></a> class, and all its subclasses as well as the <a class="reference internal" href="infer/Graph/Layers.html#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Permutation</span></code></a>
+class are interchangeable with Python iterables (such as tuples and lists).</p>
+<p>Where previously you would have written code like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legacy API</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_input</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get_dimensions</span><span class="p">()</span><span class="o">.</span><span class="n">to_DimsCHW</span><span class="p">()</span> <span class="c1"># Need to explicitly convert to DimsCHW.</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">C</span><span class="p">(),</span> <span class="n">dims</span><span class="o">.</span><span class="n">H</span><span class="p">(),</span> <span class="n">dims</span><span class="o">.</span><span class="n">W</span><span class="p">()))</span> <span class="c1"># Cannot directly use Dims where iterables are expected.</span>
+
+<span class="n">dims2</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_binding_dimensions</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_DimsCHW</span><span class="p">()</span>
+<span class="c1"># Compute volume. This will differ between different subclasses of Dims.</span>
+<span class="n">elt_count</span> <span class="o">=</span> <span class="n">dims2</span><span class="o">.</span><span class="n">vol</span><span class="p">()</span> <span class="c1"># This will not work for DimsHW or DimsNCHW, for example.</span>
+<span class="c1"># Or equivalently,</span>
+<span class="n">elt_count</span> <span class="o">=</span> <span class="n">dims2</span><span class="o">.</span><span class="n">C</span><span class="p">()</span> <span class="o">*</span> <span class="n">dims2</span><span class="o">.</span><span class="n">H</span><span class="p">()</span> <span class="o">*</span> <span class="n">dims2</span><span class="o">.</span><span class="n">W</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It is now possible to write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># New API</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_input</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># All Dims subclasses behave like iterables, so we don&#39;t care about the exact subclass.</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">dims</span><span class="p">)</span> <span class="c1"># Dims act exactly like any other iterable.</span>
+
+<span class="n">dims2</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_binding_shape</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Compute volume.  Works for any iterable, including lists and tuples.</span>
+<span class="n">elt_count</span> <span class="o">=</span> <span class="n">trt</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">dims2</span><span class="p">)</span>
+<span class="c1"># Or equivalently,</span>
+<span class="n">elt_count</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">dims2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="lightweight-tensorrt-weights">
+<h2>Lightweight <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a><a class="headerlink" href="#lightweight-tensorrt-weights" title="Permalink to this headline">¶</a></h2>
+<p>Previously, the <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> class would perform deep-copies of any buffers used to create weights.
+To better align with the C++ API, and for the sake of efficiency, the new bindings no longer create
+these deep copies, but instead increment the reference count of the existing buffer.
+Therefore, modifying the buffer used to create a <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> object
+will also modify the <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> object.</p>
+<p>Note that the <a class="reference internal" href="infer/Core/Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.ICudaEngine</span></code></a> will still create its own copies of weights internally.
+The above only applies to <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> created before engine construction (when using the Network API, for example).</p>
+</div>
+<div class="section" id="tensorrt-weights-behave-like-numpy-arrays">
+<h2><a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> Behave like NumPy Arrays<a class="headerlink" href="#tensorrt-weights-behave-like-numpy-arrays" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> class is now interchangeable with NumPy arrays.
+More concretely, this means that NumPy arrays can be used directly wherever
+<a class="reference internal" href="infer/FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.Weights</span></code></a> objects are expected - no explicit conversion required.
+Furthermore, the API now returns NumPy arrays instead of Weights objects.</p>
+</div>
+<div class="section" id="tensorrt-caffeparser-returns-numpy-arrays">
+<h2><a class="reference internal" href="parsers/Caffe/pyCaffe.html#tensorrt.CaffeParser" title="tensorrt.CaffeParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.CaffeParser</span></code></a> Returns NumPy Arrays<a class="headerlink" href="#tensorrt-caffeparser-returns-numpy-arrays" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">parse_binary_proto</span></code> function of the <a class="reference internal" href="parsers/Caffe/pyCaffe.html#tensorrt.CaffeParser" title="tensorrt.CaffeParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.CaffeParser</span></code></a> now returns NumPy arrays instead of <code class="docutils literal notranslate"><span class="pre">BinaryProtoBlob</span></code> objects.</p>
+</div>
+<div class="section" id="enqueue-is-now-execute-async">
+<h2><code class="docutils literal notranslate"><span class="pre">enqueue</span></code> Is Now <code class="docutils literal notranslate"><span class="pre">execute_async</span></code><a class="headerlink" href="#enqueue-is-now-execute-async" title="Permalink to this headline">¶</a></h2>
+<p>To better match CUDA naming conventions, <a class="reference internal" href="infer/Core/ExecutionContext.html#tensorrt.IExecutionContext" title="tensorrt.IExecutionContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.IExecutionContext</span></code></a> ‘s <code class="docutils literal notranslate"><span class="pre">enqueue</span></code> function has been renamed to <code class="docutils literal notranslate"><span class="pre">execute_async</span></code>.</p>
+</div>
+<div class="section" id="keyword-arguments-and-default-parameters">
+<h2>Keyword Arguments and Default Parameters<a class="headerlink" href="#keyword-arguments-and-default-parameters" title="Permalink to this headline">¶</a></h2>
+<p>All functions and constructors in the new API now use named parameters.
+Additionally, they include default arguments where possible to better mirror the C++ API.</p>
+<p>Where previously, you had to order function parameters correctly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Legacy API</span>
+<span class="n">context</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">bindings</span><span class="p">,</span> <span class="n">stream</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can now use keyword arguments instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># New API</span>
+<span class="n">context</span><span class="o">.</span><span class="n">execute_async</span><span class="p">(</span><span class="n">stream_handle</span><span class="o">=</span><span class="n">stream</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">bindings</span><span class="o">=</span><span class="n">bindings</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="serializing-and-deserializing-engines">
+<h2>Serializing and Deserializing Engines<a class="headerlink" href="#serializing-and-deserializing-engines" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="infer/FoundationalTypes/HostMemory.html#tensorrt.IHostMemory" title="tensorrt.IHostMemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.IHostMemory</span></code></a> class now implements Python’s buffer interface.
+This means that serialized engines can be treated like any other Python buffer.</p>
+<div class="section" id="serializing-an-engine">
+<h3>Serializing An Engine<a class="headerlink" href="#serializing-an-engine" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># New API</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sample.engine&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">serialize</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deserializing-an-engine">
+<h3>Deserializing An Engine<a class="headerlink" href="#deserializing-an-engine" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># New API</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sample.engine&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="n">trt</span><span class="o">.</span><span class="n">Runtime</span><span class="p">(</span><span class="n">TRT_LOGGER</span><span class="p">)</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">deserialize_cuda_engine</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-plugins">
+<h2>Migrating Plugins<a class="headerlink" href="#migrating-plugins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-pybind11">
+<h3>Using Pybind11<a class="headerlink" href="#using-pybind11" title="Permalink to this headline">¶</a></h3>
+<p>SWIG-based wrappers are incompatible with TensorRT’s pybind11-based bindings. In order to migrate existing plugins,
+you need to write a pybind11-based wrapper for the plugin. Typically, this involves writing bindings for the plugin itself,
+as well as the PluginFactory. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide/index.html#fc_plugin_caffe_mnist">fc_plugin_caffe_mnist</a> sample.</p>
+<p>You can refer to the <a class="reference external" href="https://pybind11.readthedocs.io/en/stable/">Pybind11 User Guide</a> for detailed information on pybind11 usage.</p>
+</div>
+<div class="section" id="using-the-plugin-registry">
+<h3>Using the Plugin Registry<a class="headerlink" href="#using-the-plugin-registry" title="Permalink to this headline">¶</a></h3>
+<p>Alternatively, it is possible to bypass the need for bindings completely by using the plugin registry. This involves two steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Build a shared object file for the plugin. Make sure the <code class="docutils literal notranslate"><span class="pre">REGISTER_TENSORRT_PLUGIN</span></code> macro is used in the plugin implementation.</li>
+<li>In python, load the file created above using <code class="docutils literal notranslate"><span class="pre">ctypes.CDLL()</span></code></li>
+</ol>
+</div></blockquote>
+<p>At this point, you can add plugins to your network using the <a class="reference internal" href="infer/Plugin/IPluginRegistry.html#tensorrt.IPluginRegistry" title="tensorrt.IPluginRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.IPluginRegistry</span></code></a>
+which can be retrieved with <a class="reference internal" href="infer/Plugin/IPluginRegistry.html#tensorrt.get_plugin_registry" title="tensorrt.get_plugin_registry"><code class="xref py py-func docutils literal notranslate"><span class="pre">tensorrt.get_plugin_registry()</span></code></a>. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide/index.html#uff_custom_plugin">uff_custom_plugin</a> sample.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="infer/FoundationalTypes/pyFoundationalTypes.html" class="btn btn-neutral float-right" title="Foundational Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="coreConcepts.html" class="btn btn-neutral float-left" title="Core Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

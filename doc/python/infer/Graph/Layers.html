@@ -1,0 +1,1396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Layers &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Plugin" href="../Plugin/pyPlugin.html" />
+    <link rel="prev" title="Layer Base Classes" href="LayerBase.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Core/pyCore.html">Core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyGraph.html">Network</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Network.html">INetworkDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LayerBase.html">Layer Base Classes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#paddingmode">PaddingMode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iconvolutionlayer">IConvolutionLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ifullyconnectedlayer">IFullyConnectedLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iactivationlayer">IActivationLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipoolinglayer">IPoolingLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ilrnlayer">ILRNLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iscalelayer">IScaleLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#isoftmaxlayer">ISoftMaxLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iconcatenationlayer">IConcatenationLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ideconvolutionlayer">IDeconvolutionLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ielementwiselayer">IElementWiseLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#igatherlayer">IGatherLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rnn-layers">RNN Layers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#irnnlayer">IRNNLayer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#irnnv2layer">IRNNv2Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ipluginlayer">IPluginLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipluginv2layer">IPluginV2Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iunarylayer">IUnaryLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ireducelayer">IReduceLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipaddinglayer">IPaddingLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ishufflelayer">IShuffleLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#islicelayer">ISliceLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ishapelayer">IShapeLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#itopklayer">ITopKLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imatrixmultiplylayer">IMatrixMultiplyLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iraggedsoftmaxlayer">IRaggedSoftMaxLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iidentitylayer">IIdentityLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iconstantlayer">IConstantLayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iresizelayer">IResizeLayer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyGraph.html">Network</a> &raquo;</li>
+        
+      <li>Layers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="layers">
+<h1>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="paddingmode">
+<h2>PaddingMode<a class="headerlink" href="#paddingmode" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.PaddingMode">
+<code class="descclassname">tensorrt.</code><code class="descname">PaddingMode</code><a class="headerlink" href="#tensorrt.PaddingMode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Enumerates types of padding available in convolution, deconvolution and pooling layers.</dt>
+<dd><p class="first">Padding mode takes precedence if both <code class="xref py py-attr docutils literal notranslate"><span class="pre">padding_mode</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">pre_padding</span></code> are set.</p>
+<div class="last line-block">
+<div class="line">EXPLICIT* corresponds to explicit padding.</div>
+<div class="line">SAME* implicitly calculates padding such that the output dimensions are the same as the input dimensions. For convolution and pooling,
+output dimensions are determined by ceil(input dimensions, stride).</div>
+<div class="line">CAFFE* corresponds to symmetric padding.</div>
+</div>
+</dd>
+</dl>
+<p>Members:</p>
+<blockquote>
+<div><p>EXPLICIT_ROUND_DOWN : Use explicit padding, rounding the output size down</p>
+<p>EXPLICIT_ROUND_UP : Use explicit padding, rounding the output size up</p>
+<p>SAME_UPPER : Use SAME padding, with <code class="xref py py-attr docutils literal notranslate"><span class="pre">pre_padding</span></code> &lt;= <code class="xref py py-attr docutils literal notranslate"><span class="pre">post_padding</span></code></p>
+<p>SAME_LOWER : Use SAME padding, with <code class="xref py py-attr docutils literal notranslate"><span class="pre">pre_padding</span></code> &gt;= <code class="xref py py-attr docutils literal notranslate"><span class="pre">post_padding</span></code></p>
+<p>CAFFE_ROUND_DOWN : Use CAFFE padding, rounding the output size down</p>
+<p>CAFFE_ROUND_UP : Use CAFFE padding, rounding the output size up</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="iconvolutionlayer">
+<h2>IConvolutionLayer<a class="headerlink" href="#iconvolutionlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IConvolutionLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IConvolutionLayer</code><a class="headerlink" href="#tensorrt.IConvolutionLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convolution layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer performs a correlation operation between 3-dimensional filter with a 4-dimensional tensor to produce another 4-dimensional tensor.</p>
+<p>An optional bias argument is supported, which adds a per-channel constant to each value in the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>kernel_size</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The HW kernel size of the convolution.</li>
+<li><strong>num_output_maps</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of output maps for the convolution.</li>
+<li><strong>stride</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The stride of the convolution. Default: (1, 1)</li>
+<li><strong>padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The padding of the convolution. The input will be zero-padded by this number of elements in the height and width directions. If the padding is asymmetric, this value corresponds to the pre-padding. Default: (0, 0)</li>
+<li><strong>pre_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The pre-padding. The start of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>post_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The post-padding. The end of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>padding_mode</strong> – <a class="reference internal" href="#tensorrt.PaddingMode" title="tensorrt.PaddingMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaddingMode</span></code></a> The padding mode. Padding mode takes precedence if both <code class="xref py py-attr docutils literal notranslate"><span class="pre">IConvolutionLayer.padding_mode</span></code> and either <code class="xref py py-attr docutils literal notranslate"><span class="pre">IConvolutionLayer.pre_padding</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">IConvolutionLayer.post_padding</span></code> are set.</li>
+<li><strong>num_groups</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of groups for a convolution. The input tensor channels are divided into this many groups, and a convolution is executed for each group, using a filter per group. The results of the group convolutions are concatenated to form the output. <strong>Note</strong> When using groups in int8 mode, the size of the groups (i.e. the channel count divided by the group count) must be a multiple of 4 for both input and output. Default: 1.</li>
+<li><strong>kernel</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The kernel weights for the convolution. The weights are specified as a contiguous array in <cite>GKCRS</cite> order, where <cite>G</cite> is the number of groups, <cite>K</cite> the number of output feature maps, <cite>C</cite> the number of input channels, and <cite>R</cite> and <cite>S</cite> are the height and width of the filter.</li>
+<li><strong>bias</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The bias weights for the convolution. Bias is optional. To omit bias, set this to an empty <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> object. The bias is applied per-channel, so the number of weights (if non-zero) must be equal to the number of output feature maps.</li>
+<li><strong>dilation</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The dilation for a convolution. Default: (1, 1)</li>
+<li><strong>kernel_size_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension kernel size of the convolution.</li>
+<li><strong>stride_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension stride of the convolution. Default: (1, …, 1)</li>
+<li><strong>padding_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension padding of the convolution. The input will be zero-padded by this number of elements in each dimension. If the padding is asymmetric, this value corresponds to the pre-padding. Default: (0, …, 0)</li>
+<li><strong>dilation_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension dilation for the convolution. Default: (1, …, 1)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ifullyconnectedlayer">
+<h2>IFullyConnectedLayer<a class="headerlink" href="#ifullyconnectedlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IFullyConnectedLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IFullyConnectedLayer</code><a class="headerlink" href="#tensorrt.IFullyConnectedLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A fully connected layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer expects an input tensor of three or more non-batch dimensions.  The input is automatically reshaped into an <cite>MxV</cite> tensor <cite>X</cite>, where <cite>V</cite> is a product of the last three dimensions and <cite>M</cite> is a product of the remaining dimensions (where the product over 0 dimensions is defined as 1).  For example:</p>
+<ul class="simple">
+<li>If the input tensor has shape <cite>{C, H, W}</cite>, then the tensor is reshaped into <cite>{1, C*H*W}</cite> .</li>
+<li>If the input tensor has shape <cite>{P, C, H, W}</cite>, then the tensor is reshaped into <cite>{P, C*H*W}</cite> .</li>
+</ul>
+<p>The layer then performs:</p>
+<p><span class="math notranslate nohighlight">\(Y := matmul(X, W^T) + bias\)</span></p>
+<p>Where <cite>X</cite> is the <cite>MxV</cite> tensor defined above, <cite>W</cite> is the <cite>KxV</cite> weight tensor of the layer, and <cite>bias</cite> is a row vector size <cite>K</cite> that is broadcasted to <cite>MxK</cite> .  <cite>K</cite> is the number of output channels, and configurable via <code class="xref py py-attr docutils literal notranslate"><span class="pre">IFullyConnectedLayer.num_output_channels</span></code> .  If <cite>bias</cite> is not specified, it is implicitly <cite>0</cite> .</p>
+<p>The <cite>MxK</cite> result <cite>Y</cite> is then reshaped such that the last three dimensions are <cite>{K, 1, 1}</cite> and the remaining dimensions match the dimensions of the input tensor. For example:</p>
+<ul class="simple">
+<li>If the input tensor has shape <cite>{C, H, W}</cite>, then the output tensor will have shape <cite>{K, 1, 1}</cite> .</li>
+<li>If the input tensor has shape <cite>{P, C, H, W}</cite>, then the output tensor will have shape <cite>{P, K, 1, 1}</cite> .</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_output_channels</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of output channels <cite>K</cite> from the fully connected layer.</li>
+<li><strong>kernel</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The kernel weights, given as a <cite>KxC</cite> matrix in row-major order.</li>
+<li><strong>bias</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The bias weights. Bias is optional. To omit bias, set this to an empty <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iactivationlayer">
+<h2>IActivationLayer<a class="headerlink" href="#iactivationlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.ActivationType">
+<code class="descclassname">tensorrt.</code><code class="descname">ActivationType</code><a class="headerlink" href="#tensorrt.ActivationType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of activation to perform.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>RELU : Rectified Linear activation</p>
+<p>SIGMOID : Sigmoid activation</p>
+<p>TANH : Hyperbolic Tangent activation</p>
+<p>LEAKY_RELU : Leaky Relu activation: f(x) = x if x &gt;= 0, f(x) = alpha * x if x &lt; 0</p>
+<p>ELU : Elu activation: f(x) = x if x &gt;= 0, f(x) = alpha * (exp(x) - 1) if x &lt; 0</p>
+<p>SELU : Selu activation: f(x) = beta * x if x &gt; 0, f(x) = beta * (alpha * exp(x) - alpha) if x &lt;= 0</p>
+<p>SOFTSIGN : Softsign activation: f(x) = x / (1 + abs(x))</p>
+<p>SOFTPLUS : Softplus activation: f(x) = alpha * log(exp(beta * x) + 1)</p>
+<p>CLIP : Clip activation: f(x) = max(alpha, min(beta, x))</p>
+<p>HARD_SIGMOID : Hard sigmoid activation: f(x) = max(0, min(1, alpha * x + beta))</p>
+<p>SCALED_TANH : Scaled Tanh activation: f(x) = alpha * tanh(beta * x)</p>
+<p>THRESHOLDED_RELU : Thresholded Relu activation: f(x) = x if x &gt; alpha, f(x) = 0 if x &lt;= alpha</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IActivationLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IActivationLayer</code><a class="headerlink" href="#tensorrt.IActivationLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An Activation layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> . This layer applies a per-element activation function to its input. The output has the same shape as the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> – <a class="reference internal" href="#tensorrt.ActivationType" title="tensorrt.ActivationType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActivationType</span></code></a> The type of activation to be performed.</li>
+<li><strong>alpha</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The alpha parameter that is used by some parametric activations (LEAKY_RELU, ELU, SELU, SOFTPLUS, CLIP, HARD_SIGMOID, SCALED_TANH). Other activations ignore this parameter.</li>
+<li><strong>beta</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The beta parameter that is used by some parametric activations (SELU, SOFTPLUS, CLIP, HARD_SIGMOID, SCALED_TANH). Other activations ignore this parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ipoolinglayer">
+<h2>IPoolingLayer<a class="headerlink" href="#ipoolinglayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.PoolingType">
+<code class="descclassname">tensorrt.</code><code class="descname">PoolingType</code><a class="headerlink" href="#tensorrt.PoolingType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of pooling to perform in a pooling layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>MAX : Maximum over elements</p>
+<p>AVERAGE : Average over elements. If the tensor is padded, the count includes the padding</p>
+<p>MAX_AVERAGE_BLEND : Blending between the max pooling and average pooling: <cite>(1-blendFactor)*maxPool + blendFactor*avgPool</cite></p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IPoolingLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IPoolingLayer</code><a class="headerlink" href="#tensorrt.IPoolingLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Pooling layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> . The layer applies a reduction operation within a window over the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> – <a class="reference internal" href="#tensorrt.PoolingType" title="tensorrt.PoolingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PoolingType</span></code></a> The type of pooling to be performed.</li>
+<li><strong>window_size</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The window size for pooling.</li>
+<li><strong>stride</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The stride for pooling. Default: (1, 1)</li>
+<li><strong>padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The padding for pooling. Default: (0, 0)</li>
+<li><strong>pre_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The pre-padding. The start of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>post_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The post-padding. The end of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>padding_mode</strong> – <a class="reference internal" href="#tensorrt.PaddingMode" title="tensorrt.PaddingMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaddingMode</span></code></a> The padding mode. Padding mode takes precedence if both <code class="xref py py-attr docutils literal notranslate"><span class="pre">IPoolingLayer.padding_mode</span></code> and either <code class="xref py py-attr docutils literal notranslate"><span class="pre">IPoolingLayer.pre_padding</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">IPoolingLayer.post_padding</span></code> are set.</li>
+<li><strong>blend_factor</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The blending factor for the max_average_blend mode: <span class="math notranslate nohighlight">\(max_average_blendPool = (1-blendFactor)*maxPool + blendFactor*avgPool\)</span> . <code class="docutils literal notranslate"><span class="pre">blend_factor</span></code> is a user value in [0,1] with the default value of 0.0. This value only applies for the <code class="xref py py-const docutils literal notranslate"><span class="pre">PoolingType.MAX_AVERAGE_BLEND</span></code> mode.</li>
+<li><strong>average_count_excludes_padding</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether average pooling uses as a denominator the overlap area between the window and the unpadded input. If this is not set, the denominator is the overlap between the pooling window and the padded input. Default: True</li>
+<li><strong>window_size_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension window size for pooling.</li>
+<li><strong>stride_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension stride for pooling. Default: (1, …, 1)</li>
+<li><strong>padding_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension padding for pooling. Default: (0, …, 0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ilrnlayer">
+<h2>ILRNLayer<a class="headerlink" href="#ilrnlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.ILRNLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ILRNLayer</code><a class="headerlink" href="#tensorrt.ILRNLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A LRN layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> . The output size is the same as the input size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>window_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The LRN window size. The window size must be odd and in the range of [1, 15].</li>
+<li><strong>alpha</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The LRN alpha value. The valid range is [-1e20, 1e20].</li>
+<li><strong>beta</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The LRN beta value. The valid range is [0.01, 1e5f].</li>
+<li><strong>k</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> The LRN K value. The valid range is [1e-5, 1e10].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iscalelayer">
+<h2>IScaleLayer<a class="headerlink" href="#iscalelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.ScaleMode">
+<code class="descclassname">tensorrt.</code><code class="descname">ScaleMode</code><a class="headerlink" href="#tensorrt.ScaleMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls how scale is applied in a Scale layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>UNIFORM : Identical coefficients across all elements of the tensor.</p>
+<p>CHANNEL : Per-channel coefficients. The channel dimension is assumed to be the third to last dimension.</p>
+<p>ELEMENTWISE : Elementwise coefficients.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IScaleLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IScaleLayer</code><a class="headerlink" href="#tensorrt.IScaleLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Scale layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer applies a per-element computation to its input:</p>
+<p><span class="math notranslate nohighlight">\(output = (input * scale + shift) ^ power\)</span></p>
+<p>The coefficients can be applied on a per-tensor, per-channel, or per-element basis.</p>
+<p><strong>Note</strong>
+If the number of weights is 0, then a default value is used for shift, power, and scale. The default shift is 0, the default power is 1, and the default scale is 1.</p>
+<p>The output size is the same as the input size.</p>
+<p><strong>Note</strong>
+The input tensor for this layer is required to have a minimum of 3 dimensions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mode</strong> – <a class="reference internal" href="#tensorrt.ScaleMode" title="tensorrt.ScaleMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScaleMode</span></code></a> The scale mode.</li>
+<li><strong>shift</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The shift value.</li>
+<li><strong>scale</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The scale value.</li>
+<li><strong>power</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The power value.</li>
+<li><strong>channel_axis</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The channel axis.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="isoftmaxlayer">
+<h2>ISoftMaxLayer<a class="headerlink" href="#isoftmaxlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.ISoftMaxLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ISoftMaxLayer</code><a class="headerlink" href="#tensorrt.ISoftMaxLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Softmax layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer applies a per-channel softmax to its input.</p>
+<p>The output size is the same as the input size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>axes</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The axes along which softmax is computed. Currently, only one axis can be set. The axis is specified by setting the bit corresponding to the axis, after excluding the batch dimension, to 1. Let’s say we have an NCHW tensor as input (three non-batch dimensions). Bit 0 corresponds to the C dimension boolean. Bit 1 corresponds to the H dimension boolean. Bit 2 corresponds to the W dimension boolean. For example, to perform softmax on axis R of a NPQRCHW input, set bit 2. By default, softmax is performed on the axis which is the number of non-batch axes minus three. It is 0 if there are fewer than 3 non-batch axes. For example, if the input is NCHW, the default axis is C. If the input is NHW, then the default axis is H.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iconcatenationlayer">
+<h2>IConcatenationLayer<a class="headerlink" href="#iconcatenationlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IConcatenationLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IConcatenationLayer</code><a class="headerlink" href="#tensorrt.IConcatenationLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A concatenation layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>The output channel size is the sum of the channel sizes of the inputs.
+The other output sizes are the same as the other input sizes, which must all match.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>axis</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The axis along which concatenation occurs. 0 is the major axis (excluding the batch dimension). The default is the number of non-batch axes in the tensor minus three (e.g. for an NCHW input it would be 0), or 0 if there are fewer than 3 non-batch axes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ideconvolutionlayer">
+<h2>IDeconvolutionLayer<a class="headerlink" href="#ideconvolutionlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IDeconvolutionLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IDeconvolutionLayer</code><a class="headerlink" href="#tensorrt.IDeconvolutionLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A deconvolution layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>kernel_size</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The HW kernel size of the convolution.</li>
+<li><strong>num_output_maps</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of output feature maps for the deconvolution.</li>
+<li><strong>stride</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The stride of the deconvolution. Default: (1, 1)</li>
+<li><strong>padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The padding of the deconvolution. The input will be zero-padded by this number of elements in the height and width directions. Padding is symmetric. Default: (0, 0)</li>
+<li><strong>pre_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The pre-padding. The start of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>post_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The post-padding. The end of input will be zero-padded by this number of elements in the height and width directions. Default: (0, 0)</li>
+<li><strong>padding_mode</strong> – <a class="reference internal" href="#tensorrt.PaddingMode" title="tensorrt.PaddingMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaddingMode</span></code></a> The padding mode. Padding mode takes precedence if both <code class="xref py py-attr docutils literal notranslate"><span class="pre">IDeconvolutionLayer.padding_mode</span></code> and either <code class="xref py py-attr docutils literal notranslate"><span class="pre">IDeconvolutionLayer.pre_padding</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">IDeconvolutionLayer.post_padding</span></code> are set.</li>
+<li><strong>num_groups</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of groups for a deconvolution. The input tensor channels are divided into this many groups, and a deconvolution is executed for each group, using a filter per group. The results of the group convolutions are concatenated to form the output. <strong>Note</strong> When using groups in int8 mode, the size of the groups (i.e. the channel count divided by the group count) must be a multiple of 4 for both input and output. Default: 1</li>
+<li><strong>kernel</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The kernel weights for the deconvolution. The weights are specified as a contiguous array in <cite>CKRS</cite> order, where <cite>C</cite> the number of input channels, <cite>K</cite> the number of output feature maps, and <cite>R</cite> and <cite>S</cite> are the height and width of the filter.</li>
+<li><strong>bias</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The bias weights for the deconvolution. Bias is optional. To omit bias, set this to an empty <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> object. The bias is applied per-feature-map, so the number of weights (if non-zero) must be equal to the number of output feature maps.</li>
+<li><strong>kernel_size_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension kernel size of the convolution.</li>
+<li><strong>stride_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension stride of the deconvolution. Default: (1, …, 1)</li>
+<li><strong>padding_nd</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The multi-dimension padding of the deconvolution. The input will be zero-padded by this number of elements in each dimension. Padding is symmetric. Default: (0, …, 0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ielementwiselayer">
+<h2>IElementWiseLayer<a class="headerlink" href="#ielementwiselayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.ElementWiseOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">ElementWiseOperation</code><a class="headerlink" href="#tensorrt.ElementWiseOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The binary operations that may be performed by an ElementWise layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>SUM : Sum of the two elements</p>
+<p>PROD : Product of the two elements</p>
+<p>MAX : Max of the two elements</p>
+<p>MIN : Min of the two elements</p>
+<p>SUB : Subtract the second element from the first</p>
+<p>DIV : Divide the first element by the second</p>
+<p>POW : The first element to the power of the second element</p>
+<p>FLOOR_DIV : Floor division of the first element by the second</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IElementWiseLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IElementWiseLayer</code><a class="headerlink" href="#tensorrt.IElementWiseLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A elementwise layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer applies a per-element binary operation between corresponding elements of two tensors.</p>
+<p>The input dimensions of the two input tensors must be equal, and the output tensor is the same size as each input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>op</strong> – <a class="reference internal" href="#tensorrt.ElementWiseOperation" title="tensorrt.ElementWiseOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementWiseOperation</span></code></a> The binary operation for the layer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="igatherlayer">
+<h2>IGatherLayer<a class="headerlink" href="#igatherlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IGatherLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IGatherLayer</code><a class="headerlink" href="#tensorrt.IGatherLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A gather layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>axis</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The non-batch dimension axis to gather on. The axis must be less than the number of non-batch dimensions in the data input.</li>
+<li><strong>num_elementwise_dims</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of leading dimensions of indices tensor to be handled elementwise. Must be 0 if there is an implicit batch dimension. It can be 0 or 1 if there is not an implicit batch dimension.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="rnn-layers">
+<h2>RNN Layers<a class="headerlink" href="#rnn-layers" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.RNNOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">RNNOperation</code><a class="headerlink" href="#tensorrt.RNNOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RNN operations that may be performed by an RNN layer.</p>
+<blockquote>
+<div><p><strong>Equation definitions</strong></p>
+<p>In the equations below, we use the following naming convention:</p>
+<div class="line-block">
+<div class="line"><cite>t</cite> := current time step</div>
+<div class="line"><cite>i</cite> := input gate</div>
+<div class="line"><cite>o</cite> := output gate</div>
+<div class="line"><cite>f</cite> := forget gate</div>
+<div class="line"><cite>z</cite> := update gate</div>
+<div class="line"><cite>r</cite> := reset gate</div>
+<div class="line"><cite>c</cite> := cell gate</div>
+<div class="line"><cite>h</cite> := hidden gate</div>
+</div>
+<div class="line-block">
+<div class="line"><cite>g[t]</cite> denotes the output of gate g at timestep <cite>t</cite>, e.g.`f[t]` is the output of the forget gate <cite>f</cite> .</div>
+<div class="line"><cite>X[t]</cite> := input tensor for timestep <cite>t</cite></div>
+<div class="line"><cite>C[t]</cite> := cell state for timestep <cite>t</cite></div>
+<div class="line"><cite>H[t]</cite> := hidden state for timestep <cite>t</cite></div>
+</div>
+<div class="line-block">
+<div class="line"><cite>W[g]</cite> := <cite>W</cite> (input) parameter weight matrix for gate <cite>g</cite></div>
+<div class="line"><cite>R[g]</cite> := <cite>U</cite> (recurrent) parameter weight matrix for gate <cite>g</cite></div>
+<div class="line"><cite>Wb[g]</cite> := <cite>W</cite> (input) parameter bias vector for gate <cite>g</cite></div>
+<div class="line"><cite>Rb[g]</cite> := <cite>U</cite> (recurrent) parameter bias vector for gate <cite>g</cite></div>
+</div>
+<p>Unless otherwise specified, all operations apply pointwise to elements of each operand tensor.</p>
+<div class="line-block">
+<div class="line"><cite>ReLU(X)</cite> := <cite>max(X, 0)</cite></div>
+<div class="line"><cite>tanh(X)</cite> := hyperbolic tangent of <cite>X</cite></div>
+<div class="line"><cite>sigmoid(X)</cite> := <cite>1 / (1 + exp(-X))</cite></div>
+<div class="line"><cite>exp(X)</cite> := <cite>e^X</cite></div>
+<div class="line"><cite>A.B</cite> denotes matrix multiplication of <cite>A</cite> and <cite>B</cite> .</div>
+<div class="line"><cite>A*B</cite> denotes pointwise multiplication of <cite>A</cite> and <cite>B</cite> .</div>
+</div>
+<p><strong>Equations</strong></p>
+<p>Depending on the value of RNNOperation chosen, each sub-layer of the RNN layer will perform one of the following operations:</p>
+<p><strong>RELU</strong></p>
+<p><span class="math notranslate nohighlight">\(H[t] := ReLU(W[i].X[t] + R[i].H[t-1] + Wb[i] + Rb[i])\)</span></p>
+<p><strong>TANH</strong></p>
+<p><span class="math notranslate nohighlight">\(H[t] := tanh(W[i].X[t] + R[i].H[t-1] + Wb[i] + Rb[i])\)</span></p>
+<p><strong>LSTM</strong></p>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(i[t] := sigmoid(W[i].X[t] + R[i].H[t-1] + Wb[i] + Rb[i])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(f[t] := sigmoid(W[f].X[t] + R[f].H[t-1] + Wb[f] + Rb[f])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(o[t] := sigmoid(W[o].X[t] + R[o].H[t-1] + Wb[o] + Rb[o])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(c[t] :=    tanh(W[c].X[t] + R[c].H[t-1] + Wb[c] + Rb[c])\)</span></div>
+</div>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(C[t] := f[t]*C[t-1] + i[t]*c[t]\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(H[t] := o[t]*tanh(C[t])\)</span></div>
+</div>
+<p><strong>GRU</strong></p>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(z[t] := sigmoid(W[z].X[t] + R[z].H[t-1] + Wb[z] + Rb[z])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(r[t] := sigmoid(W[r].X[t] + R[r].H[t-1] + Wb[r] + Rb[r])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(h[t] := tanh(W[h].X[t] + r[t]*(R[h].H[t-1] + Rb[h]) + Wb[h])\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(H[t] := (1 - z[t])*h[t] + z[t]*H[t-1]\)</span></div>
+</div>
+</div></blockquote>
+<p>Members:</p>
+<blockquote>
+<div><p>RELU : Single gate RNN w/ ReLU activation</p>
+<p>TANH : Single gate RNN w/ TANH activation</p>
+<p>LSTM : Four-gate LSTM network w/o peephole connections</p>
+<p>GRU : Three-gate network consisting of Gated Recurrent Units</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="tensorrt.RNNDirection">
+<code class="descclassname">tensorrt.</code><code class="descname">RNNDirection</code><a class="headerlink" href="#tensorrt.RNNDirection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RNN direction that may be performed by an RNN layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>UNIDIRECTION : Network iterates from first input to last input</p>
+<p>BIDIRECTION : Network iterates from first to last (and vice versa) and outputs concatenated</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="tensorrt.RNNInputMode">
+<code class="descclassname">tensorrt.</code><code class="descname">RNNInputMode</code><a class="headerlink" href="#tensorrt.RNNInputMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RNN input modes that may occur with an RNN layer.</p>
+<blockquote>
+<div><p>If the RNN is configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.LINEAR</span></code> , then for each gate <cite>g</cite> in the first layer of the RNN,
+the input vector <cite>X[t]</cite> (length <cite>E</cite>) is left-multiplied by the gate’s corresponding weight matrix <cite>W[g]</cite>
+(dimensions <cite>HxE</cite>) as usual, before being used to compute the gate output as described by <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> .</p>
+<p>If the RNN is configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.SKIP</span></code> , then this initial matrix multiplication is “skipped”
+and <cite>W[g]</cite> is conceptually an identity matrix. In this case, the input vector <cite>X[t]</cite> must have length <cite>H</cite>
+(the size of the hidden state).</p>
+</div></blockquote>
+<p>Members:</p>
+<blockquote>
+<div><p>LINEAR : Perform the normal matrix multiplication in the first recurrent layer</p>
+<p>SKIP : No operation is performed on the first recurrent layer</p>
+</div></blockquote>
+</dd></dl>
+
+<div class="section" id="irnnlayer">
+<h3>IRNNLayer<a class="headerlink" href="#irnnlayer" title="Permalink to this headline">¶</a></h3>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 4.0.</span></p>
+</div>
+<dl class="class">
+<dt id="tensorrt.IRNNLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IRNNLayer</code><a class="headerlink" href="#tensorrt.IRNNLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An RNN layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer applies an RNN operation on the inputs.</p>
+<p><strong>Deprecated</strong> This interface is superseded by IRNNv2Layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_layers</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of layers in the RNN.</li>
+<li><strong>hidden_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The size of the hidden layers.</li>
+<li><strong>max_seq_length</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The sequence length. This is the maximum number of input tensors that the RNN can process at once.</li>
+<li><strong>op</strong> – <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> The operation of the RNN layer.</li>
+<li><strong>input_mode</strong> – <a class="reference internal" href="#tensorrt.RNNInputMode" title="tensorrt.RNNInputMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNInputMode</span></code></a> The input mode of the RNN layer.</li>
+<li><strong>direction</strong> – <a class="reference internal" href="#tensorrt.RNNDirection" title="tensorrt.RNNDirection"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNDirection</span></code></a> the direction of the RNN layer. The direction determines if the RNN is run as a unidirectional(left to right) or bidirectional(left to right and right to left). In the <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.BIDIRECTION</span></code> case the output is concatenated together, resulting in output size of 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> .</li>
+<li><strong>weights</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The weight parameters for the RNN. For more information, see <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/tensorrt-api/c_api/classnvinfer1_1_1_i_r_n_n_layer.html#a9333d560e68d49cbf60ba34d8872abf1">IRNNLayer::setWeights()</a>.</li>
+<li><strong>bias</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The bias parameter vector for the RNN layer. For more information see <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/tensorrt-api/c_api/classnvinfer1_1_1_i_r_n_n_layer.html#ae1a1d9599294c990d281a80ca684f1f0">IRNNLayer::setBias()</a>.</li>
+<li><strong>data_length</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The length of the data being processed by the RNN for use in computing other values.</li>
+<li><strong>hidden_state</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> the initial hidden state of the RNN with the provided hidden ITensor.
+The layout for hidden is a linear layout of a 3D matrix:
+C - The number of layers in the RNN, it must match <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code> .
+H - The number of mini-batches for each time sequence.
+W - The size of the per layer hidden states, it must match <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> .
+The amount of space required is doubled if <code class="xref py py-attr docutils literal notranslate"><span class="pre">direction</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.BIDIRECTION</span></code> with the bidirectional states coming after the unidirectional states.
+If not specified, then the initial hidden state is set to zero.</li>
+<li><strong>cell_state</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> the initial cell state of the RNN with the provided cell ITensor.
+The layout for cell is a linear layout of a 3D matrix:
+C - The number of layers in the RNN, it must match <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code> .
+H - The number of mini-batches for each time sequence.
+W - The size of the per layer hidden states, it must match <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> .
+The amount of space required is doubled if <code class="xref py py-attr docutils literal notranslate"><span class="pre">direction</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.BIDIRECTION</span></code> with the bidirectional states coming after the unidirectional states.
+If not specified, then the initial cell state is set to zero.
+The cell state only affects LSTM RNN’s.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="irnnv2layer">
+<h3>IRNNv2Layer<a class="headerlink" href="#irnnv2layer" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="tensorrt.RNNGateType">
+<code class="descclassname">tensorrt.</code><code class="descname">RNNGateType</code><a class="headerlink" href="#tensorrt.RNNGateType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RNN input modes that may occur with an RNN layer.</p>
+<blockquote>
+<div><p>If the RNN is configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.LINEAR</span></code> , then for each gate <cite>g</cite> in the first layer of the RNN,
+the input vector <cite>X[t]</cite> (length <cite>E</cite>) is left-multiplied by the gate’s corresponding weight matrix <cite>W[g]</cite>
+(dimensions <cite>HxE</cite>) as usual, before being used to compute the gate output as described by <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> .</p>
+<p>If the RNN is configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.SKIP</span></code> , then this initial matrix multiplication is “skipped”
+and <cite>W[g]</cite> is conceptually an identity matrix. In this case, the input vector <cite>X[t]</cite> must have length <cite>H</cite>
+(the size of the hidden state).</p>
+</div></blockquote>
+<p>Members:</p>
+<blockquote>
+<div><p>INPUT : Input Gate</p>
+<p>OUTPUT : Output Gate</p>
+<p>FORGET : Forget Gate</p>
+<p>UPDATE : Update Gate</p>
+<p>RESET : Reset Gate</p>
+<p>CELL : Cell Gate</p>
+<p>HIDDEN : Hidden Gate</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IRNNv2Layer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IRNNv2Layer</code><a class="headerlink" href="#tensorrt.IRNNv2Layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An RNN layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> , version 2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_layers</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The layer count of the RNN.</li>
+<li><strong>hidden_size</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The hidden size of the RNN.</li>
+<li><strong>max_seq_length</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The maximum sequence length of the RNN</li>
+<li><strong>data_length</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The layer count of the RNN.</li>
+<li><strong>seq_lengths</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> Individual sequence lengths in the batch with the <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> provided.
+The <code class="xref py py-attr docutils literal notranslate"><span class="pre">seq_lengths</span></code> <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> should be a {N1, …, Np} tensor, where N1..Np are the index dimensions
+of the input tensor to the RNN.
+If <code class="xref py py-attr docutils literal notranslate"><span class="pre">seq_lengths</span></code> is not specified, then the RNN layer assumes all sequences are size <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_seq_length</span></code> .
+All sequence lengths in <code class="xref py py-attr docutils literal notranslate"><span class="pre">seq_lengths</span></code> should be in the range [1, <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_seq_length</span></code> ]. Zero-length sequences are not supported.
+This tensor must be of type int32.</li>
+<li><strong>op</strong> – <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> The operation of the RNN layer.</li>
+<li><strong>input_mode</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The input mode of the RNN layer.</li>
+<li><strong>direction</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The direction of the RNN layer.</li>
+<li><strong>hidden_state</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> the initial hidden state of the RNN with the provided <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_state</span></code> <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> .
+The <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_state</span></code> <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> should have the dimensions <cite>{N1, …, Np, L, H}</cite>, where:
+<cite>N1..Np</cite> are the index dimensions specified by the input tensor
+<cite>L</cite> is the number of layers in the RNN, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code>
+<cite>H</cite> is the hidden state for each layer, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> if <code class="xref py py-attr docutils literal notranslate"><span class="pre">direction</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.UNIDIRECTION</span></code> , and 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> otherwise.</li>
+<li><strong>cell_state</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> The initial cell state of the LSTM with the provided <code class="xref py py-attr docutils literal notranslate"><span class="pre">cell_state</span></code> <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> .
+The <code class="xref py py-attr docutils literal notranslate"><span class="pre">cell_state</span></code> <a class="reference internal" href="LayerBase.html#tensorrt.ITensor" title="tensorrt.ITensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITensor</span></code></a> should have the dimensions <cite>{N1, …, Np, L, H}</cite>, where:
+<cite>N1..Np</cite> are the index dimensions specified by the input tensor
+<cite>L</cite> is the number of layers in the RNN, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code>
+<cite>H</cite> is the hidden state for each layer, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> if <code class="xref py py-attr docutils literal notranslate"><span class="pre">direction</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.UNIDIRECTION</span></code>, and 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> otherwise.
+It is an error to set this on an RNN layer that is not configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNOperation.LSTM</span></code> .</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IRNNv2Layer.get_bias_for_gate">
+<code class="descname">get_bias_for_gate</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IRNNv2Layer</em>, <em>layer_index: int</em>, <em>gate: tensorrt.tensorrt.RNNGateType</em>, <em>is_w: bool</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#tensorrt.IRNNv2Layer.get_bias_for_gate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bias parameters for an individual gate in the RNN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>layer_index</strong> – The index of the layer that contains this gate.</li>
+<li><strong>gate</strong> – The name of the gate within the RNN layer.</li>
+<li><strong>is_w</strong> – True if the bias parameters are for the input bias Wb[g] and false if they are for the recurrent input bias Rb[g].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The bias parameters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IRNNv2Layer.get_weights_for_gate">
+<code class="descname">get_weights_for_gate</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IRNNv2Layer</em>, <em>layer_index: int</em>, <em>gate: tensorrt.tensorrt.RNNGateType</em>, <em>is_w: bool</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#tensorrt.IRNNv2Layer.get_weights_for_gate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the weight parameters for an individual gate in the RNN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>layer_index</strong> – The index of the layer that contains this gate.</li>
+<li><strong>gate</strong> – The name of the gate within the RNN layer.</li>
+<li><strong>is_w</strong> – True if the weight parameters are for the input matrix W[g] and false if they are for the recurrent input matrix R[g].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The weight parameters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IRNNv2Layer.set_bias_for_gate">
+<code class="descname">set_bias_for_gate</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IRNNv2Layer</em>, <em>layer_index: int</em>, <em>gate: tensorrt.tensorrt.RNNGateType</em>, <em>is_w: bool</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IRNNv2Layer.set_bias_for_gate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the bias parameters for an individual gate in the RNN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>layer_index</strong> – The index of the layer that contains this gate. Refer to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNLayer.weights</span></code> for a description of the layer index.</li>
+<li><strong>gate</strong> – The name of the gate within the RNN layer. The gate name must correspond to one of the gates used by this layer’s <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> .</li>
+<li><strong>is_w</strong> – True if the bias parameters are for the input bias Wb[g] and false if they are for the recurrent input bias Rb[g]. See
+<a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> for equations showing how these bias vectors are used in the RNN gate.</li>
+<li><strong>bias</strong> – The weight structure holding the bias parameters, which should be an array of size <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> .</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.IRNNv2Layer.set_weights_for_gate">
+<code class="descname">set_weights_for_gate</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IRNNv2Layer</em>, <em>layer_index: int</em>, <em>gate: tensorrt.tensorrt.RNNGateType</em>, <em>is_w: bool</em>, <em>weights: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IRNNv2Layer.set_weights_for_gate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the weight parameters for an individual gate in the RNN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>layer_index</strong> – The index of the layer that contains this gate. Refer to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNLayer.weights</span></code> for a description of the layer index.</li>
+<li><strong>gate</strong> – The name of the gate within the RNN layer. The gate name must correspond to one of the gates used by this layer’s <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> .</li>
+<li><strong>is_w</strong> – True if the weight parameters are for the input matrix W[g] and false if they are for the recurrent input matrix R[g]. See <a class="reference internal" href="#tensorrt.RNNOperation" title="tensorrt.RNNOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNOperation</span></code></a> for equations showing how these matrices are used in the RNN gate.</li>
+<li><strong>weights</strong> – The weight structure holding the weight parameters, which are stored as a row-major 2D matrix. Refer to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNLayer.weights</span></code> for documentation on the expected dimensions of this matrix.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="ipluginlayer">
+<h2>IPluginLayer<a class="headerlink" href="#ipluginlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IPluginLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IPluginLayer</code><a class="headerlink" href="#tensorrt.IPluginLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plugin layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>plugin</strong> – <a class="reference internal" href="../Plugin/IPlugin.html#tensorrt.IPlugin" title="tensorrt.IPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPlugin</span></code></a> The plugin for the layer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ipluginv2layer">
+<h2>IPluginV2Layer<a class="headerlink" href="#ipluginv2layer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IPluginV2Layer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IPluginV2Layer</code><a class="headerlink" href="#tensorrt.IPluginV2Layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plugin layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>plugin</strong> – <a class="reference internal" href="../Plugin/IPluginV2.html#tensorrt.IPluginV2" title="tensorrt.IPluginV2"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginV2</span></code></a> The plugin for the layer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iunarylayer">
+<h2>IUnaryLayer<a class="headerlink" href="#iunarylayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.UnaryOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">UnaryOperation</code><a class="headerlink" href="#tensorrt.UnaryOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unary operations that may be performed by a Unary layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>EXP : Exponentiation</p>
+<p>LOG : Log (base e)</p>
+<p>SQRT : Square root</p>
+<p>RECIP : Reciprocal</p>
+<p>ABS : Absolute value</p>
+<p>NEG : Negation</p>
+<p>SIN : Sine</p>
+<p>COS : Cosine</p>
+<p>TAN : Tangent</p>
+<p>SINH : Hyperbolic sine</p>
+<p>COSH : Hyperbolic cosine</p>
+<p>ASIN : Inverse sine</p>
+<p>ACOS : Inverse cosine</p>
+<p>ATAN : Inverse tangent</p>
+<p>ASINH : Inverse hyperbolic sine</p>
+<p>ACOSH : Inverse hyperbolic cosine</p>
+<p>ATANH : Inverse hyperbolic tangent</p>
+<p>CEIL : Ceiling</p>
+<p>FLOOR : Floor</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IUnaryLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IUnaryLayer</code><a class="headerlink" href="#tensorrt.IUnaryLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unary layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>op</strong> – <a class="reference internal" href="#tensorrt.UnaryOperation" title="tensorrt.UnaryOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnaryOperation</span></code></a> The unary operation for the layer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ireducelayer">
+<h2>IReduceLayer<a class="headerlink" href="#ireducelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.ReduceOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">ReduceOperation</code><a class="headerlink" href="#tensorrt.ReduceOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reduce operations that may be performed by a Reduce layer</p>
+<p>Members:</p>
+<blockquote>
+<div><p>SUM :</p>
+<p>PROD :</p>
+<p>MAX :</p>
+<p>MIN :</p>
+<p>AVG :</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IReduceLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IReduceLayer</code><a class="headerlink" href="#tensorrt.IReduceLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reduce layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – <a class="reference internal" href="#tensorrt.ReduceOperation" title="tensorrt.ReduceOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReduceOperation</span></code></a> The reduce operation for the layer.</li>
+<li><strong>axes</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The axes over which to reduce.</li>
+<li><strong>keep_dims</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Specifies whether or not to keep the reduced dimensions for the layer.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ipaddinglayer">
+<h2>IPaddingLayer<a class="headerlink" href="#ipaddinglayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IPaddingLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IPaddingLayer</code><a class="headerlink" href="#tensorrt.IPaddingLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A padding layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pre_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The padding that is applied at the start of the tensor. Negative padding results in trimming the edge by the specified amount.</li>
+<li><strong>post_padding</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.DimsHW" title="tensorrt.DimsHW"><code class="xref py py-class docutils literal notranslate"><span class="pre">DimsHW</span></code></a> The padding that is applied at the end of the tensor. Negative padding results in trimming the edge by the specified amount</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ishufflelayer">
+<h2>IShuffleLayer<a class="headerlink" href="#ishufflelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.Permutation">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Permutation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.Permutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The elements of the permutation. The permutation is applied as outputDimensionIndex = permutation[inputDimensionIndex], so to permute from CHW order to HWC order, the required permutation is [1, 2, 0], and to permute from HWC to CHW, the required permutation is [2, 0, 1].</p>
+<p>It supports iteration and indexing and is implicitly convertible to/from Python iterables (like <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> ). Therefore, you can use those classes in place of <a class="reference internal" href="#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permutation</span></code></a> .</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: tensorrt.tensorrt.Permutation) -&gt; None</li>
+<li>__init__(self: tensorrt.tensorrt.Permutation, arg0: List[int]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IShuffleLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IShuffleLayer</code><a class="headerlink" href="#tensorrt.IShuffleLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A shuffle layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This class shuffles data by applying in sequence: a transpose operation, a reshape operation and a second transpose operation. The dimension types of the output are those of the reshape dimension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>first_transpose</strong> – <a class="reference internal" href="#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permutation</span></code></a> The permutation applied by the first transpose operation. Default: Identity Permutation</li>
+<li><strong>reshape_dims</strong> – <a class="reference internal" href="#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permutation</span></code></a> The reshaped dimensions.
+Two special values can be used as dimensions.
+Value 0 copies the corresponding dimension from input. This special value can be used more than once in the dimensions. If number of reshape dimensions is less than input, 0s are resolved by aligning the most significant dimensions of input.
+Value -1 infers that particular dimension by looking at input and rest of the reshape dimensions. Note that only a maximum of one dimension is permitted to be specified as -1.
+The product of the new dimensions must be equal to the product of the old.</li>
+<li><strong>second_transpose</strong> – <a class="reference internal" href="#tensorrt.Permutation" title="tensorrt.Permutation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permutation</span></code></a> The permutation applied by the second transpose operation. Default: Identity Permutation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="islicelayer">
+<h2>ISliceLayer<a class="headerlink" href="#islicelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.ISliceLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ISliceLayer</code><a class="headerlink" href="#tensorrt.ISliceLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A slice layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>start</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The start offset.</li>
+<li><strong>shape</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The output dimensions.</li>
+<li><strong>stride</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The slicing stride.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.ISliceLayer.set_input">
+<code class="descname">set_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ISliceLayer</em>, <em>index: int</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ISliceLayer.set_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the input tensor for the given index. The index must be 0 for a static slice layer.
+A static slice layer is converted to a dynamic slice layer by calling setInput with an index &gt; 0.
+A dynamic slice layer cannot be converted back to a static slice layer.</p>
+<p>For a dynamic slice layer, the values 0-3 are valid. If an index &gt; 0 is specified, all values between
+index 0 and that index must be dynamic tensors. The values larger than index can use static dimensions.
+For example, if an index of two is specified, the stride tensor can be set via setStride, but the start tensor
+must be specified via setInput as both size and start are converted to dynamic tensors.
+The indices in the dynamic case are as follows:</p>
+<div class="line-block">
+<div class="line">Index | Description</div>
+<div class="line-block">
+<div class="line">0   | Data or Shape tensor to be sliced.</div>
+<div class="line">1   | The start tensor to begin slicing, N-dimensional for Data, and 1-D for Shape.</div>
+<div class="line">2   | The size tensor of the resulting slice, N-dimensional for Data, and 1-D for Shape.</div>
+<div class="line">3   | The stride of the slicing operation, N-dimensional for Data, and 1-D for Shape.</div>
+</div>
+</div>
+<p>If this function is called with a value greater than 0, then the function getNbInputs() changes
+from returning 1 to index + 1. When converting from static to dynamic slice layer,
+all unset tensors, between 1 and index + 1, are initialized to nullptr. It is an error to attempt to build
+a network that has any nullptr inputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – The index of the input tensor.</li>
+<li><strong>tensor</strong> – The input tensor.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ishapelayer">
+<h2>IShapeLayer<a class="headerlink" href="#ishapelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IShapeLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IShapeLayer</code><a class="headerlink" href="#tensorrt.IShapeLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A shape layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> . Used for getting the shape of a tensor.
+This class sets the output to a one-dimensional tensor with the dimensions of the input tensor.</p>
+<p>For example, if the input is a four-dimensional tensor (of any type) with
+dimensions [2,3,5,7], the output tensor is a one-dimensional Int32 tensor
+of length 4 containing the sequence 2, 3, 5, 7.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="itopklayer">
+<h2>ITopKLayer<a class="headerlink" href="#itopklayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.TopKOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">TopKOperation</code><a class="headerlink" href="#tensorrt.TopKOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The operations that may be performed by a TopK layer</p>
+<p>Members:</p>
+<blockquote>
+<div><p>MAX : Maximum of the elements</p>
+<p>MIN : Minimum of the elements</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.ITopKLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ITopKLayer</code><a class="headerlink" href="#tensorrt.ITopKLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TopK layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – <a class="reference internal" href="#tensorrt.TopKOperation" title="tensorrt.TopKOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopKOperation</span></code></a> The operation for the layer.</li>
+<li><strong>k</strong> – <a class="reference internal" href="#tensorrt.TopKOperation" title="tensorrt.TopKOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopKOperation</span></code></a> the k value for the layer. Currently only values up to 25 are supported.</li>
+<li><strong>axes</strong> – <a class="reference internal" href="#tensorrt.TopKOperation" title="tensorrt.TopKOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopKOperation</span></code></a> The axes along which to reduce.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="imatrixmultiplylayer">
+<h2>IMatrixMultiplyLayer<a class="headerlink" href="#imatrixmultiplylayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.MatrixOperation">
+<code class="descclassname">tensorrt.</code><code class="descname">MatrixOperation</code><a class="headerlink" href="#tensorrt.MatrixOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The matrix operations that may be performed by a Matrix layer</p>
+<p>Members:</p>
+<blockquote>
+<div><p>NONE :</p>
+<p>TRANSPOSE : Transpose each matrix</p>
+<p>VECTOR : Treat operand as collection of vectors</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IMatrixMultiplyLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IMatrixMultiplyLayer</code><a class="headerlink" href="#tensorrt.IMatrixMultiplyLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A matrix multiply layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>Let A be op(getInput(0)) and B be op(getInput(1)) where
+op(x) denotes the corresponding MatrixOperation.</p>
+<p>When A and B are matrices or vectors, computes the inner product A * B:</p>
+<div class="line-block">
+<div class="line">matrix * matrix -&gt; matrix</div>
+<div class="line">matrix * vector -&gt; vector</div>
+<div class="line">vector * matrix -&gt; vector</div>
+<div class="line">vector * vector -&gt; scalar</div>
+</div>
+<p>Inputs of higher rank are treated as collections of matrices or vectors.
+The output will be a corresponding collection of matrices, vectors, or scalars.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op0</strong> – <a class="reference internal" href="#tensorrt.MatrixOperation" title="tensorrt.MatrixOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixOperation</span></code></a> How to treat the first input.</li>
+<li><strong>op1</strong> – <a class="reference internal" href="#tensorrt.MatrixOperation" title="tensorrt.MatrixOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixOperation</span></code></a> How to treat the second input.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iraggedsoftmaxlayer">
+<h2>IRaggedSoftMaxLayer<a class="headerlink" href="#iraggedsoftmaxlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IRaggedSoftMaxLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IRaggedSoftMaxLayer</code><a class="headerlink" href="#tensorrt.IRaggedSoftMaxLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A ragged softmax layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>This layer takes a ZxS input tensor and an additional Zx1 bounds tensor holding the lengths of the Z sequences.</p>
+<p>This layer computes a softmax across each of the Z sequences.</p>
+<p>The output tensor is of the same size as the input tensor.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="iidentitylayer">
+<h2>IIdentityLayer<a class="headerlink" href="#iidentitylayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IIdentityLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IIdentityLayer</code><a class="headerlink" href="#tensorrt.IIdentityLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A layer that represents the identity function.</p>
+<p>If tensor precision is explicitly specified, it can be used to transform from one precision to another.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="iconstantlayer">
+<h2>IConstantLayer<a class="headerlink" href="#iconstantlayer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IConstantLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IConstantLayer</code><a class="headerlink" href="#tensorrt.IConstantLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A constant layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>weights</strong> – <a class="reference internal" href="../FoundationalTypes/Weights.html#tensorrt.Weights" title="tensorrt.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> The weights for the layer.</li>
+<li><strong>shape</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The shape of the layer.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="iresizelayer">
+<h2>IResizeLayer<a class="headerlink" href="#iresizelayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.ResizeMode">
+<code class="descclassname">tensorrt.</code><code class="descname">ResizeMode</code><a class="headerlink" href="#tensorrt.ResizeMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Various modes of resize in the resize layer.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>NEAREST : 1D, 2D, and 3D nearest neighbor resizing.</p>
+<p>LINEAR : Can handle linear, bilinear, trilinear resizing.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.IResizeLayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IResizeLayer</code><a class="headerlink" href="#tensorrt.IResizeLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A resize layer in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<p>Resize layer can be used for resizing a N-D tensor.</p>
+<p>Resize layer currently supports the following configurations:</p>
+<ul class="simple">
+<li>ResizeMode::kNEAREST - resizes innermost <cite>m</cite> dimensions of N-D, where 0 &lt; m &lt;= min(3, N) and N &gt; 0.</li>
+<li>ResizeMode::kLINEAR - resizes innermost <cite>m</cite> dimensions of N-D, where 0 &lt; m &lt;= min(3, N) and N &gt; 0.</li>
+</ul>
+<p>Default resize mode is ResizeMode::kNEAREST.</p>
+<p>Resize layer provides two ways to resize tensor dimensions:</p>
+<ul class="simple">
+<li>Set output dimensions directly. It can be done for static as well as dynamic resize layer.
+Static resize layer requires output dimensions to be known at build-time.
+Dynamic resize layer requires output dimensions to be set as one of the input tensors.</li>
+<li>Set scales for resize. Each output dimension is calculated as floor(input dimension * scale).
+Only static resize layer allows setting scales where the scales are known at build-time.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>shape</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The output dimensions. Must to equal to input dimensions size.</li>
+<li><strong>scales</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">List[float]</span></code> List of resize scales.</li>
+<li><strong>resize_mode</strong> – <a class="reference internal" href="#tensorrt.ResizeMode" title="tensorrt.ResizeMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResizeMode</span></code></a> Resize mode can be Linear or Nearest.</li>
+<li><strong>align_corners</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> If True, the centers of the 4 corner pixels of both input and output tensors are aligned. Default: False.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.IResizeLayer.set_input">
+<code class="descname">set_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IResizeLayer</em>, <em>index: int</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.IResizeLayer.set_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the input tensor for the given index.</p>
+<p>If index == 1 and num_inputs == 1, and there is no implicit batch dimension,
+in which case num_inputs changes to 2.
+Once such additional input is set, resize layer works in dynamic mode.
+When index == 1 and num_inputs == 1, the output dimensions are used from
+the input tensor, overriding the dimensions supplied by <cite>shape</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – The index of the input tensor.</li>
+<li><strong>tensor</strong> – The input tensor.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Plugin/pyPlugin.html" class="btn btn-neutral float-right" title="Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="LayerBase.html" class="btn btn-neutral float-left" title="Layer Base Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

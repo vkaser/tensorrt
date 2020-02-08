@@ -1,0 +1,9 @@
+=======
+IPlugin
+=======
+
+.. autodata:: tensorrt.PluginFormat
+    :annotation:
+
+.. autoclass:: tensorrt.IPlugin
+    :members:

@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graph Surgeon &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="UFF Operators" href="../uff/Operators.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graph Surgeon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#node-creation">Node Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-graph">Static Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dynamic-graph-inherits-from-staticgraph">Dynamic Graph (Inherits from StaticGraph)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Graph Surgeon</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graph-surgeon">
+<h1>Graph Surgeon<a class="headerlink" href="#graph-surgeon" title="Permalink to this headline">¶</a></h1>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">graphsurgeon</span></code> allows you to transform TensorFlow graphs. Its capabilities are broadly divided into two categories: search and manipulation. Search functions allow you to find nodes in a TensorFlow graph. Manipulation functions allow you to modify, add, or remove nodes.</p>
+<div class="section" id="node-creation">
+<h2>Node Creation<a class="headerlink" href="#node-creation" title="Permalink to this headline">¶</a></h2>
+<p>Allow you to create free standing TensorFlow nodes, which can be used as stand-ins for plugins.</p>
+<dl class="function">
+<dt id="graphsurgeon.create_node">
+<code class="descclassname">graphsurgeon.</code><code class="descname">create_node</code><span class="sig-paren">(</span><em>name</em>, <em>op=None</em>, <em>trt_plugin=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.create_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a free-standing TensorFlow NodeDef with the specified properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) – The name of the node.</li>
+<li><strong>op</strong> (<em>str</em>) – The node’s operation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>dtype</strong> (<em>tensorflow.DType</em>) – TensorFlow dtype.</li>
+<li><strong>shape</strong> (<em>tuple</em><em>(</em><em>int</em><em>)</em>) – Iterable container (usually a tuple) describing the shape of a tensor.</li>
+<li><strong>inputs</strong> (<em>list</em><em>(</em><em>tensorflow.NodeDef</em><em>) or </em><em>str</em>) – Iterable container (usually a tuple) of input nodes or input node names. Supports mixed-type lists.</li>
+<li><strong>**kwargs</strong> (<em>AttrName=Value</em>) – Any additional fields that should be present in the node. Currently supports int, float, bool, list(int), list(float), str and NumPy arrays. NumPy arrays will be inserted into the “value” attribute of the node - this can be useful for creating constant nodes equivalent to those created by tensorflow.constant.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tensorflow.NodeDef</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="graphsurgeon.create_plugin_node">
+<code class="descclassname">graphsurgeon.</code><code class="descname">create_plugin_node</code><span class="sig-paren">(</span><em>name</em>, <em>op=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.create_plugin_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a free-standing TensorFlow NodeDef with the specified properties. This is similar to <cite>create_node</cite>,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) – The name of the node.</li>
+<li><strong>op</strong> (<em>str</em>) – The node’s operation.</li>
+<li><strong>dtype</strong> (<em>tensorflow.DType</em>) – TensorFlow dtype.</li>
+<li><strong>shape</strong> (<em>tuple</em><em>(</em><em>int</em><em>)</em>) – Iterable container (usually a tuple) describing the shape of a tensor.</li>
+<li><strong>inputs</strong> (<em>list</em><em>(</em><em>tensorflow.NodeDef</em><em>) or </em><em>str</em>) – Iterable container (usually a tuple) of input nodes or input node names. Supports mixed-type lists.</li>
+<li><strong>**kwargs</strong> (<em>AttrName=Value</em>) – Any additional fields that should be present in the node. Currently supports int, float, bool, list(int), list(float) and str.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tensorflow.NodeDef</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="static-graph">
+<h2>Static Graph<a class="headerlink" href="#static-graph" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="graphsurgeon.StaticGraph">
+<em class="property">class </em><code class="descclassname">graphsurgeon.</code><code class="descname">StaticGraph</code><span class="sig-paren">(</span><em>graphdef=None</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acts as a thin wrapper for a read-only TensorFlow GraphDef. Supports indexing based on node name/index as well as iteration over nodes using Python’s <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">node</span> <span class="pre">in</span> <span class="pre">static_graph</span></code> syntax.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>graphdef</strong> (<em>tensorflow.GraphDef/tensorflow.Graph OR graphsurgeon.StaticGraph/graphsurgeon.DynamicGraph OR str</em>) – A TensorFlow GraphDef/Graph or a StaticGraph from which to construct this graph, or a string containing a path to a frozen model.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="graphsurgeon.StaticGraph.node_outputs">
+<code class="descname">node_outputs</code><a class="headerlink" href="#graphsurgeon.StaticGraph.node_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of node names to their respective output nodes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">dict(str, list(tensorflow.NodeDef))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="graphsurgeon.StaticGraph.node_map">
+<code class="descname">node_map</code><a class="headerlink" href="#graphsurgeon.StaticGraph.node_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of node names to their corresponding nodes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">dict(str, tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="graphsurgeon.StaticGraph.graph_outputs">
+<code class="descname">graph_outputs</code><a class="headerlink" href="#graphsurgeon.StaticGraph.graph_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of likely outputs of the graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="graphsurgeon.StaticGraph.graph_inputs">
+<code class="descname">graph_inputs</code><a class="headerlink" href="#graphsurgeon.StaticGraph.graph_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of likely inputs of the graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.as_graph_def">
+<code class="descname">as_graph_def</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.as_graph_def" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns this StaticGraph’s internal TensorFlow GraphDef.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tensorflow.GraphDef</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_node_chains_by_op">
+<code class="descname">find_node_chains_by_op</code><span class="sig-paren">(</span><em>chain</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_node_chains_by_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds groups of nodes in this graph that match the specified sequence of ops. Returns a list of matching chains of nodes, with ordering preserved.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chain</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – The sequence of ops to look for. Should be ordered with the input of the chain as the first element, and the output as the last.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list(list(tensorflow.NodeDef))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_node_inputs">
+<code class="descname">find_node_inputs</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_node_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds input nodes of a given node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>tensorflow.NodeDef</em>) – The node in which to perform the search.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_node_inputs_by_name">
+<code class="descname">find_node_inputs_by_name</code><span class="sig-paren">(</span><em>node</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_node_inputs_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds input nodes of a given node based on their names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node</strong> (<em>tensorflow.NodeDef</em>) – The node in which to perform the search.</li>
+<li><strong>name</strong> (<em>str OR list</em><em>(</em><em>str</em><em>)</em>) – The name to look for. Also accepts iterable containers (preferably a list) to search for multiple names in a single pass. Supports regular expressions.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list(tensorflow.NodeDef)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_node_inputs_by_op">
+<code class="descname">find_node_inputs_by_op</code><span class="sig-paren">(</span><em>node</em>, <em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_node_inputs_by_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds input nodes of a given node based on their ops.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node</strong> (<em>tensorflow.NodeDef</em>) – The node in which to perform the search.</li>
+<li><strong>op</strong> (<em>str OR list</em><em>(</em><em>str</em><em>)</em>) – The op to look for. Also accepts iterable containers (preferably a list) to search for multiple op in a single pass.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list(tensorflow.NodeDef)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_nodes_by_name">
+<code class="descname">find_nodes_by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_nodes_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds nodes in this graph based on their names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str OR list</em><em>(</em><em>str</em><em>)</em>) – The name to look for. Also accepts iterable containers (preferably a list) to search for multiple names in a single pass of the graph. Supports regular expressions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_nodes_by_op">
+<code class="descname">find_nodes_by_op</code><span class="sig-paren">(</span><em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_nodes_by_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds nodes in this graph based on their ops.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>op</strong> (<em>str OR set</em><em>(</em><em>str</em><em>)</em>) – The op to look for. Also accepts iterable containers (preferably hashsets) to search for multiple ops in a single pass of the graph.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.find_nodes_by_path">
+<code class="descname">find_nodes_by_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.find_nodes_by_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds nodes in this graph based on their full paths. This will only match exact paths.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str OR list</em><em>(</em><em>str</em><em>)</em>) – The path to look for. Also accepts iterable containers (preferably a list) to search for multiple paths in a single pass of the graph. Supports regular expressions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list(tensorflow.NodeDef)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a frozen protobuf file into this StaticGraph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) – Name of the protobuf file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the StaticGraph’s internal TensorFlow GraphDef into a frozen protobuf file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) – Name of the protobuf file to write.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.StaticGraph.write_tensorboard">
+<code class="descname">write_tensorboard</code><span class="sig-paren">(</span><em>logdir</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.StaticGraph.write_tensorboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the StaticGraph’s internal TensorFlow GraphDef into the specified directory, which can then be visualized in TensorBoard.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>logdir</strong> (<em>str</em>) – Name of the directory to write.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">Warning</span> <span class="pre">--</span> <span class="pre">Passing</span> <span class="pre">a</span> <span class="pre">`GraphDef`</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">SummaryWriter</span> <span class="pre">is</span> <span class="pre">deprecated.</span> <span class="pre">Pass</span> <span class="pre">a</span> <span class="pre">`Graph`</span> <span class="pre">object</span> <span class="pre">instead,</span> <span class="pre">such</span> <span class="pre">as</span> <span class="pre">`sess.graph`.</span></code> This is a known warning, but currently there is no alternative, since TensorFlow will not be able to convert invalid GraphDefs back to Graphs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dynamic-graph-inherits-from-staticgraph">
+<h2>Dynamic Graph (Inherits from StaticGraph)<a class="headerlink" href="#dynamic-graph-inherits-from-staticgraph" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="graphsurgeon.DynamicGraph">
+<em class="property">class </em><code class="descclassname">graphsurgeon.</code><code class="descname">DynamicGraph</code><span class="sig-paren">(</span><em>graphdef=None</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>A sub-class of StaticGraph that can search and modify a TensorFlow GraphDef.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>graphdef</strong> (<em>tensorflow.GraphDef/tensorflow.Graph OR graphsurgeon.StaticGraph/graphsurgeon.DynamicGraph OR str</em>) – A TensorFlow GraphDef/Graph or a StaticGraph/DynamicGraph from which to construct this graph, or a string containing the path to a frozen model.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="graphsurgeon.DynamicGraph.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends a node to this graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<em>tensorflow.NodeDef</em>) – TensorFlow NodeDef to add to the graph.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.DynamicGraph.collapse_namespaces">
+<code class="descname">collapse_namespaces</code><span class="sig-paren">(</span><em>namespace_map</em>, <em>exclude_nodes=[]</em>, <em>unique_inputs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph.collapse_namespaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collapses nodes in namespaces to single nodes specified by the user, except where those nodes are marked for exclusion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>namespace_map</strong> (<em>dict</em><em>(</em><em>str</em><em>, </em><em>tensorflow.NodeDef</em><em>)</em>) – A dictionary specifying namespaces and their corresponding plugin nodes. These plugin nodes are typically used to specify attributes of the custom plugin, while inputs and outputs are automatically deduced. Multiple namespaces can be collapsed into a single plugin node, and nested namespaces are collapsed into plugin nodes outside their parent namespaces.</li>
+<li><strong>exclude_nodes</strong> (<em>list</em><em>(</em><em>tensorflow.NodeDef</em><em>)</em>) – Iterable container (usually a list) of nodes which should NOT be collapsed. These nodes will be present in the final graph as either inputs or outputs of the plugin nodes.</li>
+<li><strong>unique_inputs</strong> (<em>bool</em>) – Whether inputs to the collapsed node should be unique. If this is false, plugin nodes may have duplicate inputs.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.DynamicGraph.extend">
+<code class="descname">extend</code><span class="sig-paren">(</span><em>node_list</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends this graph’s nodes based on the provided list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node_list</strong> (<em>list</em><em>(</em><em>tensorflow.NodeDef</em><em>)</em>) – List of TensorFlow NodeDefs to add to the graph.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.DynamicGraph.forward_inputs">
+<code class="descname">forward_inputs</code><span class="sig-paren">(</span><em>nodes</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph.forward_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes nodes from this graph. Recursively forwards inputs, such that paths in the graph are preserved.</p>
+<p><strong>Warning</strong>: Nodes with control inputs are not removed, so as not to break the structure of the graph. If you need to forward these, remove their control inputs first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nodes</strong> (<em>list</em><em>(</em><em>tensorflow.NodeDef</em><em>)</em><em>)</em>) – Iterable container (usually a list) of nodes which should be removed and whose inputs forwarded.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphsurgeon.DynamicGraph.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>nodes</em>, <em>remove_exclusive_dependencies=False</em><span class="sig-paren">)</span><a class="headerlink" href="#graphsurgeon.DynamicGraph.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes nodes from this graph. Does not forward inputs, so paths in the graph could be broken.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nodes</strong> – A list of nodes or node names or
+a singleton node or node name to be removed</li>
+<li><strong>remove_exclusive_dependencies</strong> (<em>bool</em>) – Whether to also remove dependencies exclusive to the nodes about to be removed. When set to True, all exclusive dependencies will be removed recursively, and the number of hanging nodes in the graph will remain constant. Defaults to False.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../uff/Operators.html" class="btn btn-neutral float-left" title="UFF Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+=============================
+Getting Started with TensorRT
+=============================
+
+.. TODO: The following subsections depend on how we decide to package TRT. Will need to wait for that decision before completing.
+
+Installation
+------------
+.. TODO: This section should describe how to install TRT and its dependencies.
+
+For installation instructions, please refer to https://docs.nvidia.com/deeplearning/sdk/tensorrt-install-guide/index.html
+
+Samples
+-------
+.. TODO: This section should describe where the samples are located.
+
+For information about samples, please refer to https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide/index.html#python_samples_section
+
+Installing PyCUDA
+-----------------
+
+Although not explicitly required by the TensorRT Python API, PyCUDA is used in several samples, and by the legacy API. For installation instructions, please refer to https://wiki.tiker.net/PyCuda/Installation

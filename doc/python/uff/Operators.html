@@ -1,0 +1,1236 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UFF Operators &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Graph Surgeon" href="../graphsurgeon/graphsurgeon.html" />
+    <link rel="prev" title="UFF Converter" href="uff.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="uff.html">UFF Converter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">UFF Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-datatypes">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#identity">Identity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#const">Const</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conv">Conv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#convtranspose">ConvTranspose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pool">Pool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fullyconnected">FullyConnected</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lrn">LRN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#binary">Binary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#unary">Unary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reshape">Reshape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#expanddims">ExpandDims</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#argmax">ArgMax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#argmin">ArgMin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transpose">Transpose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reduce">Reduce</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id38">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#concat">Concat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#markoutput">MarkOutput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activation">Activation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id46">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#softmax">Softmax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id47">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id48">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#batchnorm">BatchNorm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id50">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id51">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id52">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#shape">Shape</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id53">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id54">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stridedslice">StridedSlice</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id55">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id56">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id57">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stack">Stack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id58">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id59">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id60">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#squeeze">Squeeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flatten">Flatten</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id61">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id62">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pad">Pad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id63">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id64">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gather">Gather</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id65">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id66">Supported Datatypes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gatherv2">GatherV2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id67">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id68">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id69">Supported Datatypes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>UFF Operators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uff-operators">
+<h1>UFF Operators<a class="headerlink" href="#uff-operators" title="Permalink to this headline">¶</a></h1>
+<p>All shapes include batch dimension, unless otherwise specified.</p>
+<div class="section" id="input">
+<h2>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<p>An input to the network. Expects a CHW shape.</p>
+<div class="section" id="supported-datatypes">
+<h3>Supported Datatypes<a class="headerlink" href="#supported-datatypes" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="identity">
+<h2>Identity<a class="headerlink" href="#identity" title="Permalink to this headline">¶</a></h2>
+<p>Identity layer.</p>
+<div class="section" id="inputs">
+<h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Input0 to the identity. Must be float32.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id1">
+<h3>Supported Datatypes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>float32</p>
+</div>
+</div>
+<div class="section" id="const">
+<h2>Const<a class="headerlink" href="#const" title="Permalink to this headline">¶</a></h2>
+<p>A constant in the network. Should not include batch dimension.</p>
+<div class="section" id="id2">
+<h3>Supported Datatypes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="conv">
+<h2>Conv<a class="headerlink" href="#conv" title="Permalink to this headline">¶</a></h2>
+<p>A convolution operation.</p>
+<div class="section" id="id3">
+<h3>Inputs<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the convolution. Must be 4 dimensional. Automatically transposed to NCHW.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Kernel [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The kernel weights for the convolution. Must be 4 dimensional. Automatically transposed to NCHW.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">dilation [List[int]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The HW dilations.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">strides [List[int]]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The HW strides.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">padding [List[int]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The HW padding. Asymmetric padding is unsupported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3>Supported Datatypes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="convtranspose">
+<h2>ConvTranspose<a class="headerlink" href="#convtranspose" title="Permalink to this headline">¶</a></h2>
+<p>A transposed convolution, also known as deconvolution.</p>
+<div class="section" id="id5">
+<h3>Inputs<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the transposed convolution. Must be 4 dimensional. Automatically transposed to NCHW.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Kernel [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The kernel weights for the transposed convolution. Must be 4 dimensional. Automatically transposed to NCHW.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Shape [Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The HW dimensions of the output.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>Attributes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">strides [List[int]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The HW strides.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">padding [List[int]]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The HW padding. Asymmetric padding is unsupported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id7">
+<h3>Supported Datatypes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="pool">
+<h2>Pool<a class="headerlink" href="#pool" title="Permalink to this headline">¶</a></h2>
+<p>A pooling layer.</p>
+<div class="section" id="id8">
+<h3>Inputs<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the pooling layer. Must be 4 dimensional.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h3>Attributes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">func [Enum[max, avg]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The type of pooling to apply.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">kernel [List[int]]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The HW shape of the kernel.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">strides [List[int]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The HW strides.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">padding [List[int]]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The HW padding.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id10">
+<h3>Supported Datatypes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="fullyconnected">
+<h2>FullyConnected<a class="headerlink" href="#fullyconnected" title="Permalink to this headline">¶</a></h2>
+<p>A fully connected layer.</p>
+<div class="section" id="id11">
+<h3>Inputs<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the fully connected layer. Must be at least 4 dimensional. Automatically transposed to -NC-.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Weights [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The weights for the fully connected layer. Must be 3 dimensional. Automatically transposed to CHW, where C is the number of output channels.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>Supported Datatypes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="lrn">
+<h2>LRN<a class="headerlink" href="#lrn" title="Permalink to this headline">¶</a></h2>
+<p>An LRN layer.</p>
+<div class="section" id="id13">
+<h3>Inputs<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the LRN. Must be at least 4 dimensional.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id14">
+<h3>Attributes<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">window_size [int]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The window size.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">alpha [double]:</th><td class="field-body">The LRN alpha value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">beta [double]:</th><td class="field-body">The LRN beta value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">k [double]:</th><td class="field-body">The LRN k value.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id15">
+<h3>Supported Datatypes<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="binary">
+<h2>Binary<a class="headerlink" href="#binary" title="Permalink to this headline">¶</a></h2>
+<p>A binary layer.</p>
+<div class="section" id="id16">
+<h3>Inputs<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The first input to the binary layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Input1 [Tensor or Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The second input to the binary layer.</td>
+</tr>
+</tbody>
+</table>
+<p>If either input is a constant, then at least one of the inputs must be 4 dimensional.</p>
+</div>
+<div class="section" id="id17">
+<h3>Attributes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">func [Enum[min, max, mul, sub, div, add, pow]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The type of operation to perform.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id18">
+<h3>Supported Datatypes<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="unary">
+<h2>Unary<a class="headerlink" href="#unary" title="Permalink to this headline">¶</a></h2>
+<p>A unary layer.</p>
+<div class="section" id="id19">
+<h3>Inputs<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the unary layer.</td>
+</tr>
+</tbody>
+</table>
+<p>The output of a unary layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+</div>
+<div class="section" id="id20">
+<h3>Attributes<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">func [Enum[neg, exp, log, abs, sqrt, rsqrt, square, sin, cos, tan, sinh, cosh, asin, acos, atan, asinh, acosh, atanh, ceil, floor]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The type of operation to perform.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id21">
+<h3>Supported Datatypes<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="reshape">
+<h2>Reshape<a class="headerlink" href="#reshape" title="Permalink to this headline">¶</a></h2>
+<p>A reshape layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.</p>
+<div class="section" id="id22">
+<h3>Inputs<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the reshape layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Shape [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The desired shape. If the shape has fewer than 3 non-batch dimensions, 1s are inserted in the least significant dimensions. For example, if the shape specified is [1, 300, 5], it will be treated as [1, 300, 5, 1] instead.
+- -1 specifies that the dimension should be automatically deduced - this can only be used at most once in any given shape.
+- 0 specifies that the dimension should be copied from the input.</td>
+</tr>
+</tbody>
+</table>
+<p>The output of a reshape layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+</div>
+<div class="section" id="id23">
+<h3>Supported Datatypes<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="expanddims">
+<h2>ExpandDims<a class="headerlink" href="#expanddims" title="Permalink to this headline">¶</a></h2>
+<p>An unsqueeze layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.</p>
+<div class="section" id="id24">
+<h3>Inputs<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to unsqueeze.</td>
+</tr>
+</tbody>
+</table>
+<p>If the resulting output has fewer than 3 non-batch dimensions, it is unsqueezed further with additional 1s inserted in the least significant dimensions.
+For example, with an input of shape [1, 300], and axis of 1, the shape of the output will be [1, 300, 1, 1] rather than [1, 300, 1].</p>
+</div>
+<div class="section" id="id25">
+<h3>Attributes<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to unsqueeze, excluding batch dimension. For example, unsqueezing an NCHW tensor with an axis of 0 will result in a N1CHW tensor.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id26">
+<h3>Supported Datatypes<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="argmax">
+<h2>ArgMax<a class="headerlink" href="#argmax" title="Permalink to this headline">¶</a></h2>
+<p>An argmax layer.</p>
+<div class="section" id="id27">
+<h3>Inputs<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the argmax layer.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id28">
+<h3>Attributes<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to perform the argmax, with 0 corresponding to the batch dimension. The specified dimension is removed.
+For example, performing argmax on an input of shape [1, 300, 150], with an axis of 1 would result in an output of shape [1, 150].
+NOTE: argmax on the batch dimension is not supported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id29">
+<h3>Supported Datatypes<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="argmin">
+<h2>ArgMin<a class="headerlink" href="#argmin" title="Permalink to this headline">¶</a></h2>
+<p>An argmin layer.</p>
+<div class="section" id="id30">
+<h3>Inputs<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the argmin layer.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id31">
+<h3>Attributes<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to perform the argmin, with 0 corresponding to the batch dimension. The specified dimension is removed.
+For example, performing argmin on an input of shape [1, 300, 150], with an axis of 1 would result in an output of shape [1, 150].
+NOTE: argmin on the batch dimension is not supported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id32">
+<h3>Supported Datatypes<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="transpose">
+<h2>Transpose<a class="headerlink" href="#transpose" title="Permalink to this headline">¶</a></h2>
+<p>A transpose layer. A no-op in the network, this layer only modifies the UFF parser’s internal order information. Therefore, when followed by any layer that destroys order information, the transpose will not be performed.</p>
+<div class="section" id="id33">
+<h3>Inputs<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the transpose layer.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id34">
+<h3>Attributes<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">permutation [int]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The permutation to perform. Must be 4 dimensional.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id35">
+<h3>Supported Datatypes<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="reduce">
+<h2>Reduce<a class="headerlink" href="#reduce" title="Permalink to this headline">¶</a></h2>
+<p>A reduce layer. NOTE: this layer destroys order information. Therefore, subsequent layers will cease to automatically transpose their inputs to the correct format.</p>
+<div class="section" id="id36">
+<h3>Inputs<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the reduce layer.</td>
+</tr>
+</tbody>
+</table>
+<p>The output of a reduce layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+</div>
+<div class="section" id="id37">
+<h3>Attributes<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">func [Enum[sum, prod, max, min, mean]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The reduction operation to perform.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">axes [List[int]]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The axes on which to reduce, with 0 corresponding to the batch dimension. Reduction on the batch dimension is unsupported.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">keepdims [bool]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether to keep the dimensions which were reduced. NOTE: The UFF parser ignored this value, and always keeps dimensions.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id38">
+<h3>Supported Datatypes<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="concat">
+<h2>Concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h2>
+<p>A concatenation layer.</p>
+<div class="section" id="id39">
+<h3>Inputs<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Inputs (variadic) [List[Tensor]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The tensors to concatenate. All inputs are transposed to the same format as the first input. Inputs must be at least 4 dimensional.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id40">
+<h3>Attributes<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to perform the concatenation, with 0 corresponding to the batch dimension. Concatenating on the batch dimension is unsupported.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id41">
+<h3>Supported Datatypes<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="markoutput">
+<h2>MarkOutput<a class="headerlink" href="#markoutput" title="Permalink to this headline">¶</a></h2>
+<p>The output of the network.</p>
+<div class="section" id="id42">
+<h3>Inputs<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Inputs (variadic) [List[Tensor]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The inputs to this layer. Automatically transposed to the same order as the outputs of the original TensorFlow network.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id43">
+<h3>Supported Datatypes<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="activation">
+<h2>Activation<a class="headerlink" href="#activation" title="Permalink to this headline">¶</a></h2>
+<p>An activation layer.</p>
+<div class="section" id="id44">
+<h3>Inputs<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the activation.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id45">
+<h3>Attributes<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">func [Enum[relu, relu6, sigmoid, tanh, elu, selu, softsign, softplus]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The operation to perform.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id46">
+<h3>Supported Datatypes<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="softmax">
+<h2>Softmax<a class="headerlink" href="#softmax" title="Permalink to this headline">¶</a></h2>
+<p>A softmax layer.</p>
+<div class="section" id="id47">
+<h3>Inputs<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the softmax.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id48">
+<h3>Attributes<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to perform the reduction. NOTE: This value is ignored by the UFF parser.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id49">
+<h3>Supported Datatypes<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="batchnorm">
+<h2>BatchNorm<a class="headerlink" href="#batchnorm" title="Permalink to this headline">¶</a></h2>
+<p>A batchnorm layer.</p>
+<div class="section" id="id50">
+<h3>Inputs<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the batchnorm. Must be 4 dimensional.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Gamma [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The gamma values.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Beta [Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The beta values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Mean [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The mean values.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Variance [Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The variance values.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id51">
+<h3>Attributes<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">epsilon [double]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The epsilon value.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id52">
+<h3>Supported Datatypes<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="shape">
+<h2>Shape<a class="headerlink" href="#shape" title="Permalink to this headline">¶</a></h2>
+<p>A shape layer. Returns the shape of its input. NOTE: the output of this layer is a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+<div class="section" id="id53">
+<h3>Inputs<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the shape layer.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id54">
+<h3>Supported Datatypes<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="stridedslice">
+<h2>StridedSlice<a class="headerlink" href="#stridedslice" title="Permalink to this headline">¶</a></h2>
+<p>A strided slice layer.</p>
+<div class="section" id="id55">
+<h3>Inputs<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the strided slice.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Begin [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The indices at which to begin slicing.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">End [Constant]:</th><td class="field-body">The indices at which to end slicing.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Strides [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">Strides to use when slicing.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id56">
+<h3>Attributes<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">begin_mask [int]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">See TensorFlow stridedSlice documentation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">end_mask [int]:</th><td class="field-body">See TensorFlow stridedSlice documentation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">shrink_axis_mask [int]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">See TensorFlow stridedSlice documentation. This value is ignored unless the input is a constant.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id57">
+<h3>Supported Datatypes<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="stack">
+<h2>Stack<a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h2>
+<p>A stack layer. NOTE: the output of this layer is a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+<div class="section" id="id58">
+<h3>Inputs<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Inputs (variadic) [List[Constant]]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The inputs to the stack layer.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id59">
+<h3>Attributes<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis on which to stack. NOTE: this value is ignored by the UFF parser.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id60">
+<h3>Supported Datatypes<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="squeeze">
+<h2>Squeeze<a class="headerlink" href="#squeeze" title="Permalink to this headline">¶</a></h2>
+<p>Not implemented</p>
+</div>
+<div class="section" id="flatten">
+<h2>Flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h2>
+<p>A flatten layer. A no-op in the UFF parser.</p>
+<div class="section" id="id61">
+<h3>Inputs<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The tensor to flatten.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id62">
+<h3>Supported Datatypes<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="pad">
+<h2>Pad<a class="headerlink" href="#pad" title="Permalink to this headline">¶</a></h2>
+<p>A padding layer.</p>
+<div class="section" id="id63">
+<h3>Inputs<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to pad. The input is automatically transposed if padding is applied to non-HW dimensions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Padding [Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The padding to apply. Padding is supported on 2 dimensions at most.</td>
+</tr>
+</tbody>
+</table>
+<p>The output of a padding layer with a Constant input is treated as a Constant, and therefore will not work with layers expecting a Tensor input.</p>
+</div>
+<div class="section" id="id64">
+<h3>Supported Datatypes<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="gather">
+<h2>Gather<a class="headerlink" href="#gather" title="Permalink to this headline">¶</a></h2>
+<p>A gather layer.</p>
+<div class="section" id="id65">
+<h3>Inputs<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the gather layer. If the input is constant, it is assumed to be of shape NC11.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Indices [Tensor or Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The indices to gather along. These are assumed to be on the first non-batch dimension.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id66">
+<h3>Supported Datatypes<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+<div class="section" id="gatherv2">
+<h2>GatherV2<a class="headerlink" href="#gatherv2" title="Permalink to this headline">¶</a></h2>
+<p>A gatherV2 layer.</p>
+<div class="section" id="id67">
+<h3>Inputs<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Input0 [Tensor or Constant]:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The input to the gather layer. If the input is constant, it is assumed to be of shape NC11.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Indices [Tensor or Constant]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The indices to gather along.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id68">
+<h3>Attributes<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">axis [int]:</th><td class="field-body">The axis along which to gather, excluding batch dimension.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id69">
+<h3>Supported Datatypes<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
+<p>float32, float16, int32, int8</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../graphsurgeon/graphsurgeon.html" class="btn btn-neutral float-right" title="Graph Surgeon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uff.html" class="btn btn-neutral float-left" title="UFF Converter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

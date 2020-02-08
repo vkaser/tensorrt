@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Logger &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Profiler" href="Profiler.html" />
+    <link rel="prev" title="Core" href="pyCore.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyCore.html">Core</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Profiler.html">Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OptimizationProfile.html">IOptimizationProfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkConfig.html">IBuilderConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builder.html">Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Engine.html">ICudaEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExecutionContext.html">IExecutionContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Runtime.html">Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Refitter.html">Refitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyCore.html">Core</a> &raquo;</li>
+        
+      <li>Logger</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="logger">
+<h1>Logger<a class="headerlink" href="#logger" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.Logger">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.Logger</em>, <em>min_severity: tensorrt.tensorrt.Logger.Severity = Severity.WARNING</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logger for the <a class="reference internal" href="Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a>, <a class="reference internal" href="Engine.html#tensorrt.ICudaEngine" title="tensorrt.ICudaEngine"><code class="xref py py-class docutils literal notranslate"><span class="pre">ICudaEngine</span></code></a> and <a class="reference internal" href="Runtime.html#tensorrt.Runtime" title="tensorrt.Runtime"><code class="xref py py-class docutils literal notranslate"><span class="pre">Runtime</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>min_severity</strong> – The initial minimum severity of this Logger.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><strong>min_severity</strong> – <a class="reference internal" href="#tensorrt.Logger.Severity" title="tensorrt.Logger.Severity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger.Severity</span></code></a> This minimum required severity of messages for the logger to log them.</td>
+</tr>
+</tbody>
+</table>
+<p>Note that although a logger is passed on creation to each instance of a <a class="reference internal" href="Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> or <a class="reference internal" href="Runtime.html#tensorrt.Runtime" title="tensorrt.Runtime"><code class="xref py py-class docutils literal notranslate"><span class="pre">Runtime</span></code></a> interface, the logger is internally considered a singleton, and thus
+multiple instances of <a class="reference internal" href="Runtime.html#tensorrt.Runtime" title="tensorrt.Runtime"><code class="xref py py-class docutils literal notranslate"><span class="pre">Runtime</span></code></a> and/or <a class="reference internal" href="Builder.html#tensorrt.Builder" title="tensorrt.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> must all use the same logger.</p>
+<dl class="class">
+<dt id="tensorrt.Logger.Severity">
+<em class="property">class </em><code class="descname">Severity</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.Logger.Severity</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.Logger.Severity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<dl class="docutils">
+<dt>INTERNAL_ERROR :</dt>
+<dd>Represents an internal error. Execution is unrecoverable.</dd>
+<dt>ERROR :</dt>
+<dd>Represents an application error.</dd>
+<dt>WARNING :</dt>
+<dd>Represents an application error that TensorRT has recovered from or fallen back to a default.</dd>
+<dt>INFO :</dt>
+<dd>Represents informational messages.</dd>
+<dt>VERBOSE :</dt>
+<dd>Verbose messages with debugging information.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.Logger.log">
+<code class="descname">log</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.Logger</em>, <em>severity: tensorrt.tensorrt.Logger.Severity</em>, <em>msg: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.Logger.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a message to <cite>stderr</cite> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>severity</strong> – The severity of the message.</li>
+<li><strong>msg</strong> – The log message.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Derived classes should generally overload this function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>It is also possible to access the <code class="docutils literal notranslate"><span class="pre">Severity</span></code> Enum values directly in the <code class="docutils literal notranslate"><span class="pre">Logger</span></code> scope.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.VERBOSE</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.Severity.VERBOSE</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.INFO</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.Severity.INFO</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.WARNING</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.Severity.WARNING</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.ERROR</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.Severity.ERROR</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.INTERNAL_ERROR</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">tensorrt.Logger.Severity.INTERNAL_ERROR</span></code></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Profiler.html" class="btn btn-neutral float-right" title="Profiler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyCore.html" class="btn btn-neutral float-left" title="Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

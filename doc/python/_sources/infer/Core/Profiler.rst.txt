@@ -1,0 +1,4 @@
+Profiler
+========
+.. autoclass:: tensorrt.Profiler
+    :members:

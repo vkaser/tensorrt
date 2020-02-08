@@ -1,0 +1,6 @@
+=======================
+IInt8EntropyCalibrator2
+=======================
+
+.. autoclass:: tensorrt.IInt8EntropyCalibrator2
+    :members:

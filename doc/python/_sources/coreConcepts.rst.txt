@@ -1,0 +1,36 @@
+=============
+Core Concepts
+=============
+
+TensorRT Workflow
+-----------------
+The general TensorRT workflow consists of 3 steps:
+
+1. Populate a :class:`tensorrt.INetworkDefinition` either with a parser or by using the TensorRT Network API (see :class:`tensorrt.INetworkDefinition` for more details). The :class:`tensorrt.Builder` can be used to generate an empty :class:`tensorrt.INetworkDefinition` .
+
+2. Use the :class:`tensorrt.Builder` to build a :class:`tensorrt.ICudaEngine` using the populated :class:`tensorrt.INetworkDefinition` .
+
+3. Create a :class:`tensorrt.IExecutionContext` from the :class:`tensorrt.ICudaEngine` and use it to perform optimized inference.
+
+Classes Overview
+----------------
+
+Logger
+~~~~~~
+Most other TensorRT classes use a logger to report errors, warnings and informative messages. TensorRT provides a basic :class:`tensorrt.Logger` implementation, but it can be extended for more advanced functionality.
+
+Engine and Context
+~~~~~~~~~~~~~~~~~~
+The :class:`tensorrt.ICudaEngine` is the primary element of TensorRT. It is used to generate a :class:`tensorrt.IExecutionContext` that can perform inference.
+
+Builder
+~~~~~~~
+The :class:`tensorrt.Builder` is used to build a :class:`tensorrt.ICudaEngine` . In order to do so, it must be provided a populated :class:`tensorrt.INetworkDefinition` .
+
+Network
+~~~~~~~
+The :class:`tensorrt.INetworkDefinition` represents a computational graph. In order to populate the network, TensorRT provides a suite of parsers for a variety of Deep Learning frameworks. It is also possible to populate the network manually using the Network API.
+
+Parsers
+~~~~~~~
+Parsers are used to populate a :class:`tensorrt.INetworkDefinition` from a model trained in a Deep Learning framework.

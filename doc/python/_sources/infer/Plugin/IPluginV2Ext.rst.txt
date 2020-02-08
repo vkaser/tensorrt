@@ -1,0 +1,6 @@
+============
+IPluginV2Ext
+============
+
+.. autoclass:: tensorrt.IPluginV2Ext
+    :members:

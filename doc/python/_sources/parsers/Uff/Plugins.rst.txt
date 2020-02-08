@@ -1,0 +1,9 @@
+=======
+Plugins
+=======
+
+.. autoclass:: tensorrt.IUffPluginFactory
+    :members:
+
+.. autoclass:: tensorrt.IUffPluginFactoryExt
+    :members:

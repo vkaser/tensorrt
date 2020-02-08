@@ -1,0 +1,6 @@
+========
+Refitter
+========
+.. autoclass:: tensorrt.Refitter
+    :members:
+    :special-members:

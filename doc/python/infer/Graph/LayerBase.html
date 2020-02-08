@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Layer Base Classes &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Layers" href="Layers.html" />
+    <link rel="prev" title="INetworkDefinition" href="Network.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Core/pyCore.html">Core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyGraph.html">Network</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Network.html">INetworkDefinition</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Layer Base Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#itensor">ITensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ilayer">ILayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ioutputdimensionsformula">IOutputDimensionsFormula</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Layers.html">Layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyGraph.html">Network</a> &raquo;</li>
+        
+      <li>Layer Base Classes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="layer-base-classes">
+<h1>Layer Base Classes<a class="headerlink" href="#layer-base-classes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="itensor">
+<h2>ITensor<a class="headerlink" href="#itensor" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.TensorLocation">
+<code class="descclassname">tensorrt.</code><code class="descname">TensorLocation</code><a class="headerlink" href="#tensorrt.TensorLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The physical location of the data.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>DEVICE : Data is stored on the device.</p>
+<p>HOST : Data is stored on the device.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="tensorrt.TensorFormat">
+<code class="descclassname">tensorrt.</code><code class="descname">TensorFormat</code><a class="headerlink" href="#tensorrt.TensorFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format of the input/output tensors.</p>
+<blockquote>
+<div><p>This enum is extended to be used by both plugins and reformat-free network I/O tensors.</p>
+<p>For more information about data formats, see the topic “Data Format Description” located in the
+TensorRT Developer Guide (<a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide/index.html">https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide/index.html</a>).</p>
+</div></blockquote>
+<p>Members:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>LINEAR :</dt>
+<dd><p class="first">Row major linear format.</p>
+<p class="last">For a tensor with dimensions {N, C, H, W} or {numbers, channels, columns, rows}, the dimensional index corresponds to {3, 2, 1, 0} and thus the order is W major.</p>
+</dd>
+<dt>CHW2 :</dt>
+<dd><p class="first">Two wide channel vectorized row major format.</p>
+<p>This format is bound to FP16. It is only available for dimensions &gt;= 3.</p>
+<p class="last">For a tensor with dimensions {N, C, H, W}, the memory layout is equivalent to a C array with dimensions [N][(C+1)/2][H][W][2], with the tensor coordinates (n, c, h, w) mapping to array subscript [n][c/2][h][w][c%2].</p>
+</dd>
+<dt>HWC8 :</dt>
+<dd><p class="first">Eight channel format where C is padded to a multiple of 8.</p>
+<p>This format is bound to FP16. It is only available for dimensions &gt;= 3.</p>
+<p class="last">For a tensor with dimensions {N, H, W, C}, the memory layout is equivalent to the array with dimensions [N][H][W][(C+7)/8*8], with the tensor coordinates (n, h, w, c) mapping to array subscript [n][h][w][c].</p>
+</dd>
+<dt>CHW4 :</dt>
+<dd><p class="first">Four wide channel vectorized row major format.
+This format is bound to INT8. It is only available for dimensions &gt;= 3.</p>
+<p class="last">For a tensor with dimensions {N, C, H, W}, the memory layout is equivalent to a C array with dimensions [N][(C+3)/4][H][W][4], with the tensor coordinates (n, c, h, w) mapping to array subscript [n][c/4][h][w][c%4].</p>
+</dd>
+<dt>CHW16 :</dt>
+<dd><p class="first">Sixteen wide channel vectorized row major format.</p>
+<p>This format is bound to FP16. It is only available for dimensions &gt;= 3.</p>
+<p class="last">For a tensor with dimensions {N, C, H, W}, the memory layout is equivalent to a C array with dimensions [N][(C+15)/16][H][W][16], with the tensor coordinates (n, c, h, w) mapping to array subscript [n][c/16][h][w][c%16].</p>
+</dd>
+<dt>CHW32 :</dt>
+<dd><p class="first">Thirty-two wide channel vectorized row major format.</p>
+<p>This format is bound to INT8. It is only available for dimensions &gt;= 3.</p>
+<p class="last">For a tensor with dimensions {N, C, H, W}, the memory layout is equivalent to a C array with dimensions [N][(C+31)/32][H][W][32], with the tensor coordinates (n, c, h, w) mapping to array subscript [n][c/32][h][w][c%32].</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.ITensor">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ITensor</code><a class="headerlink" href="#tensorrt.ITensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tensor in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> The tensor name. For a network input, the name is assigned by the application. For tensors which are layer outputs, a default name is assigned consisting of the layer name followed by the index of the output in brackets.</li>
+<li><strong>shape</strong> – <a class="reference internal" href="../FoundationalTypes/Dims.html#tensorrt.Dims" title="tensorrt.Dims"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dims</span></code></a> The shape of a tensor. For a network input the shape is assigned by the application. For a network output it is computed based on the layer parameters and the inputs to the layer. If a tensor size or a parameter is modified in the network, the shape of all dependent tensors will be recomputed. This call is only legal for network input tensors, since the shape of layer output tensors are inferred based on layer inputs and parameters.</li>
+<li><strong>dtype</strong> – <a class="reference internal" href="../FoundationalTypes/DataType.html#tensorrt.DataType" title="tensorrt.DataType"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataType</span></code></a> The data type of a tensor. The type is unchanged if the type is invalid for the given tensor. If the tensor is a network input or output, then the tensor type cannot be <code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.int8</span></code> .</li>
+<li><strong>broadcast_across_batch</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether to enable broadcast of tensor across the batch. When a tensor is broadcast across a batch, it has the same value for every member in the batch. Memory is only allocated once for the single member. This method is only valid for network input tensors, since the flags of layer output tensors are inferred based on layer inputs and parameters. If this state is modified for a tensor in the network, the states of all dependent tensors will be recomputed.</li>
+<li><strong>location</strong> – <a class="reference internal" href="#tensorrt.TensorLocation" title="tensorrt.TensorLocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorLocation</span></code></a> The storage location of a tensor.</li>
+<li><strong>allowed_formats</strong> – <a class="reference internal" href="#tensorrt.TensorLocation" title="tensorrt.TensorLocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorLocation</span></code></a> The combination of supported TensorFormat.</li>
+<li><strong>is_network_input</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether the tensor is a network input.</li>
+<li><strong>is_network_output</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether the tensor is a network output.</li>
+<li><strong>dynamic_range</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">float]</span></code> A tuple containing the [minimum, maximum] of the dynamic range, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if the range was not set.</li>
+<li><strong>is_shape</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether the tensor is a shape tensor.</li>
+<li><strong>allowed_formats</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The allowed set of format candidates. This should be in integer consisting of one or more <a class="reference internal" href="#tensorrt.TensorFormat" title="tensorrt.TensorFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorFormat</span></code></a> s, combined via binary OR. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">TensorFormats.CHW4</span> <span class="pre">|</span> <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">TensorFormat.CHW32</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.ITensor.get_dynamic_range">
+<code class="descname">get_dynamic_range</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#tensorrt.ITensor.get_dynamic_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get dynamic range for the tensor.
+NOTE: It is suggested to use <code class="docutils literal notranslate"><span class="pre">tensor.dynamic_range</span></code> instead, which is a tuple including both the minimum and maximum of the dynamic range.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute maximum of the dynamic range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ITensor.reset_dynamic_range">
+<code class="descname">reset_dynamic_range</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ITensor.reset_dynamic_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undo the effect of setting the dynamic range.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ITensor.set_dynamic_range">
+<code class="descname">set_dynamic_range</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ITensor</em>, <em>min: float</em>, <em>max: float</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.ITensor.set_dynamic_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set dynamic range for the tensor.
+NOTE: It is suggested to use <code class="docutils literal notranslate"><span class="pre">tensor.dynamic_range</span> <span class="pre">=</span> <span class="pre">(min,</span> <span class="pre">max)</span></code> instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>min</strong> – Minimum of the dynamic range.</li>
+<li><strong>max</strong> – Maximum of the dyanmic range.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">true if succeed in setting range. Otherwise false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ilayer">
+<h2>ILayer<a class="headerlink" href="#ilayer" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="tensorrt.LayerType">
+<code class="descclassname">tensorrt.</code><code class="descname">LayerType</code><a class="headerlink" href="#tensorrt.LayerType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of Layer</p>
+<p>Members:</p>
+<blockquote>
+<div><p>CONVOLUTION : Convolution layer</p>
+<p>FULLY_CONNECTED : Fully connected layer</p>
+<p>ACTIVATION : Activation layer</p>
+<p>POOLING : Pooling layer</p>
+<p>LRN : LRN layer</p>
+<p>SCALE : Scale layer</p>
+<p>SOFTMAX : Softmax layer</p>
+<p>DECONVOLUTION : Deconvolution layer</p>
+<p>CONCATENATION : Concatenation layer</p>
+<p>ELEMENTWISE : Elementwise layer</p>
+<p>PLUGIN : Plugin layer</p>
+<p>RNN : RNN layer</p>
+<p>UNARY : Unary layer</p>
+<p>PADDING : Padding layer</p>
+<p>SHUFFLE : Shuffle layer</p>
+<p>REDUCE : Reduce layer</p>
+<p>TOPK : TopK layer</p>
+<p>GATHER : Gather layer</p>
+<p>MATRIX_MULTIPLY : Matrix multiply layer</p>
+<p>RAGGED_SOFTMAX : Ragged softmax layer</p>
+<p>CONSTANT : Constant layer</p>
+<p>RNN_V2 : RNNv2 layer</p>
+<p>IDENTITY : Identity layer</p>
+<p>PLUGIN_V2 : PluginV2 layer</p>
+<p>SLICE : Slice layer</p>
+<p>SHAPE : Shape layer</p>
+<p>PARAMETRIC_RELU : Parametric ReLU layer</p>
+<p>RESIZE : Resize layer</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="tensorrt.ILayer">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">ILayer</code><a class="headerlink" href="#tensorrt.ILayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for all layer classes in an <a class="reference internal" href="Network.html#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> The name of the layer.</li>
+<li><strong>type</strong> – <a class="reference internal" href="#tensorrt.LayerType" title="tensorrt.LayerType"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerType</span></code></a> The type of the layer.</li>
+<li><strong>num_inputs</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of inputs of the layer.</li>
+<li><strong>num_outputs</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of outputs of the layer.</li>
+<li><strong>precision</strong> – <a class="reference internal" href="../FoundationalTypes/DataType.html#tensorrt.DataType" title="tensorrt.DataType"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataType</span></code></a> The computation precision.</li>
+<li><strong>precision_is_set</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> Whether the precision is set or not.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.ILayer.get_input">
+<code class="descname">get_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITensor<a class="headerlink" href="#tensorrt.ILayer.get_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the layer input corresponding to the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the input tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The input tensor, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if the index is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.get_output">
+<code class="descname">get_output</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITensor<a class="headerlink" href="#tensorrt.ILayer.get_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the layer output corresponding to the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the output tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The output tensor, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if the index is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.get_output_type">
+<code class="descname">get_output_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.DataType<a class="headerlink" href="#tensorrt.ILayer.get_output_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output type of the layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the output tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The output precision. Default : DataType.FLOAT.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.output_type_is_set">
+<code class="descname">output_type_is_set</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.ILayer.output_type_is_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the output type has been set for this layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the output.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether the output type has been explicitly set.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.reset_output_type">
+<code class="descname">reset_output_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ILayer.reset_output_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset output type of this layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the output.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.reset_precision">
+<code class="descname">reset_precision</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ILayer.reset_precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the computation precision of the layer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.set_input">
+<code class="descname">set_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ILayer.set_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the layer input corresponding to the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – The index of the input tensor.</li>
+<li><strong>tensor</strong> – The input tensor.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.ILayer.set_output_type">
+<code class="descname">set_output_type</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.ILayer</em>, <em>index: int</em>, <em>dtype: tensorrt.tensorrt.DataType</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.ILayer.set_output_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constraint layer to generate output data with given type.
+Note that this method cannot be used to set the data type
+of the second output tensor of the topK layer. The data
+type of the second output tensor of the topK layer is always Int32.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – The index of the output tensor to set the type.</li>
+<li><strong>dtype</strong> – DataType of the output.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ioutputdimensionsformula">
+<h2>IOutputDimensionsFormula<a class="headerlink" href="#ioutputdimensionsformula" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tensorrt.IOutputDimensionsFormula">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">IOutputDimensionsFormula</code><a class="headerlink" href="#tensorrt.IOutputDimensionsFormula" title="Permalink to this definition">¶</a></dt>
+<dd><p>Application-implemented interface to compute layer output sizes.</p>
+<dl class="method">
+<dt id="tensorrt.IOutputDimensionsFormula.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.IOutputDimensionsFormula</em>, <em>input_shape: tensorrt.tensorrt.DimsHW</em>, <em>kernel_shape: tensorrt.tensorrt.DimsHW</em>, <em>stride: tensorrt.tensorrt.DimsHW</em>, <em>padding: tensorrt.tensorrt.DimsHW</em>, <em>dilation: tensorrt.tensorrt.DimsHW</em>, <em>layer_name: str</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.DimsHW<a class="headerlink" href="#tensorrt.IOutputDimensionsFormula.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Application-implemented interface to compute the HW output dimensions of a layer from the layer input and parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_shape</strong> – The input shape of the layer.</li>
+<li><strong>kernel_shape</strong> – The kernel shape (or window size, for a pooling layer) parameter of the layer operation.</li>
+<li><strong>stride</strong> – The stride parameter for the layer.</li>
+<li><strong>padding</strong> – The padding parameter of the layer.</li>
+<li><strong>dilation</strong> – The dilation parameter of the layer (only applicable to convolutions).</li>
+<li><strong>layer_name</strong> – The name of the layer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The output size of the layer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Layers.html" class="btn btn-neutral float-right" title="Layers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Network.html" class="btn btn-neutral float-left" title="INetworkDefinition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

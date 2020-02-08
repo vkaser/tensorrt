@@ -1,0 +1,10 @@
+====
+Int8
+====
+
+.. toctree::
+    Calibrator
+    LegacyCalibrator
+    EntropyCalibrator
+    EntropyCalibrator2
+    MinMaxCalibrator

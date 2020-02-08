@@ -1,0 +1,10 @@
+===============
+IPluginRegistry
+===============
+
+.. autoclass:: tensorrt.IPluginRegistry
+    :members:
+
+.. autofunction:: tensorrt.get_plugin_registry
+
+.. autofunction:: tensorrt.init_libnvinfer_plugins

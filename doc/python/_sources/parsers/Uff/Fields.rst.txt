@@ -1,0 +1,12 @@
+======
+Fields
+======
+
+.. autodata:: tensorrt.FieldType
+   :annotation:
+
+.. autoclass:: tensorrt.FieldMap
+    :members:
+
+.. autoclass:: tensorrt.FieldCollection
+    :members:

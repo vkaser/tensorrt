@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UFF Converter &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="UFF Operators" href="Operators.html" />
+    <link rel="prev" title="Onnx Parser" href="../parsers/Onnx/pyOnnx.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../infer/FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Core/pyCore.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Graph/pyGraph.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infer/Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">UFF Converter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-tools">Conversion Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-modelstream-to-uff">Tensorflow Modelstream to UFF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-frozen-protobuf-model-to-uff">Tensorflow Frozen Protobuf Model to UFF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>UFF Converter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uff-converter">
+<h1>UFF Converter<a class="headerlink" href="#uff-converter" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">uff</span></code> package contains a set of utilites to convert trained models from various frameworks to a common format.</p>
+<div class="section" id="conversion-tools">
+<h2>Conversion Tools<a class="headerlink" href="#conversion-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tensorflow-modelstream-to-uff">
+<h3>Tensorflow Modelstream to UFF<a class="headerlink" href="#tensorflow-modelstream-to-uff" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="uff.from_tensorflow">
+<code class="descclassname">uff.</code><code class="descname">from_tensorflow</code><span class="sig-paren">(</span><em>graphdef</em>, <em>output_nodes=[]</em>, <em>preprocessor=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#uff.from_tensorflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a TensorFlow GraphDef to a UFF model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>graphdef</strong> (<em>tensorflow.GraphDef</em>) – The TensorFlow graph to convert.</li>
+<li><strong>output_nodes</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – The names of the outputs of the graph. If not provided, graphsurgeon is used to automatically deduce output nodes.</li>
+<li><strong>output_filename</strong> (<em>str</em>) – The UFF file to write.</li>
+<li><strong>preprocessor</strong> (<em>str</em>) – The path to a preprocessing script that will be executed before the converter. This script should define a <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function which accepts a graphsurgeon DynamicGraph and modifies it in place.</li>
+<li><strong>write_preprocessed</strong> (<em>bool</em>) – If set to True, the converter will write out the preprocessed graph as well as a TensorBoard visualization. Must be used in conjunction with output_filename.</li>
+<li><strong>text</strong> (<em>bool</em>) – If set to True, the converter will also write out a human readable UFF file. Must be used in conjunction with output_filename.</li>
+<li><strong>quiet</strong> (<em>bool</em>) – If set to True, suppresses informational messages. Errors may still be printed.</li>
+<li><strong>debug_mode</strong> (<em>bool</em>) – If set to True, the converter prints verbose debug messages.</li>
+<li><strong>return_graph_info</strong> (<em>bool</em>) – If set to True, this function returns the graph input and output nodes in addition to the serialized UFF graph.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>serialized UFF MetaGraph (str)</p>
+<p>OR, if return_graph_info is set to True,</p>
+<p>serialized UFF MetaGraph (str), graph inputs (list(tensorflow.NodeDef)), graph outputs (list(tensorflow.NodeDef))</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="tensorflow-frozen-protobuf-model-to-uff">
+<h3>Tensorflow Frozen Protobuf Model to UFF<a class="headerlink" href="#tensorflow-frozen-protobuf-model-to-uff" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="uff.from_tensorflow_frozen_model">
+<code class="descclassname">uff.</code><code class="descname">from_tensorflow_frozen_model</code><span class="sig-paren">(</span><em>frozen_file</em>, <em>output_nodes=[]</em>, <em>preprocessor=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#uff.from_tensorflow_frozen_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a TensorFlow frozen graph to a UFF model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>frozen_file</strong> (<em>str</em>) – The path to the frozen TensorFlow graph to convert.</li>
+<li><strong>output_nodes</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – The names of the outputs of the graph. If not provided, graphsurgeon is used to automatically deduce output nodes.</li>
+<li><strong>output_filename</strong> (<em>str</em>) – The UFF file to write.</li>
+<li><strong>preprocessor</strong> (<em>str</em>) – The path to a preprocessing script that will be executed before the converter. This script should define a <code class="docutils literal notranslate"><span class="pre">preprocess</span></code> function which accepts a graphsurgeon DynamicGraph and modifies it in place.</li>
+<li><strong>write_preprocessed</strong> (<em>bool</em>) – If set to True, the converter will write out the preprocessed graph as well as a TensorBoard visualization. Must be used in conjunction with output_filename.</li>
+<li><strong>text</strong> (<em>bool</em>) – If set to True, the converter will also write out a human readable UFF file. Must be used in conjunction with output_filename.</li>
+<li><strong>quiet</strong> (<em>bool</em>) – If set to True, suppresses informational messages. Errors may still be printed.</li>
+<li><strong>debug_mode</strong> (<em>bool</em>) – If set to True, the converter prints verbose debug messages.</li>
+<li><strong>return_graph_info</strong> (<em>bool</em>) – If set to True, this function returns the graph input and output nodes in addition to the serialized UFF graph.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>serialized UFF MetaGraph (str)</p>
+<p>OR, if return_graph_info is set to True,</p>
+<p>serialized UFF MetaGraph (str), graph inputs (list(tensorflow.NodeDef)), graph outputs (list(tensorflow.NodeDef))</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Operators.html" class="btn btn-neutral float-right" title="UFF Operators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../parsers/Onnx/pyOnnx.html" class="btn btn-neutral float-left" title="Onnx Parser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

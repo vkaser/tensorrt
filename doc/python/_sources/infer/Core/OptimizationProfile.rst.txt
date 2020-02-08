@@ -1,0 +1,5 @@
+====================
+IOptimizationProfile
+====================
+.. autoclass:: tensorrt.IOptimizationProfile
+    :members:

@@ -1,0 +1,12 @@
+=======
+Plugins
+=======
+
+.. autoclass:: tensorrt.ICaffePluginFactory
+    :members:
+
+.. autoclass:: tensorrt.ICaffePluginFactoryExt
+    :members:
+
+.. autoclass:: tensorrt.ICaffePluginFactoryV2
+    :members:

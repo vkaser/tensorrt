@@ -1,0 +1,1312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>INetworkDefinition &mdash; tensorrt 6.0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Layer Base Classes" href="LayerBase.html" />
+    <link rel="prev" title="Network" href="pyGraph.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> tensorrt
+          
+
+          
+            
+            <img src="../../_static/nvlogo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1.8
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted.html">Getting Started with TensorRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../coreConcepts.html">Core Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migrationGuide.html">Migrating from TensorRT 4 to 5</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TensorRT API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FoundationalTypes/pyFoundationalTypes.html">Foundational Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Core/pyCore.html">Core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pyGraph.html">Network</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">INetworkDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LayerBase.html">Layer Base Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Layers.html">Layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Plugin/pyPlugin.html">Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Int8/pyInt8.html">Int8</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Uff/pyUff.html">UFF Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Caffe/pyCaffe.html">Caffe Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsers/Onnx/pyOnnx.html">Onnx Parser</a></li>
+</ul>
+<p class="caption"><span class="caption-text">UFF Converter API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/uff.html">UFF Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uff/Operators.html">UFF Operators</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GraphSurgeon API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../graphsurgeon/graphsurgeon.html">Graph Surgeon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tensorrt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="pyGraph.html">Network</a> &raquo;</li>
+        
+      <li>INetworkDefinition</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inetworkdefinition">
+<h1>INetworkDefinition<a class="headerlink" href="#inetworkdefinition" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="tensorrt.INetworkDefinition">
+<em class="property">class </em><code class="descclassname">tensorrt.</code><code class="descname">INetworkDefinition</code><a class="headerlink" href="#tensorrt.INetworkDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a TensorRT Network from which the Builder can build an Engine</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pooling_output_dimensions_formula</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.IOutputDimensionsFormula" title="tensorrt.IOutputDimensionsFormula"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOutputDimensionsFormula</span></code></a> The formula from computing the pooling output dimensions. If set to <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> , the default formula is used. The default formula in each dimension is <span class="math notranslate nohighlight">\((inputDim + padding * 2 - kernelSize) / stride + 1\)</span> .</li>
+<li><strong>convolution_output_dimensions_formula</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.IOutputDimensionsFormula" title="tensorrt.IOutputDimensionsFormula"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOutputDimensionsFormula</span></code></a> <strong>Deprecated</strong> Does not currently work reliably and will be removed in a future release. The formula from computing the convolution output dimensions. If set to <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> , the default formula is used. The default formula in each dimension is <span class="math notranslate nohighlight">\((inputDim + padding * 2 - kernelSize) / stride + 1\)</span> .</li>
+<li><strong>deconvolution_output_dimensions_formula</strong> – <a class="reference internal" href="LayerBase.html#tensorrt.IOutputDimensionsFormula" title="tensorrt.IOutputDimensionsFormula"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOutputDimensionsFormula</span></code></a> <strong>Deprecated</strong> Does not currently work reliably and will be removed in a future release. The formula from computing the deconvolution output dimensions. If <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> is passed, the default formula is used. The default formula in each dimension is <span class="math notranslate nohighlight">\((inputDim - 1) * stride + kernelSize - 2 * padding\)</span> .</li>
+<li><strong>num_layers</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of layers in the network.</li>
+<li><strong>num_inputs</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of inputs of the network.</li>
+<li><strong>num_outputs</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> The number of outputs of the network.</li>
+<li><strong>name</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> The name of the network. This is used so that it can be associated with a built engine. The name must be at most 128 characters in length. TensorRT makes no use of this string except storing it as part of the engine so that it may be retrieved at runtime. A name unique to the builder will be generated by default.</li>
+<li><strong>has_implicit_batch_dimension</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> True if tensors have implicit batch dimension. This is a network-wide property. Either all tensors in the network have an implicit batch dimension or none of them do. This is True if and only if this INetworkDefinition was created with <code class="docutils literal notranslate"><span class="pre">create_network(dynamic_shapes=True)</span></code> .</li>
+<li><strong>has_explicit_precision</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> True if and only if this <a class="reference internal" href="#tensorrt.INetworkDefinition" title="tensorrt.INetworkDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">INetworkDefinition</span></code></a> was created with <code class="docutils literal notranslate"><span class="pre">NetworkDefinitionCreationFlag.EXPLICIT_PRECISION</span></code> set.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.__del__">
+<code class="descname">__del__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.INetworkDefinition.__del__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc_type</em>, <em>exc_value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#tensorrt.INetworkDefinition.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy this object, freeing all memory associated with it. This should be called to ensure that the object is cleaned up properly.
+Equivalent to invoking <a class="reference internal" href="#tensorrt.INetworkDefinition.__del__" title="tensorrt.INetworkDefinition.__del__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__del__()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ILayer<a class="headerlink" href="#tensorrt.INetworkDefinition.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="tensorrt.INetworkDefinition.__init__">
+<code class="descname">__init__</code><a class="headerlink" href="#tensorrt.INetworkDefinition.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#tensorrt.INetworkDefinition.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_activation">
+<code class="descname">add_activation</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>type: tensorrt.tensorrt.ActivationType</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IActivationLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an activation layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IActivationLayer" title="tensorrt.IActivationLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IActivationLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>type</strong> – The type of activation function to apply.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new activation layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_concatenation">
+<code class="descname">add_concatenation</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition, inputs: List[tensorrt.tensorrt.ITensor]</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IConcatenationLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_concatenation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a concatenation layer to the network. Note that all tensors must have the same dimension except for the Channel dimension.
+See <a class="reference internal" href="Layers.html#tensorrt.IConcatenationLayer" title="tensorrt.IConcatenationLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConcatenationLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inputs</strong> – The input tensors to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new concatenation layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_constant">
+<code class="descname">add_constant</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>shape: tensorrt.tensorrt.Dims</em>, <em>weights: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IConstantLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a constant layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IConstantLayer" title="tensorrt.IConstantLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConstantLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>shape</strong> – The shape of the constant.</li>
+<li><strong>weights</strong> – The constant value, represented as weights.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new constant layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_convolution">
+<code class="descname">add_convolution</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>num_output_maps: int</em>, <em>kernel_shape: tensorrt.tensorrt.DimsHW</em>, <em>kernel: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IConvolutionLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_convolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a 2D convolution layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IConvolutionLayer" title="tensorrt.IConvolutionLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConvolutionLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the convolution.</li>
+<li><strong>num_output_maps</strong> – The number of output feature maps for the convolution.</li>
+<li><strong>kernel_shape</strong> – The dimensions of the convolution kernel.</li>
+<li><strong>kernel</strong> – The kernel weights for the convolution.</li>
+<li><strong>bias</strong> – The optional bias weights for the convolution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new convolution layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_convolution_nd">
+<code class="descname">add_convolution_nd</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>num_output_maps: int</em>, <em>kernel_shape: tensorrt.tensorrt.Dims</em>, <em>kernel: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IConvolutionLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_convolution_nd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a multi-dimension convolution layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IConvolutionLayer" title="tensorrt.IConvolutionLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConvolutionLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the convolution.</li>
+<li><strong>num_output_maps</strong> – The number of output feature maps for the convolution.</li>
+<li><strong>kernel_shape</strong> – The dimensions of the convolution kernel.</li>
+<li><strong>kernel</strong> – The kernel weights for the convolution.</li>
+<li><strong>bias</strong> – The optional bias weights for the convolution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new convolution layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_deconvolution">
+<code class="descname">add_deconvolution</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>num_output_maps: int</em>, <em>kernel_shape: tensorrt.tensorrt.DimsHW</em>, <em>kernel: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IDeconvolutionLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_deconvolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a 2D deconvolution layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IDeconvolutionLayer" title="tensorrt.IDeconvolutionLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IDeconvolutionLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>num_output_maps</strong> – The number of output feature maps.</li>
+<li><strong>kernel_shape</strong> – The dimensions of the convolution kernel.</li>
+<li><strong>kernel</strong> – The kernel weights for the convolution.</li>
+<li><strong>bias</strong> – The optional bias weights for the convolution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new deconvolution layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_deconvolution_nd">
+<code class="descname">add_deconvolution_nd</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>num_output_maps: int</em>, <em>kernel_shape: tensorrt.tensorrt.Dims</em>, <em>kernel: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IDeconvolutionLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_deconvolution_nd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a multi-dimension deconvolution layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IDeconvolutionLayer" title="tensorrt.IDeconvolutionLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IDeconvolutionLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>num_output_maps</strong> – The number of output feature maps.</li>
+<li><strong>kernel_shape</strong> – The dimensions of the convolution kernel.</li>
+<li><strong>kernel</strong> – The kernel weights for the convolution.</li>
+<li><strong>bias</strong> – The optional bias weights for the convolution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new deconvolution layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_elementwise">
+<code class="descname">add_elementwise</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input1: tensorrt.tensorrt.ITensor</em>, <em>input2: tensorrt.tensorrt.ITensor</em>, <em>op: tensorrt.tensorrt.ElementWiseOperation</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IElementWiseLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_elementwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an elementwise layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IElementWiseLayer" title="tensorrt.IElementWiseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IElementWiseLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input1</strong> – The first input tensor to the layer.</li>
+<li><strong>input2</strong> – The second input tensor to the layer.</li>
+<li><strong>op</strong> – The binary operation that the layer applies.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The input tensors must have the same number of dimensions.
+For each dimension, their lengths must match, or one of them must be one.
+In the latter case, the tensor is broadcast along that axis.</p>
+<p>The output tensor has the same number of dimensions as the inputs.
+For each dimension, its length is the maximum of the lengths of the
+corresponding input dimension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The new element-wise layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_fully_connected">
+<code class="descname">add_fully_connected</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>num_outputs: int</em>, <em>kernel: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IFullyConnectedLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_fully_connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a fully connected layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IFullyConnectedLayer" title="tensorrt.IFullyConnectedLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IFullyConnectedLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>num_outputs</strong> – The number of outputs of the layer.</li>
+<li><strong>kernel</strong> – The kernel weights for the convolution.</li>
+<li><strong>bias</strong> – The optional bias weights for the convolution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new fully connected layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_gather">
+<code class="descname">add_gather</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>indices: tensorrt.tensorrt.ITensor</em>, <em>axis: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IGatherLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_gather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a pooling layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IGatherLayer" title="tensorrt.IGatherLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IGatherLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The tensor to gather values from.</li>
+<li><strong>indices</strong> – The tensor to get indices from to populate the output tensor.</li>
+<li><strong>axis</strong> – The non-batch dimension axis in the data tensor to gather on.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new pooling layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_identity">
+<code class="descname">add_identity</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IIdentityLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an identity layer.
+See <a class="reference internal" href="Layers.html#tensorrt.IIdentityLayer" title="tensorrt.IIdentityLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IIdentityLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> – The input tensor to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new identity layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_input">
+<code class="descname">add_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>name: str</em>, <em>dtype: tensorrt.tensorrt.DataType</em>, <em>shape: tensorrt.tensorrt.Dims</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITensor<a class="headerlink" href="#tensorrt.INetworkDefinition.add_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an input to the network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – The name of the tensor.</li>
+<li><strong>dtype</strong> – The data type of the tensor. Currently, trt.int8 is not supported for inputs.</li>
+<li><strong>shape</strong> – The dimensions of the tensor. The total volume must be less than 2^30 elements.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The newly added Tensor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_lrn">
+<code class="descname">add_lrn</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>window: int</em>, <em>alpha: float</em>, <em>beta: float</em>, <em>k: float</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ILRNLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_lrn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a LRN layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.ILRNLayer" title="tensorrt.ILRNLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ILRNLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>window</strong> – The size of the window.</li>
+<li><strong>alpha</strong> – The alpha value for the LRN computation.</li>
+<li><strong>beta</strong> – The beta value for the LRN computation.</li>
+<li><strong>k</strong> – The k value for the LRN computation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new LRN layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_matrix_multiply">
+<code class="descname">add_matrix_multiply</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input0: tensorrt.tensorrt.ITensor</em>, <em>op0: tensorrt.tensorrt.MatrixOperation</em>, <em>input1: tensorrt.tensorrt.ITensor</em>, <em>op1: tensorrt.tensorrt.MatrixOperation</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IMatrixMultiplyLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_matrix_multiply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a matrix multiply layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IMatrixMultiplyLayer" title="tensorrt.IMatrixMultiplyLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IMatrixMultiplyLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input0</strong> – The first input tensor (commonly A).</li>
+<li><strong>op0</strong> – Whether to treat input0 as matrices, transposed matrices, or vectors.</li>
+<li><strong>input1</strong> – The second input tensor (commonly B).</li>
+<li><strong>op1</strong> – Whether to treat input1 as matrices, transposed matrices, or vectors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new matrix multiply layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_matrix_multiply_deprecated">
+<code class="descname">add_matrix_multiply_deprecated</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input0: tensorrt.tensorrt.ITensor</em>, <em>transpose0: bool</em>, <em>input1: tensorrt.tensorrt.ITensor</em>, <em>transpose1: bool</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IMatrixMultiplyLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_matrix_multiply_deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a matrix multiply layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IMatrixMultiplyLayer" title="tensorrt.IMatrixMultiplyLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IMatrixMultiplyLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input0</strong> – The first input tensor (commonly A).</li>
+<li><strong>transpose0</strong> – If true, op(input0)=transpose(input0), else op(input0)=input0.</li>
+<li><strong>input1</strong> – The second input tensor (commonly B).</li>
+<li><strong>transpose1</strong> – If true, op(input1)=transpose(input1), else op(input1)=input1.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new matrix multiply layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_padding">
+<code class="descname">add_padding</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>pre_padding: tensorrt.tensorrt.DimsHW</em>, <em>post_padding: tensorrt.tensorrt.DimsHW</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPaddingLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_padding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a padding layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IPaddingLayer" title="tensorrt.IPaddingLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPaddingLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>pre_padding</strong> – The padding to apply to the start of the tensor.</li>
+<li><strong>post_padding</strong> – The padding to apply to the end of the tensor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new padding layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_parametric_relu">
+<code class="descname">add_parametric_relu</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>slopes: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IParametricReLULayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_parametric_relu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a parametric ReLU layer.
+See <code class="xref py py-class docutils literal notranslate"><span class="pre">IParametricReLULayer</span></code> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>slopes</strong> – The slopes tensor (input elements are multiplied with the slopes where the input is negative).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new parametric ReLU layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_plugin">
+<code class="descname">add_plugin</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition, inputs: List[tensorrt.tensorrt.ITensor], plugin: tensorrt.tensorrt.IPlugin</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPluginLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a plugin layer to the network.
+See <a class="reference internal" href="../Plugin/IPlugin.html#tensorrt.IPlugin" title="tensorrt.IPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPlugin</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inputs</strong> – The input tensors to the layer.</li>
+<li><strong>plugin</strong> – The layer plugin.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new plugin layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_plugin_ext">
+<code class="descname">add_plugin_ext</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition, inputs: List[tensorrt.tensorrt.ITensor], plugin: tensorrt.tensorrt.IPluginExt</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPluginLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_plugin_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a plugin layer to the network using an <a class="reference internal" href="../Plugin/IPluginExt.html#tensorrt.IPluginExt" title="tensorrt.IPluginExt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginExt</span></code></a> interface.
+See <a class="reference internal" href="../Plugin/IPluginExt.html#tensorrt.IPluginExt" title="tensorrt.IPluginExt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginExt</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inputs</strong> – The input tensors to the layer.</li>
+<li><strong>plugin</strong> – The layer plugin.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new plugin layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_plugin_v2">
+<code class="descname">add_plugin_v2</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition, inputs: List[tensorrt.tensorrt.ITensor], plugin: tensorrt.tensorrt.IPluginV2</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPluginV2Layer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_plugin_v2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a plugin layer to the network using an <a class="reference internal" href="../Plugin/IPluginV2.html#tensorrt.IPluginV2" title="tensorrt.IPluginV2"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginV2</span></code></a> interface.
+See <a class="reference internal" href="../Plugin/IPluginV2.html#tensorrt.IPluginV2" title="tensorrt.IPluginV2"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPluginV2</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inputs</strong> – The input tensors to the layer.</li>
+<li><strong>plugin</strong> – The layer plugin.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new plugin layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_pooling">
+<code class="descname">add_pooling</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>type: tensorrt.tensorrt.PoolingType</em>, <em>window_size: tensorrt.tensorrt.DimsHW</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPoolingLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_pooling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a 2D pooling layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IPoolingLayer" title="tensorrt.IPoolingLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPoolingLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>type</strong> – The type of pooling to apply.</li>
+<li><strong>window_size</strong> – The size of the pooling window.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new pooling layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_pooling_nd">
+<code class="descname">add_pooling_nd</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>type: tensorrt.tensorrt.PoolingType</em>, <em>window_size: tensorrt.tensorrt.Dims</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IPoolingLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_pooling_nd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a multi-dimension pooling layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IPoolingLayer" title="tensorrt.IPoolingLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPoolingLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>type</strong> – The type of pooling to apply.</li>
+<li><strong>window_size</strong> – The size of the pooling window.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new pooling layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_ragged_softmax">
+<code class="descname">add_ragged_softmax</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>bounds: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IRaggedSoftMaxLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_ragged_softmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a ragged softmax layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IRaggedSoftMaxLayer" title="tensorrt.IRaggedSoftMaxLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRaggedSoftMaxLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The ZxS input tensor.</li>
+<li><strong>bounds</strong> – The Zx1 bounds tensor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new ragged softmax layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_reduce">
+<code class="descname">add_reduce</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>op: tensorrt.tensorrt.ReduceOperation</em>, <em>axes: int</em>, <em>keep_dims: bool</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IReduceLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_reduce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reduce layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IReduceLayer" title="tensorrt.IReduceLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IReduceLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>op</strong> – The reduction operation to perform.</li>
+<li><strong>axes</strong> – <p>The reduction dimensions.</p>
+<div class="line-block">
+<div class="line">Bit 0 of the uint32_t type corresponds to the non-batch dimension 0 boolean and so on.</div>
+<div class="line">If a bit is set, then the corresponding dimension will be reduced.</div>
+<div class="line">Let’s say we have an NCHW tensor as input (three non-batch dimensions).</div>
+<div class="line">Bit 0 corresponds to the C dimension boolean.</div>
+<div class="line">Bit 1 corresponds to the H dimension boolean.</div>
+<div class="line">Bit 2 corresponds to the W dimension boolean.</div>
+<div class="line">Note that reduction is not permitted over the batch size dimension.</div>
+</div>
+</li>
+<li><strong>keep_dims</strong> – The boolean that specifies whether or not to keep the reduced dimensions in the output of the layer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new reduce layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_resize">
+<code class="descname">add_resize</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IResizeLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a resize layer.
+See <a class="reference internal" href="Layers.html#tensorrt.IResizeLayer" title="tensorrt.IResizeLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IResizeLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> – The input tensor to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new resize layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_rnn">
+<code class="descname">add_rnn</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>layer_count: int</em>, <em>hidden_size: int</em>, <em>max_seq_length: int</em>, <em>op: tensorrt.tensorrt.RNNOperation</em>, <em>mode: tensorrt.tensorrt.RNNInputMode</em>, <em>direction: tensorrt.tensorrt.RNNDirection</em>, <em>weights: tensorrt.tensorrt.Weights</em>, <em>bias: tensorrt.tensorrt.Weights</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IRNNLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_rnn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a <code class="docutils literal notranslate"><span class="pre">layer_count</span></code> deep RNN layer to the network with a sequence length of <code class="docutils literal notranslate"><span class="pre">max_seq_length</span></code> and <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> internal state per layer.
+See <a class="reference internal" href="Layers.html#tensorrt.IRNNLayer" title="tensorrt.IRNNLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRNNLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>layer_count</strong> – The number of layers in the RNN.</li>
+<li><strong>hidden_size</strong> – The size of the internal hidden state for each layer.</li>
+<li><strong>max_seq_length</strong> – The maximum length of the time sequence.</li>
+<li><strong>op</strong> – The type of RNN to execute.</li>
+<li><strong>mode</strong> – The input mode for the RNN.</li>
+<li><strong>direction</strong> – The direction to run the RNN.</li>
+<li><strong>weights</strong> – The weights for the weight matrix parameters of the RNN.</li>
+<li><strong>bias</strong> – The weights for the bias vectors parameters of the RNN.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The input tensors must be of the type <code class="xref py py-const docutils literal notranslate"><span class="pre">float32</span></code> or <code class="xref py py-const docutils literal notranslate"><span class="pre">float16</span></code> .</p>
+<p>See <a class="reference internal" href="Layers.html#tensorrt.IRNNLayer" title="tensorrt.IRNNLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRNNLayer</span></code></a> for details on the required input format for <code class="docutils literal notranslate"><span class="pre">weights</span></code> and <code class="docutils literal notranslate"><span class="pre">bias</span></code> .</p>
+<p>The layout for the <code class="docutils literal notranslate"><span class="pre">input</span></code> tensor should be <cite>{1, S_max, N, E}</cite>, where:</p>
+<div class="line-block">
+<div class="line"><cite>S_max</cite> is the maximum allowed sequence length (number of RNN iterations)</div>
+<div class="line"><cite>N</cite> is the batch size</div>
+<div class="line"><cite>E</cite> specifies the embedding length (unless <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.SKIP</span></code> is set, in which case it should match <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> ).</div>
+</div>
+<p>The first output tensor is the output of the final RNN layer across all timesteps, with dimensions <cite>{S_max, N, H}</cite>:</p>
+<div class="line-block">
+<div class="line"><cite>S_max</cite> is the maximum allowed sequence length (number of RNN iterations)</div>
+<div class="line"><cite>N</cite> is the batch size</div>
+<div class="line"><cite>H</cite> is an output hidden state (equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> or 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> )</div>
+</div>
+<p>The second tensor is the final hidden state of the RNN across all layers, and if the RNN is an LSTM (i.e. <code class="xref py py-attr docutils literal notranslate"><span class="pre">op</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNOperation.LSTM</span></code> ), then the third tensor is the final cell state of the RNN across all layers.  Both the second and third output tensors have dimensions <cite>{L, N, H}</cite>:</p>
+<div class="line-block">
+<div class="line"><cite>L</cite> is equal to  <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code> if getDirection is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.UNIDIRECTION</span></code> , and 2* <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_layers</span></code> if getDirection is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.BIDIRECTION</span></code> .  In the bi-directional case, layer <cite>l</cite>’s final forward hidden state is stored in <cite>L = 2*l</cite>, and final backward hidden state is stored in <cite>L = 2*l + 1</cite> .</div>
+<div class="line"><cite>N</cite> is the batch size</div>
+<div class="line"><cite>H</cite> is  <code class="xref py py-attr docutils literal notranslate"><span class="pre">hidden_size</span></code> .</div>
+</div>
+<p>Note that in bidirectional RNNs, the full “hidden state” for a layer <cite>l</cite> is the concatenation of its forward hidden state and its backward hidden state, and its size is 2*H.</p>
+<p><strong>Deprecated</strong> IRNNLayer is superseded by IRNNv2Layer. Use add_rnn_v2() instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The new RNN layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_rnn_v2">
+<code class="descname">add_rnn_v2</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>layer_count: int</em>, <em>hidden_size: int</em>, <em>max_seq_length: int</em>, <em>op: tensorrt.tensorrt.RNNOperation</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IRNNv2Layer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_rnn_v2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an RNNv2 layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IRNNv2Layer" title="tensorrt.IRNNv2Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRNNv2Layer</span></code></a> for more information.</p>
+<p>Add an <code class="docutils literal notranslate"><span class="pre">layer_count</span></code> deep RNN layer to the network with <code class="docutils literal notranslate"><span class="pre">hidden_size</span></code> internal states that can take a batch with fixed or variable sequence lengths.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input</strong> – The input tensor to the layer (see below).</li>
+<li><strong>layer_count</strong> – The number of layers in the RNN.</li>
+<li><strong>hidden_size</strong> – Size of the internal hidden state for each layer.</li>
+<li><strong>max_seq_length</strong> – Maximum sequence length for the input.</li>
+<li><strong>op</strong> – The type of RNN to execute.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>By default, the layer is configured with <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.UNIDIRECTION</span></code> and <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.LINEAR</span></code> . To change these settings, set <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.direction</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.input_mode</span></code> .</p>
+<p>Weights and biases for the added layer should be set using <a class="reference internal" href="Layers.html#tensorrt.IRNNv2Layer.set_weights_for_gate" title="tensorrt.IRNNv2Layer.set_weights_for_gate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IRNNv2Layer.set_weights_for_gate()</span></code></a> and <a class="reference internal" href="Layers.html#tensorrt.IRNNv2Layer.set_bias_for_gate" title="tensorrt.IRNNv2Layer.set_bias_for_gate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IRNNv2Layer.set_bias_for_gate()</span></code></a> prior to building an engine using this network.</p>
+<p>The input tensors must be of the type <code class="xref py py-const docutils literal notranslate"><span class="pre">float32</span></code> or <code class="xref py py-const docutils literal notranslate"><span class="pre">float16</span></code> .
+The layout of the weights is row major and must be the same datatype as the input tensor.
+<code class="docutils literal notranslate"><span class="pre">weights</span></code> contain 8 matrices and <code class="docutils literal notranslate"><span class="pre">bias</span></code> contains 8 vectors.</p>
+<p>See <a class="reference internal" href="Layers.html#tensorrt.IRNNv2Layer.set_weights_for_gate" title="tensorrt.IRNNv2Layer.set_weights_for_gate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IRNNv2Layer.set_weights_for_gate()</span></code></a> and <a class="reference internal" href="Layers.html#tensorrt.IRNNv2Layer.set_bias_for_gate" title="tensorrt.IRNNv2Layer.set_bias_for_gate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IRNNv2Layer.set_bias_for_gate()</span></code></a> for details on the required input format for <code class="docutils literal notranslate"><span class="pre">weights</span></code> and <code class="docutils literal notranslate"><span class="pre">bias</span></code> .</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> ITensor should contain zero or more index dimensions <cite>{N1, …, Np}</cite>, followed by two dimensions, defined as follows:</p>
+<div class="line-block">
+<div class="line"><cite>S_max</cite> is the maximum allowed sequence length (number of RNN iterations)</div>
+<div class="line"><cite>E</cite> specifies the embedding length (unless <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNInputMode.SKIP</span></code> is set, in which case it should match <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.hidden_size</span></code> ).</div>
+</div>
+<p>By default, all sequences in the input are assumed to be size <code class="docutils literal notranslate"><span class="pre">max_seq_length</span></code> .  To provide explicit sequence lengths for each input sequence in the batch, set <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.seq_lengths</span></code> .</p>
+<p>The RNN layer outputs up to three tensors.</p>
+<p>The first output tensor is the output of the final RNN layer across all timesteps, with dimensions <cite>{N1, …, Np, S_max, H}</cite>:</p>
+<div class="line-block">
+<div class="line"><cite>N1..Np</cite> are the index dimensions specified by the input tensor</div>
+<div class="line"><cite>S_max</cite> is the maximum allowed sequence length (number of RNN iterations)</div>
+<div class="line"><cite>H</cite> is an output hidden state (equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.hidden_size</span></code> or 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.hidden_size</span></code> )</div>
+</div>
+<p>The second tensor is the final hidden state of the RNN across all layers, and if the RNN is an LSTM (i.e. <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.op</span></code> is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNOperation.LSTM</span></code> ), then the third tensor is the final cell state of the RNN across all layers.  Both the second and third output tensors have dimensions <cite>{N1, …, Np, L, H}</cite>:</p>
+<div class="line-block">
+<div class="line"><cite>N1..Np</cite> are the index dimensions specified by the input tensor</div>
+<div class="line"><cite>L</cite> is the number of layers in the RNN, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.num_layers</span></code></div>
+<div class="line"><cite>H</cite> is the hidden state for each layer, equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.hidden_size</span></code> if getDirection is <code class="xref py py-const docutils literal notranslate"><span class="pre">RNNDirection.UNIDIRECTION</span></code>, and 2x <code class="xref py py-attr docutils literal notranslate"><span class="pre">IRNNv2Layer.hidden_size</span></code> otherwise.</div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The new RNNv2 layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_scale">
+<code class="descname">add_scale</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>mode: tensorrt.tensorrt.ScaleMode</em>, <em>shift: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb89068&gt;</em>, <em>scale: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb89030&gt;</em>, <em>power: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb7dfb8&gt;</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IScaleLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a scale layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IScaleLayer" title="tensorrt.IScaleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IScaleLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input</strong> – The input tensor to the layer. This tensor is required to have a minimum of 3 dimensions.</li>
+<li><strong>mode</strong> – The scaling mode.</li>
+<li><strong>shift</strong> – The shift value.</li>
+<li><strong>scale</strong> – The scale value.</li>
+<li><strong>power</strong> – The power value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the weights are available, then the size of weights are dependent on the ScaleMode.
+For UNIFORM, the number of weights is equal to 1.
+For CHANNEL, the number of weights is equal to the channel dimension.
+For ELEMENTWISE, the number of weights is equal to the volume of the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The new scale layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_scale_nd">
+<code class="descname">add_scale_nd</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>mode: tensorrt.tensorrt.ScaleMode</em>, <em>shift: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb89110&gt;</em>, <em>scale: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb890d8&gt;</em>, <em>power: tensorrt.tensorrt.Weights = &lt;tensorrt.tensorrt.Weights object at 0x7fc79bb890a0&gt;</em>, <em>channel_axis: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IScaleLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_scale_nd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a multi-dimension scale layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IScaleLayer" title="tensorrt.IScaleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IScaleLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input</strong> – The input tensor to the layer. This tensor is required to have a minimum of 3 dimensions.</li>
+<li><strong>mode</strong> – The scaling mode.</li>
+<li><strong>shift</strong> – The shift value.</li>
+<li><strong>scale</strong> – The scale value.</li>
+<li><strong>power</strong> – The power value.</li>
+<li><strong>channel_axis</strong> – The channel dimension axis.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the weights are available, then the size of weights are dependent on the ScaleMode.
+For UNIFORM, the number of weights is equal to 1.
+For CHANNEL, the number of weights is equal to the channel dimension.
+For ELEMENTWISE, the number of weights is equal to the volume of the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The new scale layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_shape">
+<code class="descname">add_shape</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IShapeLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a shape layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IShapeLayer" title="tensorrt.IShapeLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShapeLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> – The input tensor to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new shape layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_shuffle">
+<code class="descname">add_shuffle</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IShuffleLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a shuffle layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IShuffleLayer" title="tensorrt.IShuffleLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IShuffleLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> – The input tensor to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new shuffle layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_slice">
+<code class="descname">add_slice</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>start: tensorrt.tensorrt.Dims</em>, <em>shape: tensorrt.tensorrt.Dims</em>, <em>stride: tensorrt.tensorrt.Dims</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ISliceLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a slice layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.ISliceLayer" title="tensorrt.ISliceLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ISliceLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>start</strong> – The start offset.</li>
+<li><strong>shape</strong> – The output shape.</li>
+<li><strong>stride</strong> – The slicing stride. Positive, negative, zero stride values, and combinations of them in different dimensions are allowed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new slice layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_softmax">
+<code class="descname">add_softmax</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ISoftMaxLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_softmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a softmax layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.ISoftMaxLayer" title="tensorrt.ISoftMaxLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ISoftMaxLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input</strong> – The input tensor to the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new softmax layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_topk">
+<code class="descname">add_topk</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>op: tensorrt.tensorrt.TopKOperation</em>, <em>k: int</em>, <em>axes: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITopKLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_topk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a TopK layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.ITopKLayer" title="tensorrt.ITopKLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITopKLayer</span></code></a> for more information.</p>
+<p>The TopK layer has two outputs of the same dimensions. The first contains data values, the second contains index positions for the values. Output values are sorted, largest first for operation <code class="xref py py-const docutils literal notranslate"><span class="pre">TopKOperation.MAX</span></code> and smallest first for operation <code class="xref py py-const docutils literal notranslate"><span class="pre">TopKOperation.MIN</span></code> .</p>
+<p>Currently only values of K up to 1024 are supported.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>op</strong> – Operation to perform.</li>
+<li><strong>k</strong> – Number of elements to keep.</li>
+<li><strong>axes</strong> – The reduction dimensions.
+Bit 0 of the uint32_t type corresponds to the non-batch dimension 0 boolean and so on.
+If a bit is set, then the corresponding dimension will be reduced.
+Let’s say we have an NCHW tensor as input (three non-batch dimensions).
+Bit 0 corresponds to the C dimension boolean.
+Bit 1 corresponds to the H dimension boolean.
+Bit 2 corresponds to the W dimension boolean.
+Note that TopK reduction is currently only permitted over one dimension.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new TopK layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.add_unary">
+<code class="descname">add_unary</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>input: tensorrt.tensorrt.ITensor</em>, <em>op: tensorrt.tensorrt.UnaryOperation</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.IUnaryLayer<a class="headerlink" href="#tensorrt.INetworkDefinition.add_unary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a unary layer to the network.
+See <a class="reference internal" href="Layers.html#tensorrt.IUnaryLayer" title="tensorrt.IUnaryLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IUnaryLayer</span></code></a> for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input</strong> – The input tensor to the layer.</li>
+<li><strong>op</strong> – The operation to apply.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The new unary layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it could not be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.get_input">
+<code class="descname">get_input</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITensor<a class="headerlink" href="#tensorrt.INetworkDefinition.get_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the input tensor specified by the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the input tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The tensor, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.get_layer">
+<code class="descname">get_layer</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ILayer<a class="headerlink" href="#tensorrt.INetworkDefinition.get_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the layer specified by the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the layer.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The layer, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.get_output">
+<code class="descname">get_output</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>index: int</em><span class="sig-paren">)</span> &#x2192; tensorrt.tensorrt.ITensor<a class="headerlink" href="#tensorrt.INetworkDefinition.get_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output tensor specified by the given index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – The index of the output tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The tensor, or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span></code> if it is out of range.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.mark_output">
+<code class="descname">mark_output</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.INetworkDefinition.mark_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a tensor as an output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tensor</strong> – The tensor to mark.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.mark_output_for_shapes">
+<code class="descname">mark_output_for_shapes</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.INetworkDefinition.mark_output_for_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable tensor’s value to be computed by <code class="xref py py-func docutils literal notranslate"><span class="pre">IExecutionContext.get_shape_binding()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tensor</strong> – The tensor to unmark as an output tensor. The tensor must be of type <code class="xref py py-class docutils literal notranslate"><span class="pre">tensorrt.int32</span></code> and have no more than one dimension.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> if successful, <code class="xref py py-class docutils literal notranslate"><span class="pre">False</span></code> if tensor is already marked as an output.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.remove_tensor">
+<code class="descname">remove_tensor</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.INetworkDefinition.remove_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a tensor from the network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tensor</strong> – The tensor to remove</td>
+</tr>
+</tbody>
+</table>
+<p>It is illegal to remove a tensor that is the input or output of a layer.
+if this method is called with such a tensor, a warning will be emitted on the log
+and the call will be ignored.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.unmark_output">
+<code class="descname">unmark_output</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#tensorrt.INetworkDefinition.unmark_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmark a tensor as a network output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tensor</strong> – The tensor to unmark as an output tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tensorrt.INetworkDefinition.unmark_output_for_shapes">
+<code class="descname">unmark_output_for_shapes</code><span class="sig-paren">(</span><em>self: tensorrt.tensorrt.INetworkDefinition</em>, <em>tensor: tensorrt.tensorrt.ITensor</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#tensorrt.INetworkDefinition.unmark_output_for_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undo <a class="reference internal" href="#tensorrt.INetworkDefinition.mark_output_for_shapes" title="tensorrt.INetworkDefinition.mark_output_for_shapes"><code class="xref py py-func docutils literal notranslate"><span class="pre">mark_output_for_shapes()</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tensor</strong> – The tensor to unmark as an output tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">True</span></code> if successful, <code class="xref py py-class docutils literal notranslate"><span class="pre">False</span></code> if tensor is not marked as an output.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="LayerBase.html" class="btn btn-neutral float-right" title="Layer Base Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyGraph.html" class="btn btn-neutral float-left" title="Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, NVIDIA
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
